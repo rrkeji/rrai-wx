@@ -1,0 +1,41 @@
+/**index.wxss**/
+.container {
+  width: 100%;
+}
+
+.rr-avatar {
+  overflow: hidden;
+  background-color: #999999;
+  border: 1px solid #999999;
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.hi_text {
+  padding: 10px 20px;
+  margin-top: 20px;
+  text-indent: 20px;
+  line-height: 26px;
+  color: #999999;
+}
+
+.entry-button-container {
+  display: block;
+  position: fixed;
+  bottom: 60px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.entry-button {
+  display: block;
+  width: 80%;
+  line-height: 40px;
+  margin-left: 10%;
+  background-color: coral;
+  border-radius: 6px;
+  color: #FFFFFF;
+}

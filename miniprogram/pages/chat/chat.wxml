@@ -1,0 +1,74 @@
+<!--pages/chat/chat.wxml-->
+<view class="news" bindtap='outbtn'>
+  <!-- <view class="chat-notice">说出您想知道的?</view> -->
+  <view class="historycon">
+    <scroll-view scroll-y="true" class="history" scroll-top="{{scrollTop}}">
+      <block wx:for="{{newslist}}" wx:key>
+        <!-- 历史消息 -->
+        <!-- <view class="chat-news">
+              <view style="text-align: left;padding-left: 20rpx;">
+                  <image class='new_img' src="{{item.avatarUrl? item.avatarUrl:'images/avator.png'}}"></image>
+                  <text class="name">{{ item.nickName }}{{item.date}}</text>
+              </view>
+              <view class='you_left'>
+                  <block wx:if="{{item.type=='text'}}">      
+                    <view class='new_txt'>{{item.content}}</view>
+                  </block>
+                  <block wx:if="{{item.type=='image'}}">      
+                    <image class="selectImg" src="{{item.images}}"></image> 
+                  </block>
+              </view>
+          </view>   -->
+        <view>{{item.date}}</view>
+        <!--send  -->
+        <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
+          <view class='news-content'>
+            <block wx:if="{{item.type=='text'}}">
+              <view class='new_txt request-text'>{{item.text}}</view>
+            </block>
+            <block wx:if="{{item.type=='image'}}">
+              <image class="selectImg" src="{{item.images}}" data-src="{{item.images}}" lazy-load="true" bindtap="previewImg"></image>
+            </block>
+          </view>
+          <view class="news-avatar">
+            <image class='avatar' src="./images/logo.png"></image>
+            <!-- <text class="name">您</text> -->
+          </view>
+        </view>
+        <!-- AI  -->
+        <view class="chat-news response" wx:else>
+          <view class="news-avatar">
+            <image class='avatar' src="./images/logo.png"></image>
+            <!-- <text class="name">软软</text> -->
+          </view>
+          <view class='news-content'>
+            <block wx:if="{{item.type=='text'}}">
+              <view class='new_txt response-text'>{{item.text}}</view>
+            </block>
+            <block wx:if="{{item.type=='image'}}">
+              <image class="selectImg" src="{{item.images}}" data-src="{{item.images}}" lazy-load="true" bindtap="previewImg"></image>
+            </block>
+          </view>
+        </view>
+      </block>
+      <block wx:if="{{newslist.length <= 0}}">
+        <view class="empty-message">可以输入"您好"、"今天几号"试试</view>
+      </block>
+    </scroll-view>
+  </view>
+</view>
+<!-- 聊天输入 -->
+<view class="message">
+  <form bindreset="cleanInput">
+    <view class="sendMessage">
+      <!-- <view class="item button" bindtap='increase'>+</view> -->
+      <input class="item input" confirm-type="send" type="text" placeholder="请输入聊天内容..." value="{{massage}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
+      <!-- <view class="item button" bindtap='increase'>+</view> -->
+      <button form-type="reset" bindtap='send' class="item">
+        <view class="item button send-button">
+          <image class="send-button-inner" src="./images/send.svg"></image>
+        </view>
+      </button>
+    </view>
+  </form>
+</view>

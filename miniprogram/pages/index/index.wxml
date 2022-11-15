@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+  <image bindtap="bindViewTap" class="rr-avatar" src="./images/logo.png" mode="cover"></image>
+  <text class="hi_text">{{hi_text}}</text>
+  <view bindtap="bindViewTap" class="entry-button-container">
+    <view class="entry-button">点击进入和软软说说您想知道的吧!</view>
+  </view>
+</view>

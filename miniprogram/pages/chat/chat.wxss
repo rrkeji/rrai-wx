@@ -1,0 +1,242 @@
+/* pages/chat/chat.wxss */
+page {
+  background-color: #f3f3f3;
+  height: 100%;
+}
+
+/* 聊天内容 */
+.news {
+  padding-top: 30rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.historycon {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  border-top: 0px;
+}
+
+.history {
+  height: 100%;
+  margin-top: 15px;
+  padding: 10rpx;
+  font-size: 14px;
+  line-height: 40px;
+  word-break: break-all;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-message {
+  color: #999999;
+}
+
+/* 聊天 */
+.chat-news {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  margin: 20rpx 0rpx;
+}
+
+.request {
+  justify-content: flex-end;
+}
+
+.response {
+  justify-content: flex-start;
+}
+
+.news-content {
+  padding: 5rpx 10rpx;
+  flex-grow: 1;
+  max-width: 70%;
+  display: flex;
+  border-radius: 6rpx;
+}
+
+.new_txt {
+  display: inline;
+  line-height: 50rpx;
+  background-color: #fff;
+  padding: 10rpx;
+  border-radius: 10rpx;
+}
+
+.news-avatar {
+  width: 60rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.request .news-content {
+  justify-content: flex-end;
+}
+
+.response .news-content {
+  justify-content: flex-start;
+}
+
+.news-avatar .name {
+  display: inline-block;
+  text-align: center;
+}
+
+.news-avatar .avatar {
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+}
+
+.request-text {
+  background-color: #95EC69;
+  text-align: right;
+}
+
+.response-text {
+  background-color: #ffffff;
+  text-align: left;
+}
+
+
+.chat-notice {
+  text-align: center;
+  font-size: 30rpx;
+  padding: 10rpx 0;
+  color: #666;
+}
+
+.selectImg {
+  display: inline-block;
+  width: 150rpx;
+  height: 150rpx;
+  margin-left: 50rpx;
+}
+
+.new_img {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+  z-index: -1;
+}
+
+/* 信息输入区域 */
+.message {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  min-height: 120rpx;
+  background-color: #eee;
+}
+
+.sendMessage {
+  width: 100%; 
+  padding: 0rpx 10rpx;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  line-height: 66rpx;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  z-index: 3;
+}
+
+.sendMessage .item {
+  display: inline-block;
+  width: 80rpx;
+  padding: 0;
+  background-color: #eee;
+}
+
+.sendMessage .input {
+  flex-grow: 1;
+  line-height: 30px;
+  height: 36px;
+  background-color: #FFF;
+  border-radius: 8rpx;
+  padding: 0 10rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.sendMessage .button {
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  font-size: 38rpx;
+  margin: 16rpx 10rpx 10rpx 4rpx;
+  text-align: center;
+  color: #000;
+  /* border: 1rpx solid #000; */
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.increased {
+  width: 100%;
+  /* height: 150rpx; */
+  padding: 40rpx 30rpx;
+  background-color: #fff;
+}
+
+.increased .image {
+  width: 100rpx;
+  height: 100rpx;
+  border: 3rpx solid #ccc;
+  line-height: 100rpx;
+  text-align: center;
+  border-radius: 8rpx;
+  font-size: 35rpx;
+}
+
+.send-button {}
+
+.send-button-inner {
+  width: 52rpx;
+  height: 52rpx;
+}
+
+@keyframes slidedown {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.slidedown {
+  animation: slidedown 0.5s linear;
+}
+
+.slideup {
+  animation: slideup 0.5s linear;
+}
+
+@keyframes slideup {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
