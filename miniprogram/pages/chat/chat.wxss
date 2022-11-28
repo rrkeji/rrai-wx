@@ -16,6 +16,7 @@ page {
   width: 100%;
   display: flex;
   border-top: 0px;
+  padding-bottom:90rpx;
 }
 
 .history {
@@ -50,10 +51,15 @@ page {
   justify-content: flex-start;
 }
 
+.response-content {
+  background-color: #ffffff;
+  text-align: left;
+}
+
 .news-content {
   padding: 5rpx 10rpx;
   flex-grow: 1;
-  max-width: 70%;
+  max-width: 86%;
   display: flex;
   border-radius: 6rpx;
 }
@@ -64,6 +70,49 @@ page {
   background-color: #fff;
   padding: 10rpx;
   border-radius: 10rpx;
+}
+
+.new_rich_txt {
+  background-color: #fff;
+  padding: 10rpx;
+  border-radius: 10rpx;
+}
+
+.new_image {
+  background-color: #000;
+  padding: 0;
+  display: block;
+  width: 100%;
+  border-radius: 10rpx;
+}
+
+.new_image image {
+  width: 100%;
+}
+
+.new_link {
+  display: inline;
+  background-color: #fff;
+  padding: 0rpx;
+  border-radius: 10rpx;
+}
+
+.new_link .new-link-pic {
+  width: 100%;
+  height: 220rpx;
+}
+
+.new_link .new-link-title {
+  color: #FFFFFF;
+  position: absolute;
+  margin-top: -90rpx;
+  margin-left: 10rpx;
+  font-size: 30rpx;
+}
+
+.new_link .new-link-description {
+  line-height: 38rpx;
+  padding: 0rpx 10rpx 10rpx 10rpx;
 }
 
 .news-avatar {
@@ -97,11 +146,6 @@ page {
 .request-text {
   background-color: #95EC69;
   text-align: right;
-}
-
-.response-text {
-  background-color: #ffffff;
-  text-align: left;
 }
 
 
@@ -144,7 +188,7 @@ page {
 }
 
 .sendMessage {
-  width: 100%; 
+  width: 100%;
   padding: 0rpx 10rpx;
   height: 100rpx;
   display: flex;
@@ -239,4 +283,111 @@ page {
   to {
     transform: translateY(0);
   }
+}
+
+.rich_message {
+  font-size: 24rpx;
+  line-height: 30rpx;
+  text-align: center;
+}
+
+.rich_message .border {
+  border: 2rpx solid #999999;
+}
+
+.rich_message .padding0 {
+  padding: 0;
+}
+
+.rich_message .margin0 {
+  margin: 0;
+}
+
+.rich_message .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.rich_message .col12,
+.rich_message .col11,
+.rich_message .col10,
+.rich_message .col9,
+.rich_message .col8,
+.rich_message .col7,
+.rich_message .col6,
+.rich_message .col5,
+.rich_message .col4,
+.rich_message .col3,
+.rich_message .col2,
+.rich_message .col1 {
+  padding: 6rpx 6rpx;
+  justify-content: center;
+}
+
+.rich_message .col12 {
+  width: 100%;
+}
+
+.rich_message .col11 {
+  width: 91.6666%;
+}
+
+.rich_message .col10 {
+  width: 83.3333%;
+}
+
+.rich_message .col9 {
+  width: 75%;
+}
+
+.rich_message .col8 {
+  width: 66.6666%;
+}
+
+.rich_message .col7 {
+  width: 58.3333%;
+}
+
+.rich_message .col6 {
+  width: 50%;
+}
+
+.rich_message .col5 {
+  width: 41.6666%;
+}
+
+.rich_message .col4 {
+  width: 25%;
+}
+
+.rich_message .col3 {
+  width: 33.3333%;
+}
+
+.rich_message .col2 {
+  width: 16.6666%;
+}
+
+.rich_message .col1 {
+  width: 8.3333%;
+}
+
+.rich_message .h1 {
+  font-size: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+}
+
+.rich_message .h2 {
+  font-size: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+}
+
+.rich_message .title {
+  color: #CB7A43;
+  font-size: 30rpx;
+  line-height: 54rpx;
+  text-align: center;
 }

@@ -4,21 +4,6 @@
   <view class="historycon">
     <scroll-view scroll-y="true" class="history" scroll-top="{{scrollTop}}">
       <block wx:for="{{newslist}}" wx:key>
-        <!-- 历史消息 -->
-        <!-- <view class="chat-news">
-              <view style="text-align: left;padding-left: 20rpx;">
-                  <image class='new_img' src="{{item.avatarUrl? item.avatarUrl:'images/avator.png'}}"></image>
-                  <text class="name">{{ item.nickName }}{{item.date}}</text>
-              </view>
-              <view class='you_left'>
-                  <block wx:if="{{item.type=='text'}}">      
-                    <view class='new_txt'>{{item.content}}</view>
-                  </block>
-                  <block wx:if="{{item.type=='image'}}">      
-                    <image class="selectImg" src="{{item.images}}"></image> 
-                  </block>
-              </view>
-          </view>   -->
         <view>{{item.date}}</view>
         <!--send  -->
         <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
@@ -43,10 +28,35 @@
           </view>
           <view class='news-content'>
             <block wx:if="{{item.type=='text'}}">
-              <view class='new_txt response-text'>{{item.text}}</view>
+              <view class='response-content new_txt '>{{item.text}}</view>
+            </block>
+            <block wx:if="{{item.type=='richtext'}}">
+              <view class='response-content new_rich_txt '>
+                <rich-text nodes="{{item.content}}"></rich-text>
+              </view>
             </block>
             <block wx:if="{{item.type=='image'}}">
-              <image class="selectImg" src="{{item.images}}" data-src="{{item.images}}" lazy-load="true" bindtap="previewImg"></image>
+              <view class='response-content new_image'>
+                <image src="{{item.url}}" data-src="{{item.url}}"></image>
+              </view>
+            </block>
+            <block wx:if="{{item.type=='voice'}}">
+            </block>
+            <block wx:if="{{item.type=='video'}}">
+            </block>
+            <block wx:if="{{item.type=='shortvideo'}}">
+            </block>
+            <block wx:if="{{item.type=='location'}}">
+            </block>
+            <block wx:if="{{item.type=='link'}}">
+              <view class='response-content new_link' bindtap='linkGoTo' data-url="{{item.url}}">
+                <view>
+                  <image class='new-link-pic' src="{{item.thumbPicUrl}}" data-src="{{item.thumbPicUrl}}">
+                  </image>
+                  <view class='new-link-title'>{{item.title}}</view>
+                </view>
+                <view class='new-link-description'>{{item.description}}</view>
+              </view>
             </block>
           </view>
         </view>
