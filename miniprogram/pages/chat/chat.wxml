@@ -1,6 +1,7 @@
 <!--pages/chat/chat.wxml-->
 <view class="news" bindtap='outbtn'>
   <!-- <view class="chat-notice">说出您想知道的?</view> -->
+  <!-- <rich-text nodes="{{test}}"></rich-text> -->
   <view class="historycon">
     <scroll-view scroll-y="true" class="history" scroll-top="{{scrollTop}}">
       <block wx:for="{{newslist}}" wx:key>
@@ -73,7 +74,6 @@
     <view class="sendMessage">
       <!-- <view class="item button" bindtap='increase'>+</view> -->
       <input class="item input" confirm-type="send" type="text" placeholder="请输入聊天内容..." value="{{massage}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
-      <!-- <view class="item button" bindtap='increase'>+</view> -->
       <button form-type="reset" bindtap='send' class="item">
         <view class="item button send-button">
           <image class="send-button-inner" src="./images/send.svg"></image>

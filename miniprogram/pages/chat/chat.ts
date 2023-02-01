@@ -17,83 +17,6 @@ Page({
   data: {
     newslist: <any>[],
     scrollTop: 0,
-    test: `<div class="rich_message" style="width:100%;">
-    <h2 style="color:red;">11月26日</h2>
-    <h2 style="color:red;border:2rpx solid #000000">十一月初三</h2>
-    <div class="row">
-      <div class="border col6">
-      <p class="title">
-        宜
-      </p>
-        <p>
-        乔迁 签合同 安灶 签约 交房 出差 进宅 领证 出门 搬家 迁居 出行 交易 安床 买房 买车 养殖 剃胎发 投资 入学 耕种 入宅 搬公司 安橱柜 
-        </p>
-      </div>
-      <div class="border  col6">
-      <p class="title">
-        忌
-      </p>
-        <p>
-        乔迁 签合同 安灶 签约 交房 出差 进宅 领证 出门 搬家 迁居 出行 交易 安床 买房 买车 养殖 剃胎发 投资 入学 耕种 入宅 搬公司 安橱柜 
-        </p>
-      </div>
-    </div>
-    <div  class="row">
-      <div class="border col6">
-      <p class="title">彭祖百忌</p>
-      <p>癸不词讼，理弱敌强  未不服药，毒气入肠 </p>
-      </div>
-      <div class="border col6">
-      <p class="title">凶煞宜忌</p>
-      <p>月火 月杀 勾陈黑道 五鬼 重丧 重复 月煞 月害 触水龙 土王用事 四击 复日 </p>
-      </div>
-    </div>
-    <div   class="row">
-      <div colspan="4" class="border col12">
-      <p class="title">吉神方位</p>
-      <p>喜神东南 财神正南 福神东北   阳贵东南  阴贵正东  </p>
-      </div>
-    </div>
-    <div   class="row">
-      <div class="border col6">
-        <p class="title">今日吉神</p>
-        <p>"月德", "四相", "大葬", "鸣吠", "不守塚", "母仓", "除神", </p>
-      </div>
-      <div class="border col6">
-        <p class="title">今日凶煞</p>
-        <p>"岁破", "天罡", "月害", "劫煞", "独火", "受死", "八座", "五离", "蚩尤", "伐日",</p>
-      </div>
-    </div>
-    <div  class="row">
-      <div class="border col3">
-        <p class="title">今日胎神</p>
-        <p>房床厕外西北</p>
-      </div>
-      <div class="border col3">
-        <p class="title">生肖冲煞</p>
-        <p>猴日冲虎</p>
-      </div>
-      <div class="border col3">
-      <p class="title">今日五行</p>
-      <p>"天干", "甲", "属木", "地支", "申"</p>
-      </div>
-    </div>
-    <div  class="row">
-      <div class="border col3">
-      <p class="title">八字</p>
-      <p>壬寅 辛亥 甲申 戊辰</p>
-      </div>
-      <div class="border col3">
-      <p class="title">星座</p>
-      <p>射手座</p>
-      </div>
-      <div class="border col3">
-      <p class="title">纳音</p>
-      <p>井泉水</p>
-      </div>
-    </div>
-  </div>
-  `,
     message: ""
   },
   /**
@@ -122,7 +45,10 @@ Page({
     // socket.on('reconnect_failed', () => {
     //   // ...
     // });
-
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    });
     //为给定事件注册新的处理程序。
     //socket.on 接收的一些东西
     //news 可以作为后端通过 socket.emit 发的事件名 ，d 为发送的数据
@@ -165,6 +91,18 @@ Page({
       });
       that.bottom();
     })
+  },
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    const app = getApp<IAppOption>();
+    return {
+      title: '来软软AI,体验下智能对话!',
+      imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
+      path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId
+    };
   },
   // 页面卸载
   onUnload() {

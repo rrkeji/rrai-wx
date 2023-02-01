@@ -29,6 +29,8 @@ App<IAppOption>({
               const app = getApp<IAppOption>();
               let obj = res.data as any;
               app.globalData.jwtToken = obj.token;
+              app.globalData.userId = obj.user_id;
+              app.globalData.shareTitle = obj.share_title ? obj.share_title : '';
             }
           });
         } else {
@@ -36,5 +38,40 @@ App<IAppOption>({
         }
       }
     });
+  },
+  onShow(ops) {
+    let that = this;
+    // 分享统计放到此处的目的是因为热启动会不走onload，导致统计不准确。
+    if (ops.scene == 1044) {
+      // 分享数据统计
+      wx.getShareInfo({
+        shareTicket: ops.shareTicket,
+        success: function (res) {
+          var encryptedData = res.encryptedData;
+          var iv = res.iv;
+          // 发送请求，后台解析出分享信息
+          wx.request({
+            method: 'POST',
+            url: 'https://www.idns.link/rrai/wx/share/confirm',
+            data: {
+              encry: encryptedData,
+              iv: iv,
+              stype: ops.query.stype,
+              sid: ops.query.sid
+            },
+            header: {
+              'content-type': 'application/json',
+              'Authorization': that.globalData.jwtToken
+            },
+            success: function (res) {
+              // 成功后的逻辑处理
+            },
+            fail: function (res) {
+              // console.log('用户打开', res)
+            }
+          })
+        }
+      })
+    }
   },
 })
