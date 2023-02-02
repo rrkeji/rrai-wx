@@ -17,13 +17,16 @@ Page({
   data: {
     newslist: <any>[],
     scrollTop: 0,
-    message: ""
+    message: "",
+    times: 0,
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    let that = this
+    let that = this;
+    this.refreshTimes();
+
     socket.off("bot_uttered");
     socket.off("connect");
     wx.closeSocket();
@@ -97,11 +100,31 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
+
     const app = getApp<IAppOption>();
+    const promise = new Promise(resolve => {
+      wx.request({
+        method: 'GET',
+        url: 'https://www.idns.link/rrai/wx/share/msgid',
+        header: {
+          'content-type': 'text/plain',
+          'Authorization': app.globalData.jwtToken
+        },
+        success(res) {
+          console.log(res.data);
+          resolve({
+            title: '来软软AI,体验下智能对话!',
+            imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
+            path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId + '&smsgid=' + res.data.msg_id,
+          });
+        }
+      });
+    });
     return {
       title: '来软软AI,体验下智能对话!',
       imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
-      path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId
+      path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId,
+      promise
     };
   },
   // 页面卸载
@@ -115,9 +138,31 @@ Page({
       duration: 2000
     })
   },
+  quickSend: function (event: any) {
+    var flag = this;
+
+    if (event.currentTarget.dataset && event.currentTarget.dataset.msg) {
+      var list: any[] = []
+      list = flag.data.newslist
+      list.push({
+        "hidden": false,
+        "nextMessageIsTooltip": false,
+        "sender": "client",
+        "showAvatar": false,
+        "text": event.currentTarget.dataset.msg,
+        "timestamp": 1667436405268,
+        "type": "text"
+      });
+
+      socket.emit('user_uttered', { message: event.currentTarget.dataset.msg });
+      flag.setData({
+        newslist: list
+      });
+    }
+  },
   //事件处理函数
   send: function () {
-    var flag = this
+    var flag = this;
     if (this.data.message.trim() == "") {
       wx.showToast({
         title: '消息不能为空哦~',
@@ -153,7 +198,46 @@ Page({
           if (resObj && resObj.code == 0) {
             //socket.emit 发送一些东西   
             //news 为事件名  后边是你要发送的数据
-            socket.emit('user_uttered', { message: msg });
+            // socket.emit('user_uttered', { message: msg });
+            wx.request({
+              method: 'POST',
+              url: 'https://www.idns.link/rrai/chatGPT/message',
+              data: {
+                message: msg
+              },
+              header: {
+                'content-type': 'application/json',
+                'Authorization': app.globalData.jwtToken
+              },
+              success: function (res) {
+                // 成功后的逻辑处理
+                console.log(res);
+                flag.refreshTimes();
+                if (res && res.data && res.data.response && res.data.response.choices) {
+                  list = flag.data.newslist
+                  for (let i = 0; i < res.data.response.choices.length; i++) {
+                    let item = res.data.response.choices[i];
+                    if (item && item.text) {
+                      list.push({
+                        "hidden": false,
+                        "nextMessageIsTooltip": false,
+                        "sender": "rrai",
+                        "showAvatar": false,
+                        "text": item.text,
+                        "timestamp": 1667436405268,
+                        "type": "text"
+                      });
+                    }
+                  }
+                  flag.setData({
+                    newslist: list,
+                  });
+                }
+              },
+              fail: function (res) {
+                console.log('error', res)
+              }
+            });
             flag.setData({
               newslist: list,
               message: ''
@@ -218,6 +302,26 @@ Page({
       })
     }
   },
+  //
+  refreshTimes: function () {
+    const app = getApp<IAppOption>();
+    let that = this;
+    //请求剩余次数等
+    wx.request({
+      method: 'GET',
+      url: 'https://www.idns.link/rrai/wx/share/times',
+      header: {
+        'content-type': 'text/plain',
+        'Authorization': app.globalData.jwtToken
+      },
+      success(res) {
+        console.log(res.data)
+        that.setData({
+          times: res.data.times
+        });
+      }
+    });
+  }
 })
 
 

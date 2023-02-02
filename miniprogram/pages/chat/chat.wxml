@@ -63,13 +63,25 @@
         </view>
       </block>
       <block wx:if="{{newslist.length <= 0}}">
-        <view class="empty-message">可以输入"您好"、"今天几号"试试</view>
+        <view class="empty-message">输入类似"写一篇200字的描写杨树的短文"试试</view>
       </block>
     </scroll-view>
   </view>
 </view>
 <!-- 聊天输入 -->
 <view class="message">
+  <view class="tipBox">
+    <view class="left">
+      <view class="times">{{times}}</view>
+    </view>
+    <view class="right">
+      <view class="tipMessage">次数通过分享等增加，下面询问不占用次数：</view>
+      <view class="tipItems">
+        <view class="tipItem" bindtap='quickSend' data-msg="黄历">今日黄历</view>
+        <view class="tipItem" bindtap='quickSend' data-msg="今日一卦">今日一卦</view>
+      </view>
+    </view>
+  </view>
   <form bindreset="cleanInput">
     <view class="sendMessage">
       <!-- <view class="item button" bindtap='increase'>+</view> -->

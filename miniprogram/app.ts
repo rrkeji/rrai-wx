@@ -42,6 +42,7 @@ App<IAppOption>({
   onShow(ops) {
     let that = this;
     // 分享统计放到此处的目的是因为热启动会不走onload，导致统计不准确。
+    console.log('sssss',ops);
     if (ops.scene == 1044) {
       // 分享数据统计
       wx.getShareInfo({
@@ -57,7 +58,8 @@ App<IAppOption>({
               encry: encryptedData,
               iv: iv,
               stype: ops.query.stype,
-              sid: ops.query.sid
+              sid: ops.query.sid,
+              smsgid: ops.query.smsgid
             },
             header: {
               'content-type': 'application/json',

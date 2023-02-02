@@ -16,12 +16,13 @@ page {
   width: 100%;
   display: flex;
   border-top: 0px;
-  padding-bottom:90rpx;
+  padding-bottom: 90rpx;
 }
 
 .history {
   height: 100%;
   margin-top: 15px;
+  margin-bottom: 240rpx;
   padding: 10rpx;
   font-size: 14px;
   line-height: 40px;
@@ -183,8 +184,59 @@ page {
   position: fixed;
   bottom: 0;
   width: 100%;
-  min-height: 120rpx;
+  min-height: 240rpx;
   background-color: #eee;
+}
+
+.tipBox {
+  display: flex;
+  flex-direction: row;
+  min-height: 110rpx;
+  border-top: 4rpx solid #FFFFFF;
+  border-bottom: 4rpx solid #FFFFFF;
+}
+
+.tipBox .left {
+  width: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tipBox .left .times {
+  width: 120rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  background-color: #ff4d4f;
+  color: #FFFFFF;
+  border-radius: 10rpx;
+}
+
+.tipBox .right {
+  display: flex;
+  flex-direction: column;
+}
+
+.tipBox .right .tipMessage {
+  display: flex;
+  justify-content: flex-start;
+  color: #666;
+  font-size: 26rpx;
+  line-height: 52rpx;
+}
+
+.tipBox .right .tipItems {
+  display: flex;
+  flex-direction: row;
+}
+
+.tipBox .right .tipItems .tipItem {
+  color: #1677ff;
+  font-size: 30rpx;
+  line-height: 52rpx;
+  margin: 0rpx 10rpx;
+  text-decoration: underline;
 }
 
 .sendMessage {
