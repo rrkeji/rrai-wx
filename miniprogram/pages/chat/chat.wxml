@@ -72,13 +72,19 @@
 <view class="message">
   <view class="tipBox">
     <view class="left">
-      <view class="times">{{times}}</view>
+      <view class="times" bindtap="timesOnTap">{{times}}</view>
     </view>
     <view class="right">
       <view class="tipMessage">次数通过分享等增加，下面询问不占用次数：</view>
+
       <view class="tipItems">
-        <view class="tipItem" bindtap='quickSend' data-msg="黄历">今日黄历</view>
-        <view class="tipItem" bindtap='quickSend' data-msg="今日一卦">今日一卦</view>
+        <block wx:for="{{links}}" wx:key>
+          <view class="tipItem" bindtap='quickSend' data-msg="{{item.message}}">{{item.label}}</view>
+        </block>
+        <block wx:if="{{links.length <= 0}}">
+          <view class="tipItem" bindtap='quickSend' data-msg="黄历">今日黄历</view>
+          <view class="tipItem" bindtap='quickSend' data-msg="随机头像">随机头像</view>
+        </block>
       </view>
     </view>
   </view>

@@ -28,7 +28,7 @@ Page({
           console.log(res.data);
           resolve({
             title: '来软软AI,体验下智能对话!',
-            imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
+            // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
             path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId + '&smsgid=' + res.data.msg_id,
           });
         }
@@ -36,7 +36,7 @@ Page({
     });
     return {
       title: '来软软AI,体验下智能对话!',
-      imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
+      // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
       path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId,
       promise
     };

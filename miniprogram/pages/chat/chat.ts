@@ -16,6 +16,7 @@ Page({
    */
   data: {
     newslist: <any>[],
+    links: <any>[],
     scrollTop: 0,
     message: "",
     times: 0,
@@ -91,8 +92,9 @@ Page({
       list.push(item);
       that.setData({
         newslist: list
+      }, () => {
+        that.bottom();
       });
-      that.bottom();
     })
   },
   onShareAppMessage: function (res) {
@@ -114,7 +116,7 @@ Page({
           console.log(res.data);
           resolve({
             title: '来软软AI,体验下智能对话!',
-            imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
+            // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
             path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId + '&smsgid=' + res.data.msg_id,
           });
         }
@@ -122,7 +124,7 @@ Page({
     });
     return {
       title: '来软软AI,体验下智能对话!',
-      imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
+      // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
       path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId,
       promise
     };
@@ -139,6 +141,7 @@ Page({
     })
   },
   quickSend: function (event: any) {
+    console.log('sdfsdfsdfsdf', event);
     var flag = this;
 
     if (event.currentTarget.dataset && event.currentTarget.dataset.msg) {
@@ -157,6 +160,8 @@ Page({
       socket.emit('user_uttered', { message: event.currentTarget.dataset.msg });
       flag.setData({
         newslist: list
+      }, () => {
+        flag.bottom();
       });
     }
   },
@@ -231,6 +236,8 @@ Page({
                   }
                   flag.setData({
                     newslist: list,
+                  }, () => {
+                    flag.bottom();
                   });
                 }
               },
@@ -241,6 +248,8 @@ Page({
             flag.setData({
               newslist: list,
               message: ''
+            }, () => {
+              flag.bottom();
             });
           } else {
             wx.showToast({
@@ -286,7 +295,7 @@ Page({
     query.selectViewport().scrollOffset()
     query.exec(function (res) {
       wx.pageScrollTo({
-        scrollTop: res[0] && res[0].bottom  // #the-id节点的下边界坐标  
+        scrollTop: res[0] && res[0].scrollHeight  // #the-id节点的下边界坐标  
       })
       res[1] && res[1].scrollTop // 显示区域的竖直滚动位置  
     })
@@ -317,10 +326,16 @@ Page({
       success(res) {
         console.log(res.data)
         that.setData({
-          times: res.data.times
+          times: res.data.times,
+          links: (res.data && res.data.links) ? res.data.links : [{ message: '黄历', label: '今日黄历' }, { message: '随机头像', label: '随机头像' }]
         });
       }
     });
+  },
+  timesOnTap: function () {
+    // wx.shareAppMessage({
+    //   title: '转发标题'
+    // });
   }
 })
 

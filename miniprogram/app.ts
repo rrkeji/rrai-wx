@@ -42,36 +42,28 @@ App<IAppOption>({
   onShow(ops) {
     let that = this;
     // 分享统计放到此处的目的是因为热启动会不走onload，导致统计不准确。
-    console.log('sssss',ops);
-    if (ops.scene == 1044) {
+    console.log('sssss', ops);
+    if (that.globalData.jwtToken && ops.query.stype
+      && ops.query.sid && ops.query.smsgid) {
       // 分享数据统计
-      wx.getShareInfo({
-        shareTicket: ops.shareTicket,
+      // 发送请求，后台解析出分享信息
+      wx.request({
+        method: 'POST',
+        url: 'https://www.idns.link/rrai/wx/share/confirm',
+        data: {
+          stype: ops.query.stype,
+          sid: ops.query.sid,
+          smsgid: ops.query.smsgid
+        },
+        header: {
+          'content-type': 'application/json',
+          'Authorization': that.globalData.jwtToken
+        },
         success: function (res) {
-          var encryptedData = res.encryptedData;
-          var iv = res.iv;
-          // 发送请求，后台解析出分享信息
-          wx.request({
-            method: 'POST',
-            url: 'https://www.idns.link/rrai/wx/share/confirm',
-            data: {
-              encry: encryptedData,
-              iv: iv,
-              stype: ops.query.stype,
-              sid: ops.query.sid,
-              smsgid: ops.query.smsgid
-            },
-            header: {
-              'content-type': 'application/json',
-              'Authorization': that.globalData.jwtToken
-            },
-            success: function (res) {
-              // 成功后的逻辑处理
-            },
-            fail: function (res) {
-              // console.log('用户打开', res)
-            }
-          })
+          // 成功后的逻辑处理
+        },
+        fail: function (res) {
+          // console.log('用户打开', res)
         }
       })
     }
