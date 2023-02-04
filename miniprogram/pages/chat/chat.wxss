@@ -443,3 +443,13 @@ page {
   line-height: 54rpx;
   text-align: center;
 }
+
+.loading {
+  background-color: coral;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
+.loading image{
+  margin-left:10rpx;
+}

@@ -3,11 +3,6 @@ App<IAppOption>({
   globalData: {
   },
   onLaunch() {
-    // 展示本地存储能力
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now());
-    wx.setStorageSync('logs', logs);
-
     // 登录
     wx.login({
       success(res) {
@@ -42,7 +37,6 @@ App<IAppOption>({
   onShow(ops) {
     let that = this;
     // 分享统计放到此处的目的是因为热启动会不走onload，导致统计不准确。
-    console.log('sssss', ops);
     if (that.globalData.jwtToken && ops.query.stype
       && ops.query.sid && ops.query.smsgid) {
       // 分享数据统计

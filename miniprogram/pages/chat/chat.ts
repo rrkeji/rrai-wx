@@ -1,5 +1,11 @@
 // chat.ts
 // 获取应用实例
+
+// 展示本地存储能力
+// const logs = wx.getStorageSync('logs') || []
+// logs.unshift(Date.now());
+// wx.setStorageSync('logs', logs);
+
 const io = require('../../utils/weapp.socket.io');
 // const socket = io('https://www.idns.link')
 const utils = require('../../utils/util');
@@ -10,7 +16,6 @@ const socket = io('https://www.idns.link', {
 });
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -19,6 +24,8 @@ Page({
     links: <any>[],
     scrollTop: 0,
     message: "",
+    sendLoading: false,
+    checkLoading: false,
     times: 0,
   },
   /**
@@ -26,6 +33,14 @@ Page({
    */
   onLoad: function () {
     let that = this;
+    //从本地读取存储的数据
+    const messages = wx.getStorageSync('messages') || []
+    this.setData({
+      newslist: messages
+    }, () => {
+      that.bottom();
+    });
+
     this.refreshTimes();
 
     socket.off("bot_uttered");
@@ -57,26 +72,14 @@ Page({
     //socket.on 接收的一些东西
     //news 可以作为后端通过 socket.emit 发的事件名 ，d 为发送的数据
     socket.on('bot_uttered', (d: { text: string }) => {
-      console.log('received news: ', d)
       let item: any = {
-        "hidden": false,
-        "nextMessageIsTooltip": false,
         "sender": "response",
-        "showAvatar": false,
         "text": d.text,
         "content": `<div class="rich_message"></div>`,
-        "url": "https://www.idns.link/#/./download",
         "format": d.text,
         "mediaId": d.text,
-        // 缩略图的媒体id
-        "thumbMediaId": d.text,
-        "locationX": d.text,
-        "locationY": d.text,
-        "scale": d.text,
         "title": '标题',
-        "thumbPicUrl": 'https://img2.woyaogexing.com/2022/11/25/8374eb28f670c4c85c0d1104253a6b83.jpeg',
         "description": d.text,
-        "timestamp": 1667436405268,
         // text richtext image voice video shortvideo location link
         "type": "richtext"
       };
@@ -88,8 +91,7 @@ Page({
         item['type'] = 'text';
       }
       var list: any[] = []
-      list = that.data.newslist
-      list.push(item);
+      list = that.addMessageAndSync(item);
       that.setData({
         newslist: list
       }, () => {
@@ -98,11 +100,6 @@ Page({
     })
   },
   onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
-
     const app = getApp<IAppOption>();
     const promise = new Promise(resolve => {
       wx.request({
@@ -140,14 +137,12 @@ Page({
       duration: 2000
     })
   },
+  //快速点击
   quickSend: function (event: any) {
-    console.log('sdfsdfsdfsdf', event);
     var flag = this;
-
     if (event.currentTarget.dataset && event.currentTarget.dataset.msg) {
       var list: any[] = []
-      list = flag.data.newslist
-      list.push({
+      list = flag.addMessageAndSync({
         "hidden": false,
         "nextMessageIsTooltip": false,
         "sender": "client",
@@ -173,11 +168,11 @@ Page({
         title: '消息不能为空哦~',
         icon: "none",
         duration: 2000
-      })
+      });
+      return;
     } else {
       var list: any[] = []
-      list = flag.data.newslist
-      list.push({
+      list = flag.addMessageAndSync({
         "hidden": false,
         "nextMessageIsTooltip": false,
         "sender": "client",
@@ -189,6 +184,7 @@ Page({
       let msg = this.data.message;
       const app = getApp<IAppOption>();
 
+      //消息安全检测
       wx.request({
         method: 'POST',
         url: 'https://www.idns.link/rrai/wx/msg/check',
@@ -198,7 +194,6 @@ Page({
         },
         data: msg,
         success(res) {
-          console.log(res.data)
           let resObj = res.data as any;
           if (resObj && resObj.code == 0) {
             //socket.emit 发送一些东西   
@@ -219,34 +214,52 @@ Page({
                 console.log(res);
                 flag.refreshTimes();
                 if (res && res.data && res.data.response && res.data.response.choices) {
-                  list = flag.data.newslist
+                  let text = "";
                   for (let i = 0; i < res.data.response.choices.length; i++) {
                     let item = res.data.response.choices[i];
                     if (item && item.text) {
-                      list.push({
-                        "hidden": false,
-                        "nextMessageIsTooltip": false,
-                        "sender": "rrai",
-                        "showAvatar": false,
-                        "text": item.text,
-                        "timestamp": 1667436405268,
-                        "type": "text"
-                      });
+                      text += item.text && item.text.trim();
                     }
                   }
+                  let list = flag.addMessageAndSync({
+                    "hidden": false,
+                    "nextMessageIsTooltip": false,
+                    "sender": "rrai",
+                    "showAvatar": false,
+                    "text": text,
+                    "timestamp": 1667436405268,
+                    "type": "text"
+                  });
+
                   flag.setData({
                     newslist: list,
+                    sendLoading: false,
                   }, () => {
                     flag.bottom();
                   });
                 }
               },
               fail: function (res) {
-                console.log('error', res)
+                let list = flag.addMessageAndSync({
+                  "hidden": false,
+                  "nextMessageIsTooltip": false,
+                  "sender": "response",
+                  "showAvatar": false,
+                  "text": '抱歉,软软大脑反应不过来了，请重新问我!',
+                  "timestamp": 1667436405268,
+                  "type": "text"
+                });
+                flag.setData({
+                  newslist: list,
+                  sendLoading: false,
+                }, () => {
+                  flag.bottom();
+                });
               }
             });
             flag.setData({
               newslist: list,
+              sendLoading: true,
               message: ''
             }, () => {
               flag.bottom();
@@ -256,7 +269,7 @@ Page({
               title: '消息不符合发言的规范,请重新编辑~',
               icon: "none",
               duration: 2000
-            })
+            });
           }
         }
       });
@@ -311,7 +324,7 @@ Page({
       })
     }
   },
-  //
+  //刷新次数
   refreshTimes: function () {
     const app = getApp<IAppOption>();
     let that = this;
@@ -336,6 +349,16 @@ Page({
     // wx.shareAppMessage({
     //   title: '转发标题'
     // });
+  },
+  addMessageAndSync: function (item: any) {
+    //判断list是否已经最大值
+    let list = this.data.newslist;
+    if (list.length > 200) {
+      list.shift();
+    }
+    list.push(item);
+    wx.setStorageSync('messages', list);
+    return list;
   }
 })
 
