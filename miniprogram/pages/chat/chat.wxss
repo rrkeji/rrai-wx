@@ -65,6 +65,23 @@ page {
   border-radius: 6rpx;
 }
 
+.actions-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border-top: 2rpx solid #dedede;
+  background-color: #ffffff;
+}
+
+.actions-bar-button {
+  height: 80rpx;
+  margin: 0rpx 10rpx;
+  line-height: 80rpx;
+  font-size: 24rpx;
+  color: #000000;
+  padding:2rpx 10rpx;
+}
+
 .new_txt {
   display: inline;
   line-height: 50rpx;
@@ -450,6 +467,7 @@ page {
   display: flex;
   align-items: center;
 }
-.loading image{
-  margin-left:10rpx;
+
+.loading image {
+  margin-left: 10rpx;
 }

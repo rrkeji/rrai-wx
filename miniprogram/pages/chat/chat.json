@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "wxml-to-canvas": "wxml-to-canvas"
+  },
   "navigationBarTitleText": "软软AI"
 }

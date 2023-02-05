@@ -26,37 +26,52 @@
             <!-- <text class="name">软软</text> -->
           </view>
           <view class='news-content'>
-            <block wx:if="{{item.type=='text'}}">
-              <view class='response-content new_txt ' style="white-space: pre-wrap">{{item.text}}</view>
-            </block>
-            <block wx:if="{{item.type=='richtext'}}">
-              <view class='response-content new_rich_txt '>
-                <rich-text nodes="{{item.content}}"></rich-text>
-              </view>
-            </block>
-            <block wx:if="{{item.type=='image'}}">
-              <view class='response-content new_image'>
-                <image src="{{item.url}}" data-src="{{item.url}}"></image>
-              </view>
-            </block>
-            <block wx:if="{{item.type=='voice'}}">
-            </block>
-            <block wx:if="{{item.type=='video'}}">
-            </block>
-            <block wx:if="{{item.type=='shortvideo'}}">
-            </block>
-            <block wx:if="{{item.type=='location'}}">
-            </block>
-            <block wx:if="{{item.type=='link'}}">
-              <view class='response-content new_link' bindtap='linkGoTo' data-url="{{item.url}}">
-                <view>
-                  <image class='new-link-pic' src="{{item.thumbPicUrl}}" data-src="{{item.thumbPicUrl}}">
-                  </image>
-                  <view class='new-link-title'>{{item.title}}</view>
+            <view class='response-content'>
+              <block wx:if="{{item.type=='text'}}">
+                <view class='new_txt ' style="white-space: pre-wrap">{{item.text}}</view>
+              </block>
+              <block wx:if="{{item.type=='richtext'}}">
+                <view class='new_rich_txt '>
+                  <rich-text nodes="{{item.content}}"></rich-text>
                 </view>
-                <view class='new-link-description'>{{item.description}}</view>
+              </block>
+              <block wx:if="{{item.type=='image'}}">
+                <view class='new_image'>
+                  <image src="{{item.url}}" data-src="{{item.url}}"></image>
+                </view>
+              </block>
+              <block wx:if="{{item.type=='voice'}}">
+              </block>
+              <block wx:if="{{item.type=='video'}}">
+              </block>
+              <block wx:if="{{item.type=='shortvideo'}}">
+              </block>
+              <block wx:if="{{item.type=='location'}}">
+              </block>
+              <block wx:if="{{item.type=='link'}}">
+                <view class='new_link' bindtap='linkGoTo' data-url="{{item.url}}">
+                  <view>
+                    <image class='new-link-pic' src="{{item.thumbPicUrl}}" data-src="{{item.thumbPicUrl}}">
+                    </image>
+                    <view class='new-link-title'>{{item.title}}</view>
+                  </view>
+                  <view class='new-link-description'>{{item.description}}</view>
+                </view>
+              </block>
+              <view class='actions-bar'>
+                <view class='actions-bar-button' bindtap="onNewsCopyText">
+                  复制图片
+                </view>
+                <block wx:if="{{item.type=='text'}}">
+                  <view class='actions-bar-button' bindtap="onNewsCopyImage" data-text="{{item.text}}">
+                    复制文本
+                  </view>
+                </block>
+                <view class='actions-bar-button' bindtap="onNewsShareImage">
+                  分享
+                </view>
               </view>
-            </block>
+            </view>
           </view>
         </view>
       </block>
@@ -67,7 +82,8 @@
             <!-- <text class="name">软软</text> -->
           </view>
           <view class='news-content'>
-            <view class='response-content new_txt loading'>软软正在努力的思考中<image class="send-button-inner" src="./images/bars.svg"></image></view>
+            <view class='response-content new_txt loading'>软软正在努力的思考中<image class="send-button-inner" src="./images/bars.svg"></image>
+            </view>
           </view>
         </view>
       </block>

@@ -359,7 +359,27 @@ Page({
     list.push(item);
     wx.setStorageSync('messages', list);
     return list;
+  },
+  onNewsCopyText: function (event: any) {
+    let that = this;
+    wx.setClipboardData({
+      data: "ddd",
+      success(res) {
+        wx.showToast({
+          title: '已经复制~',
+          icon: "none",
+          duration: 2000
+        })
+      }
+    });
+  },
+  onNewsCopyImage: function (event: any) {
+
+  },
+  onNewsShareImage: function (event: any) {
+
   }
+
 })
 
 
