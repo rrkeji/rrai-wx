@@ -20,7 +20,6 @@ App<IAppOption>({
               code: res.code
             },
             success(res) {
-              console.log(res.data);
               const app = getApp<IAppOption>();
               let obj = res.data as any;
               app.globalData.jwtToken = obj.token;

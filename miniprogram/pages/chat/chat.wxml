@@ -2,74 +2,41 @@
 <view class="news" bindtap='outbtn'>
   <!-- <view class="chat-notice">说出您想知道的?</view> -->
   <view class="historycon">
-    <scroll-view scroll-y="true" class="history" scroll-top="{{scrollTop}}">
+    <scroll-view enable-flex scroll-y="true" class="history" scroll-top="{{scrollTop}}">
       <block wx:for="{{newslist}}" wx:key="item">
         <!--send  -->
         <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
           <view class='news-content'>
-            <block wx:if="{{item.type=='text'}}">
-              <view class='new_txt request-text'>{{item.text}}</view>
-            </block>
-            <block wx:if="{{item.type=='image'}}">
-              <image class="selectImg" src="{{item.images}}" data-src="{{item.images}}" lazy-load="true" bindtap="previewImg"></image>
-            </block>
+            <message-box sender="true" type="{{item.type}}" text="{{item.text}}" content="{{item.content}}" url="{{item.url}}" thumbPicUrl="{{item.thumbPicUrl}}" title="{{item.title}}" description="{{item.description}}"></message-box>
           </view>
           <view class="news-avatar">
             <image class='avatar' src="./images/logo.png"></image>
-            <!-- <text class="name">您</text> -->
           </view>
         </view>
         <!-- AI  -->
         <view class="chat-news response" wx:else>
           <view class="news-avatar">
             <image class='avatar' src="./images/logo.png"></image>
-            <!-- <text class="name">软软</text> -->
           </view>
           <view class='news-content'>
             <view class='response-content'>
-              <block wx:if="{{item.type=='text'}}">
-                <view class='new_txt ' style="white-space: pre-wrap">{{item.text}}</view>
-              </block>
-              <block wx:if="{{item.type=='richtext'}}">
-                <view class='new_rich_txt '>
-                  <rich-text nodes="{{item.content}}"></rich-text>
-                </view>
-              </block>
-              <block wx:if="{{item.type=='image'}}">
-                <view class='new_image'>
-                  <image src="{{item.url}}" data-src="{{item.url}}"></image>
-                </view>
-              </block>
-              <block wx:if="{{item.type=='voice'}}">
-              </block>
-              <block wx:if="{{item.type=='video'}}">
-              </block>
-              <block wx:if="{{item.type=='shortvideo'}}">
-              </block>
-              <block wx:if="{{item.type=='location'}}">
-              </block>
-              <block wx:if="{{item.type=='link'}}">
-                <view class='new_link' bindtap='linkGoTo' data-url="{{item.url}}">
-                  <view>
-                    <image class='new-link-pic' src="{{item.thumbPicUrl}}" data-src="{{item.thumbPicUrl}}">
-                    </image>
-                    <view class='new-link-title'>{{item.title}}</view>
-                  </view>
-                  <view class='new-link-description'>{{item.description}}</view>
-                </view>
-              </block>
+              <message-box type="{{item.type}}" text="{{item.text}}" content="{{item.content}}" url="{{item.url}}" thumbPicUrl="{{item.thumbPicUrl}}" title="{{item.title}}" description="{{item.description}}"></message-box>
               <view class='actions-bar'>
-                <view class='actions-bar-button' bindtap="onNewsCopyText">
+                <!-- <view class='actions-bar-button' bindtap="onNewsCopyImage">
                   复制图片
-                </view>
+                </view> -->
                 <block wx:if="{{item.type=='text'}}">
-                  <view class='actions-bar-button' bindtap="onNewsCopyImage" data-text="{{item.text}}">
-                    复制文本
+                  <view class='actions-bar-button'>
+                    <button plain="true" bindtap="onNewsCopyText" data-text="{{item.text}}">
+                      复制
+                    </button>
                   </view>
                 </block>
-                <view class='actions-bar-button' bindtap="onNewsShareImage">
-                  分享
-                </view>
+                <!-- <view class='actions-bar-button'>
+                  <button plain="true" open-type="share" bindtap="onNewsShareImage" data-text="{{item.text}}">
+                    分享
+                  </button>
+                </view> -->
               </view>
             </view>
           </view>
@@ -124,4 +91,5 @@
       </button>
     </view>
   </form>
+  <wxml-to-canvas class="widget" height="420"></wxml-to-canvas>
 </view>

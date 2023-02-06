@@ -2,8 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/chat/chat",
-    "pages/webview/webview",
-    "pages/logs/logs"
+    "pages/webview/webview"
   ],
   "window": {
     "backgroundTextStyle": "light",

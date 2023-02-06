@@ -2,7 +2,6 @@
 // 获取应用实例
 Page({
   data: {
-    hi_text: '您好，我是软软AI智能机器人，你可以叫我“软软”。你可以对我说“写一个笑话”、“写一篇关于人工智能的短文”。',
   },
   onLoad: function () {
     //设置分享
@@ -12,11 +11,14 @@ Page({
     });
   },
   onShareAppMessage: function (res) {
+    const app = getApp<IAppOption>();
+
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
+      return;
     }
-    const app = getApp<IAppOption>();
+
     const promise = new Promise(resolve => {
       wx.request({
         method: 'GET',
@@ -45,18 +47,5 @@ Page({
   },
   // 事件处理函数
   bindViewTap() {
-    //查看是否微信登录成功，查看是否有token
-    const app = getApp<IAppOption>();
-    if (app.globalData.jwtToken) {
-      wx.navigateTo({
-        url: '../chat/chat',
-      });
-    } else {
-      wx.showToast({
-        title: '微信登录小程序未完成或者失败，请重试~',
-        icon: "none",
-        duration: 2000
-      });
-    }
   },
 })

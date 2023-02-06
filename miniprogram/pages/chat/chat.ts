@@ -75,21 +75,16 @@ Page({
       let item: any = {
         "sender": "response",
         "text": d.text,
-        "content": `<div class="rich_message"></div>`,
-        "format": d.text,
-        "mediaId": d.text,
-        "title": '标题',
-        "description": d.text,
-        // text richtext image voice video shortvideo location link
         "type": "richtext"
       };
       if (d.text && d.text.indexOf("{") == 0) {
         let jsonItem = JSON.parse(d.text);
         item = { ...item, ...jsonItem };
       } else {
-        item['content'] = d.text;
+        item['text'] = d.text;
         item['type'] = 'text';
       }
+      console.log('sssss', item);
       var list: any[] = []
       list = that.addMessageAndSync(item);
       that.setData({
@@ -100,6 +95,12 @@ Page({
     })
   },
   onShareAppMessage: function (res) {
+    console.log('33333', res.from);
+    if (res.from === 'button') {
+      console.log(res.target);
+      return;
+    }
+
     const app = getApp<IAppOption>();
     const promise = new Promise(resolve => {
       wx.request({
@@ -143,12 +144,8 @@ Page({
     if (event.currentTarget.dataset && event.currentTarget.dataset.msg) {
       var list: any[] = []
       list = flag.addMessageAndSync({
-        "hidden": false,
-        "nextMessageIsTooltip": false,
         "sender": "client",
-        "showAvatar": false,
         "text": event.currentTarget.dataset.msg,
-        "timestamp": 1667436405268,
         "type": "text"
       });
 
@@ -173,12 +170,8 @@ Page({
     } else {
       var list: any[] = []
       list = flag.addMessageAndSync({
-        "hidden": false,
-        "nextMessageIsTooltip": false,
         "sender": "client",
-        "showAvatar": false,
         "text": this.data.message,
-        "timestamp": 1667436405268,
         "type": "text"
       });
       let msg = this.data.message;
@@ -212,22 +205,33 @@ Page({
               success: function (res) {
                 // 成功后的逻辑处理
                 console.log(res);
+                if (res && res.data && res.data.code > 0) {
+                  let list = flag.addMessageAndSync({
+                    "sender": "response",
+                    "text": '服务器开小差，联系不上软软同学了~',
+                    "type": "text"
+                  });
+
+                  flag.setData({
+                    newslist: list,
+                    sendLoading: false,
+                  }, () => {
+                    flag.bottom();
+                  });
+                  return;
+                }
                 flag.refreshTimes();
-                if (res && res.data && res.data.response && res.data.response.choices) {
+                if (res && res.data && res.data.data) {
                   let text = "";
-                  for (let i = 0; i < res.data.response.choices.length; i++) {
-                    let item = res.data.response.choices[i];
+                  for (let i = 0; i < res.data.data.length; i++) {
+                    let item = res.data.data[i];
                     if (item && item.text) {
                       text += item.text && item.text.trim();
                     }
                   }
                   let list = flag.addMessageAndSync({
-                    "hidden": false,
-                    "nextMessageIsTooltip": false,
-                    "sender": "rrai",
-                    "showAvatar": false,
+                    "sender": "response",
                     "text": text,
-                    "timestamp": 1667436405268,
                     "type": "text"
                   });
 
@@ -241,17 +245,14 @@ Page({
               },
               fail: function (res) {
                 let list = flag.addMessageAndSync({
-                  "hidden": false,
-                  "nextMessageIsTooltip": false,
                   "sender": "response",
-                  "showAvatar": false,
                   "text": '抱歉,软软大脑反应不过来了，请重新问我!',
-                  "timestamp": 1667436405268,
                   "type": "text"
                 });
                 flag.setData({
                   newslist: list,
                   sendLoading: false,
+                  message: ''
                 }, () => {
                   flag.bottom();
                 });
@@ -313,17 +314,6 @@ Page({
       res[1] && res[1].scrollTop // 显示区域的竖直滚动位置  
     })
   },
-  //链接的跳转
-  linkGoTo: function (event: any) {
-    if (event.currentTarget && event.currentTarget.dataset &&
-      event.currentTarget.dataset.url) {
-      let url = event.currentTarget.dataset.url;
-      console.log(url);
-      wx.navigateTo({
-        url: `../webview/webview?url=${url}`,
-      })
-    }
-  },
   //刷新次数
   refreshTimes: function () {
     const app = getApp<IAppOption>();
@@ -361,17 +351,18 @@ Page({
     return list;
   },
   onNewsCopyText: function (event: any) {
-    let that = this;
-    wx.setClipboardData({
-      data: "ddd",
-      success(res) {
-        wx.showToast({
-          title: '已经复制~',
-          icon: "none",
-          duration: 2000
-        })
-      }
-    });
+    if (event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.text) {
+      wx.setClipboardData({
+        data: event.currentTarget.dataset.text,
+        success(res) {
+          wx.showToast({
+            title: '已经复制~',
+            icon: "none",
+            duration: 2000
+          })
+        }
+      });
+    }
   },
   onNewsCopyImage: function (event: any) {
 
