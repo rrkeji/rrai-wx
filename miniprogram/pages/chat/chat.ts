@@ -221,27 +221,27 @@ Page({
                   return;
                 }
                 flag.refreshTimes();
+                let text = "没有找到答案!我马上再学习学习，你再问问！";
                 if (res && res.data && res.data.data) {
-                  let text = "";
+                  text = "";
                   for (let i = 0; i < res.data.data.length; i++) {
                     let item = res.data.data[i];
                     if (item && item.text) {
                       text += item.text && item.text.trim();
                     }
                   }
-                  let list = flag.addMessageAndSync({
-                    "sender": "response",
-                    "text": text,
-                    "type": "text"
-                  });
-
-                  flag.setData({
-                    newslist: list,
-                    sendLoading: false,
-                  }, () => {
-                    flag.bottom();
-                  });
                 }
+                let list = flag.addMessageAndSync({
+                  "sender": "response",
+                  "text": text,
+                  "type": "text"
+                });
+                flag.setData({
+                  newslist: list,
+                  sendLoading: false,
+                }, () => {
+                  flag.bottom();
+                });
               },
               fail: function (res) {
                 let list = flag.addMessageAndSync({
