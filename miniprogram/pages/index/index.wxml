@@ -1,8 +1,22 @@
 <!--index.wxml-->
 <view class="container">
   <image bindtap="bindViewTap" class="rr-avatar" src="./images/logo.png" mode="cover"></image>
-  <text class="hi_text">{{hi_text}}</text>
+  <view class="top-title">您好,我是内核为ChatGPT的人工智能机器人“软软”</view>
+  <text class="hi_text0">我可以为您：</text>
+  <text class="hi_text">写代码</text>
+  <text class="hi_text">写故事</text>
+  <text class="hi_text">写论文</text>
+  <text class="hi_text">解决法律问题</text>
+  <text class="hi_text">创造艺术作品</text>
+  <text class="hi_text">会议记录</text>
+  <text class="hi_text">时间管理</text>
+  <text class="hi_text">精通各国语言</text>
+  <text class="hi_text">以及你能想到的......</text>
   <view bindtap="bindViewTap" class="entry-button-container">
-    <view class="entry-button">点击进入和软软说说您想要的吧!</view>
+    <view class="entry-button">
+      <view class="bg">
+      </view>
+      <image class="img" src="./images/start.png"></image>
+    </view>
   </view>
 </view>

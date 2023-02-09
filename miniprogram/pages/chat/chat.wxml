@@ -8,7 +8,7 @@
         <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
           <view class='news-content'>
             <view class='request-content'>
-              <message-box sender="true" type="{{item.type}}" text="{{item.text}}" content="{{item.content}}" url="{{item.url}}" thumbPicUrl="{{item.thumbPicUrl}}" title="{{item.title}}" description="{{item.description}}"></message-box>
+              <message-box sender="true" type="{{item.type}}" text="{{item.text}}" content="{{}}" url="{{}}" thumbPicUrl="{{}}" title="{{}}" description="{{}}"></message-box>
             </view>
           </view>
           <view class="news-avatar">
@@ -22,7 +22,7 @@
           </view>
           <view class='news-content'>
             <view class='response-content'>
-              <message-box type="{{item.type}}" text="{{item.text}}" content="{{item.content}}" url="{{item.url}}" thumbPicUrl="{{item.thumbPicUrl}}" title="{{item.title}}" description="{{item.description}}"></message-box>
+              <message-box type="{{item.type}}" text="{{item.text}}" content="" url="" thumbPicUrl="" title="" description=""></message-box>
               <view class='actions-bar'>
                 <!-- <view class='actions-bar-button' bindtap="onNewsCopyImage">
                   复制图片
@@ -60,7 +60,7 @@
           </block>
           <block wx:if="{{currentMessage != ''}}">
             <view class='news-content'>
-              <view class='response-content new_txt loading'>
+              <view class='response-content new_txt loading' style="white-space: pre-wrap">
                 {{currentMessage}}<i class="loading-blink">🖋</i>
               </view>
             </view>

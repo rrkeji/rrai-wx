@@ -284,11 +284,20 @@ Page({
       header: {
         "x-wx-openid": app.globalData.userId
       },
+      success: (res) => {
+        console.log('success', res);
+      },
+      fail: (res) => {
+        console.log('fail', res);
+      },
+      complete: (res) => {
+        console.log('complete', res);
+      },
     });
     console.log('wxsocket初始化', wxyunSocket, app.globalData.userId);
     //与云端建立连接
     wxyunSocket.onMessage(function (res: any) {
-      console.log(res.data)
+      console.log("onMessage", res.data)
       if (res.data === '$__rrai_ok') {
         //完成
         let list = flag.addMessageAndSync({
@@ -326,15 +335,17 @@ Page({
       }
     })
     wxyunSocket.onOpen(function (res) {
+      console.log('onOpen', res);
       console.log('成功连接到服务器', res)
     })
     wxyunSocket.onClose(function (res) {
+      console.log('onClose', res);
       flag.setData({
-        wxyunSocket: null,
         sendLoading: false,
       });
     })
     wxyunSocket.onError(function (res) {
+      console.log('onError', res);
       //错误
       let list = flag.addMessageAndSync({
         "sender": "response",
@@ -343,7 +354,6 @@ Page({
       });
       flag.setData({
         newslist: list,
-        wxyunSocket: null,
         sendLoading: false,
       }, () => {
         flag.bottom();
