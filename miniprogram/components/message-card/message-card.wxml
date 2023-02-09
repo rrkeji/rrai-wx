@@ -1,0 +1,32 @@
+<!-- 这是自定义组件的内部WXML结构 -->
+<block wx:if="{{type=='text'}}">
+  <view class='new_txt {{sender? "request-text":""}}' style="white-space: pre-wrap">{{text}}</view>
+</block>
+<block wx:if="{{type=='richtext'}}">
+  <view class='new_rich_txt '>
+    <rich-text nodes="{{content}}"></rich-text>
+  </view>
+</block>
+<block wx:if="{{type=='image'}}">
+  <view class='new_image'>
+    <image src="{{url}}" data-src="{{url}}"></image>
+  </view>
+</block>
+<block wx:if="{{type=='voice'}}">
+</block>
+<block wx:if="{{type=='video'}}">
+</block>
+<block wx:if="{{type=='shortvideo'}}">
+</block>
+<block wx:if="{{type=='location'}}">
+</block>
+<block wx:if="{{type=='link'}}">
+  <view class='new_link' bindtap='linkGoTo' data-url="{{url}}">
+    <view>
+      <image class='new-link-pic' src="{{thumbPicUrl}}" data-src="{{thumbPicUrl}}">
+      </image>
+      <view class='new-link-title'>{{title}}</view>
+    </view>
+    <view class='new-link-description'>{{description}}</view>
+  </view>
+</block>

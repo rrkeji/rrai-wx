@@ -7,7 +7,9 @@
         <!--send  -->
         <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
           <view class='news-content'>
-            <message-box sender="true" type="{{item.type}}" text="{{item.text}}" content="{{item.content}}" url="{{item.url}}" thumbPicUrl="{{item.thumbPicUrl}}" title="{{item.title}}" description="{{item.description}}"></message-box>
+            <view class='request-content'>
+              <message-box sender="true" type="{{item.type}}" text="{{item.text}}" content="{{item.content}}" url="{{item.url}}" thumbPicUrl="{{item.thumbPicUrl}}" title="{{item.title}}" description="{{item.description}}"></message-box>
+            </view>
           </view>
           <view class="news-avatar">
             <image class='avatar' src="./images/logo.png"></image>
@@ -32,11 +34,13 @@
                     </button>
                   </view>
                 </block>
-                <!-- <view class='actions-bar-button'>
-                  <button plain="true" open-type="share" bindtap="onNewsShareImage" data-text="{{item.text}}">
-                    分享
-                  </button>
-                </view> -->
+                <block wx:if="{{item.msg_id > 0}}">
+                  <view class='actions-bar-button'>
+                    <button plain="true" open-type="share" bindtap="onNewsShareImage" data-msgId="{{item.msg_id}}">
+                      分享
+                    </button>
+                  </view>
+                </block>
               </view>
             </view>
           </view>
@@ -48,10 +52,19 @@
             <image class='avatar' src="./images/logo.png"></image>
             <!-- <text class="name">软软</text> -->
           </view>
-          <view class='news-content'>
-            <view class='response-content new_txt loading'>软软正在努力的思考中<image class="send-button-inner" src="./images/bars.svg"></image>
+          <block wx:if="{{currentMessage == ''}}">
+            <view class='news-content'>
+              <view class='response-content new_txt loading1'>软软正在努力的思考中<image class="send-button-inner" src="./images/bars.svg"></image>
+              </view>
             </view>
-          </view>
+          </block>
+          <block wx:if="{{currentMessage != ''}}">
+            <view class='news-content'>
+              <view class='response-content new_txt loading'>
+                {{currentMessage}}<i class="loading-blink">🖋</i>
+              </view>
+            </view>
+          </block>
         </view>
       </block>
       <block wx:if="{{newslist.length <= 0}}">
@@ -67,16 +80,16 @@
       <view class="times" bindtap="timesOnTap">{{times}}</view>
     </view>
     <view class="right">
-      <view class="tipMessage">次数通过分享等增加，下面询问不占用次数：</view>
+      <view class="tipMessage">次数通过分享等增加.(有效分享才可以,有效是分享的链接有好友进入小程序.)</view>
 
       <view class="tipItems">
-        <block wx:for="{{links}}" wx:key>
+        <!-- <block wx:for="{{links}}" wx:key>
           <view class="tipItem" bindtap='quickSend' data-msg="{{item.message}}">{{item.label}}</view>
-        </block>
-        <block wx:if="{{links.length <= 0}}">
+        </block> -->
+        <!-- <block wx:if="{{links.length <= 0}}">
           <view class="tipItem" bindtap='quickSend' data-msg="黄历">今日黄历</view>
           <view class="tipItem" bindtap='quickSend' data-msg="随机头像">随机头像</view>
-        </block>
+        </block> -->
       </view>
     </view>
   </view>
@@ -91,5 +104,4 @@
       </button>
     </view>
   </form>
-  <wxml-to-canvas class="widget" height="420"></wxml-to-canvas>
 </view>

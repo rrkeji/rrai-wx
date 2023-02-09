@@ -52,11 +52,20 @@ page {
   justify-content: flex-start;
 }
 
+.request-content {
+  background-color: #95EC69;
+  text-align: left;
+  border-radius: 10rpx;
+  min-width: 76%;
+  line-height: 48rpx;
+}
+
 .response-content {
   background-color: #ffffff;
   text-align: left;
   border-radius: 10rpx;
   min-width: 76%;
+  line-height: 48rpx;
 }
 
 .news-content {
@@ -193,7 +202,8 @@ page {
   justify-content: flex-start;
   color: #666;
   font-size: 26rpx;
-  line-height: 52rpx;
+  padding-top: 10rpx;
+  line-height: 42rpx;
 }
 
 .tipBox .right .tipItems {
@@ -291,14 +301,46 @@ page {
 }
 
 .loading {
-  background-color: coral;
-  color: #FFFFFF;
-  display: flex;
+  background-color: #FFF;
+  color: #000000;
+  display: inline;
   align-items: center;
   min-width: 240rpx;
   padding: 0rpx 10rpx;
 }
 
+.loading1 {
+  background-color: coral;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  min-width: 240rpx;
+  line-height: 60rpx;
+  padding: 0rpx 10rpx;
+}
+
 .loading image {
   margin-left: 10rpx;
+}
+
+.loading-blink {
+  animation: blink 2s linear infinite;
+  -webkit-animation: loading-blink 0.5s linear infinite;
+  -moz-animation: loading-blink 0.5s linear infinite;
+  -ms-animation: loading-blink 0.5s linear infinite;
+  -o-animation: loading-blink 0.5s linear infinite;
+}
+
+@keyframes loading-blink {
+  0% {
+    color: #000000;
+  }
+
+  50% {
+    color: transparent;
+  }
+
+  100% {
+    color: #000000;
+  }
 }

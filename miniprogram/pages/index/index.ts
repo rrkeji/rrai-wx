@@ -51,6 +51,9 @@ Page({
       wx.navigateTo({
         url: '../chat/chat',
       });
+      // wx.navigateTo({
+      //   url: '../docs/docs?stype=wxuser&userid=oZ3cl4xEzpiKYmL1-t-2DSGC-2j0&msgid=31',
+      // });
     } else {
       wx.showToast({
         title: '微信登录小程序未完成或者失败，请重试~',

@@ -3,12 +3,42 @@
 Page({
   data: {
   },
-  onLoad: function () {
+  request: function (userid: string, msgid: string) {
+    //获取消息的内容
+    //获取评论的内容
+  },
+  onLoad: function (query) {
     //设置分享
     wx.showShareMenu({
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline']
     });
+    //参数判断 {stype:'',userid:'',msgid:''}
+    console.log(query);
+    const asyncFunc = async () => {
+      const { socketTask } = await wx.cloud.connectContainer({
+        "config": {
+          "env": "prod-5gwfszum5fc2702e"
+        },
+        "service": "chat",
+        "path": "/"
+      });
+
+      socketTask.onMessage(function (res) {
+        console.log(res.data)
+      })
+      socketTask.onOpen(function (res) {
+        console.log('成功连接到服务器')
+        socketTask.send({ data: '' })
+      })
+      socketTask.onClose(function (res) {
+        console.log('连接已断开')
+      })
+      console.log(socketTask);
+    };
+    asyncFunc();
+  },
+  onShow: function () {
   },
   onShareAppMessage: function (res) {
     const app = getApp<IAppOption>();

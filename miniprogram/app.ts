@@ -3,6 +3,9 @@ App<IAppOption>({
   globalData: {
   },
   onLaunch() {
+    wx.cloud.init({
+      traceUser: true
+    })
     // 登录
     wx.login({
       success(res) {

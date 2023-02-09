@@ -1,20 +1,5 @@
 // chat.ts
-// 获取应用实例
-
-// 展示本地存储能力
-// const logs = wx.getStorageSync('logs') || []
-// logs.unshift(Date.now());
-// wx.setStorageSync('logs', logs);
-
-const io = require('../../utils/weapp.socket.io');
-// const socket = io('https://www.idns.link')
-const utils = require('../../utils/util');
-
-const socket = io('https://www.idns.link', {
-  path: '/rrai/rasa/socket.io/',
-  transports: ['websocket'], // 此项必须设置
-});
-
+let wxyunSocket: any = null;
 Page({
   /**
    * 页面的初始数据
@@ -24,6 +9,7 @@ Page({
     links: <any>[],
     scrollTop: 0,
     message: "",
+    currentMessage: "",
     sendLoading: false,
     checkLoading: false,
     times: 0,
@@ -40,68 +26,34 @@ Page({
     }, () => {
       that.bottom();
     });
-
+    this.getChatSocket();
     this.refreshTimes();
 
-    socket.off("bot_uttered");
-    socket.off("connect");
-    wx.closeSocket();
-    //是否链接到服务器
-    socket.on('connect', () => {
-      console.log(socket.connected); // true
-    });
-    // //链接超时触发
-    // socket.on('connect_timeout', (timeout) => {
-    //   // ...
-    // });
-
-    // //重新尝试链接   错误时触发
-    // socket.on('reconnect_error', (error) => {
-    //   // ...
-    // });
-
-    // //无法在内部重新链接时触发
-    // socket.on('reconnect_failed', () => {
-    //   // ...
-    // });
     wx.showShareMenu({
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline']
     });
-    //为给定事件注册新的处理程序。
-    //socket.on 接收的一些东西
-    //news 可以作为后端通过 socket.emit 发的事件名 ，d 为发送的数据
-    socket.on('bot_uttered', (d: { text: string }) => {
-      let item: any = {
-        "sender": "response",
-        "text": d.text,
-        "type": "richtext"
-      };
-      if (d.text && d.text.indexOf("{") == 0) {
-        let jsonItem = JSON.parse(d.text);
-        item = { ...item, ...jsonItem };
-      } else {
-        item['text'] = d.text;
-        item['type'] = 'text';
-      }
-      console.log('sssss', item);
-      var list: any[] = []
-      list = that.addMessageAndSync(item);
-      that.setData({
-        newslist: list
-      }, () => {
-        that.bottom();
-      });
-    })
   },
   onShareAppMessage: function (res) {
-    console.log('33333', res.from);
-    if (res.from === 'button') {
-      console.log(res.target);
-      return;
-    }
-
     const app = getApp<IAppOption>();
+    if (res.from === 'button') {
+      //消息上的分享
+      console.log(res.target);
+      if (res.target && res.target.dataset && res.target.dataset.msg_id > 0) {
+        //userid msgId
+        return {
+          title: '来软软AI,体验下智能对话!',
+          // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
+          path: '/pages/docs/docs?stype=wxuser&userid=' + app.globalData.userId + '&msgid=' + res.target.dataset.text,
+        };
+      } else {
+        return {
+          title: '来软软AI,体验下智能对话!',
+          // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
+          path: '/pages/docs/docs?stype=wxuser&userid=' + app.globalData.userId + '&msgid=0',
+        };
+      }
+    }
     const promise = new Promise(resolve => {
       wx.request({
         method: 'GET',
@@ -111,7 +63,6 @@ Page({
           'Authorization': app.globalData.jwtToken
         },
         success(res) {
-          console.log(res.data);
           resolve({
             title: '来软软AI,体验下智能对话!',
             // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
@@ -129,9 +80,6 @@ Page({
   },
   // 页面卸载
   onUnload() {
-    socket.off("bot_uttered");
-    socket.off("connect");
-    wx.closeSocket();
     wx.showToast({
       title: '已与软软断开连接~',
       icon: "none",
@@ -149,7 +97,7 @@ Page({
         "type": "text"
       });
 
-      socket.emit('user_uttered', { message: event.currentTarget.dataset.msg });
+      // socket.emit('user_uttered', { message: event.currentTarget.dataset.msg });
       flag.setData({
         newslist: list
       }, () => {
@@ -189,75 +137,8 @@ Page({
         success(res) {
           let resObj = res.data as any;
           if (resObj && resObj.code == 0) {
-            //socket.emit 发送一些东西   
-            //news 为事件名  后边是你要发送的数据
-            // socket.emit('user_uttered', { message: msg });
-            wx.request({
-              method: 'POST',
-              url: 'https://www.idns.link/rrai/chatGPT/message',
-              data: {
-                message: msg
-              },
-              header: {
-                'content-type': 'application/json',
-                'Authorization': app.globalData.jwtToken
-              },
-              success: function (res) {
-                // 成功后的逻辑处理
-                console.log(res);
-                if (res && res.data && res.data.code > 0) {
-                  let list = flag.addMessageAndSync({
-                    "sender": "response",
-                    "text": '服务器开小差，联系不上软软同学了~',
-                    "type": "text"
-                  });
-
-                  flag.setData({
-                    newslist: list,
-                    sendLoading: false,
-                  }, () => {
-                    flag.bottom();
-                  });
-                  return;
-                }
-                flag.refreshTimes();
-                let text = "没有找到答案!我马上再学习学习，你再问问！";
-                if (res && res.data && res.data.data) {
-                  text = "";
-                  for (let i = 0; i < res.data.data.length; i++) {
-                    let item = res.data.data[i];
-                    if (item && item.text) {
-                      text += item.text && item.text.trim();
-                    }
-                  }
-                }
-                let list = flag.addMessageAndSync({
-                  "sender": "response",
-                  "text": text,
-                  "type": "text"
-                });
-                flag.setData({
-                  newslist: list,
-                  sendLoading: false,
-                }, () => {
-                  flag.bottom();
-                });
-              },
-              fail: function (res) {
-                let list = flag.addMessageAndSync({
-                  "sender": "response",
-                  "text": '抱歉,软软大脑反应不过来了，请重新问我!',
-                  "type": "text"
-                });
-                flag.setData({
-                  newslist: list,
-                  sendLoading: false,
-                  message: ''
-                }, () => {
-                  flag.bottom();
-                });
-              }
-            });
+            //发送请求
+            wxyunSocket.send({ data: msg })
             flag.setData({
               newslist: list,
               sendLoading: true,
@@ -369,8 +250,80 @@ Page({
   },
   onNewsShareImage: function (event: any) {
 
-  }
+  },
+  getChatSocket: function () {
+    const app = getApp<IAppOption>();
+    let flag = this;
 
+    if (wxyunSocket != null) {
+      return wxyunSocket;
+    }
+    wxyunSocket = wx.connectSocket({
+      url: 'wss://wsschat.idns.link',
+      header: {
+        "x-wx-openid": app.globalData.userId
+      },
+    });
+    //与云端建立连接
+    wxyunSocket.onMessage(function (res: any) {
+      console.log(res.data)
+      if (res.data === '$__rrai_ok') {
+        //完成
+        let list = flag.addMessageAndSync({
+          "sender": "response",
+          "text": flag.data.currentMessage.trim(),
+          "type": "text"
+        });
+        flag.setData({
+          newslist: list,
+          sendLoading: false,
+          currentMessage: "",
+        }, () => {
+          flag.bottom();
+        });
+      } else if (res.data === '$__rrai_error') {
+        //错误
+        let list = flag.addMessageAndSync({
+          "sender": "response",
+          "text": '服务器开小差，联系不上软软同学了~',
+          "type": "text"
+        });
+        flag.setData({
+          newslist: list,
+          sendLoading: false,
+        }, () => {
+          flag.bottom();
+        });
+      } else {
+        //追加
+        flag.setData({
+          currentMessage: flag.data.currentMessage + res.data
+        }, () => {
+          flag.bottom();
+        });
+      }
+    })
+    wxyunSocket.onOpen(function (res) {
+      console.log('成功连接到服务器', res)
+    })
+    wxyunSocket.onClose(function (res) {
+      console.log('连接已断开', res)
+    })
+    wxyunSocket.onError(function (res) {
+      //错误
+      let list = flag.addMessageAndSync({
+        "sender": "response",
+        "text": '服务器开小差，联系不上软软同学了~',
+        "type": "text"
+      });
+      flag.setData({
+        newslist: list,
+        sendLoading: false,
+      }, () => {
+        flag.bottom();
+      });
+    });
+  }
 })
 
 

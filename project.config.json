@@ -45,13 +45,14 @@
     "useCompilerPlugins": [
       "typescript"
     ],
-    "ignoreUploadUnusedFiles": true
+    "ignoreUploadUnusedFiles": true,
+    "condition": false
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "srcMiniprogramRoot": "miniprogram/",
   "appid": "wxdebf9bfe7a033f29",
-  "libVersion": "2.27.2",
+  "libVersion": "2.30.0",
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
