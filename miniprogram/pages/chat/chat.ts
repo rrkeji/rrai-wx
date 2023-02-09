@@ -1,5 +1,6 @@
 // chat.ts
 let wxyunSocket: any = null;
+
 Page({
   /**
    * 页面的初始数据
@@ -26,6 +27,7 @@ Page({
     }, () => {
       that.bottom();
     });
+    //
     this.getChatSocket();
     this.refreshTimes();
 
@@ -108,6 +110,7 @@ Page({
   //事件处理函数
   send: function () {
     var flag = this;
+    //消息为空
     if (this.data.message.trim() == "") {
       wx.showToast({
         title: '消息不能为空哦~',
@@ -115,47 +118,62 @@ Page({
         duration: 2000
       });
       return;
-    } else {
-      var list: any[] = []
-      list = flag.addMessageAndSync({
-        "sender": "client",
-        "text": this.data.message,
-        "type": "text"
-      });
-      let msg = this.data.message;
-      const app = getApp<IAppOption>();
-
-      //消息安全检测
-      wx.request({
-        method: 'POST',
-        url: 'https://www.idns.link/rrai/wx/msg/check',
-        header: {
-          'content-type': 'text/plain',
-          'Authorization': app.globalData.jwtToken
-        },
-        data: msg,
-        success(res) {
-          let resObj = res.data as any;
-          if (resObj && resObj.code == 0) {
-            //发送请求
-            wxyunSocket.send({ data: msg })
-            flag.setData({
-              newslist: list,
-              sendLoading: true,
-              message: ''
-            }, () => {
-              flag.bottom();
-            });
-          } else {
-            wx.showToast({
-              title: '消息不符合发言的规范,请重新编辑~',
-              icon: "none",
-              duration: 2000
-            });
-          }
-        }
-      });
     }
+    let msg = this.data.message;
+    const app = getApp<IAppOption>();
+
+    //消息安全检测
+    wx.request({
+      method: 'POST',
+      url: 'https://www.idns.link/rrai/wx/msg/check',
+      header: {
+        'content-type': 'text/plain',
+        'Authorization': app.globalData.jwtToken
+      },
+      data: msg,
+      success(res) {
+        let resObj = res.data as any;
+        if (resObj && resObj.code == 0) {
+          //发送请求
+          let list = flag.addMessageAndSync({
+            "sender": "client",
+            "text": msg,
+            "type": "text"
+          });
+          flag.setData({
+            newslist: list,
+            sendLoading: true,
+            message: ''
+          }, () => {
+            flag.bottom();
+            let socket = flag.getChatSocket();
+            if (socket) {
+              socket.send({ data: msg });
+            } else {
+              //发送请求
+              let list = flag.addMessageAndSync({
+                "sender": "client",
+                "text": '服务器开小差，联系不上软软同学了~',
+                "type": "text"
+              });
+              flag.setData({
+                newslist: list,
+                sendLoading: false,
+                message: ''
+              }, () => {
+                flag.bottom();
+              });
+            }
+          });
+        } else {
+          wx.showToast({
+            title: '消息不符合发言的规范,请重新编辑~',
+            icon: "none",
+            duration: 2000
+          });
+        }
+      }
+    });
   },
   //
   bindConfirm(event: any) {
@@ -255,15 +273,19 @@ Page({
     const app = getApp<IAppOption>();
     let flag = this;
 
+    console.log('判断wxyunSocket是否为空！');
     if (wxyunSocket != null) {
       return wxyunSocket;
     }
+    console.log('wxyunSocket为空！');
+
     wxyunSocket = wx.connectSocket({
       url: 'wss://wsschat.idns.link',
       header: {
         "x-wx-openid": app.globalData.userId
       },
     });
+    console.log('wxsocket初始化', wxyunSocket, app.globalData.userId);
     //与云端建立连接
     wxyunSocket.onMessage(function (res: any) {
       console.log(res.data)
@@ -307,7 +329,10 @@ Page({
       console.log('成功连接到服务器', res)
     })
     wxyunSocket.onClose(function (res) {
-      console.log('连接已断开', res)
+      flag.setData({
+        wxyunSocket: null,
+        sendLoading: false,
+      });
     })
     wxyunSocket.onError(function (res) {
       //错误
@@ -318,11 +343,13 @@ Page({
       });
       flag.setData({
         newslist: list,
+        wxyunSocket: null,
         sendLoading: false,
       }, () => {
         flag.bottom();
       });
     });
+    return wxyunSocket;
   }
 })
 
