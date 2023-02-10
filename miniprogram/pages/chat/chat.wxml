@@ -96,7 +96,7 @@
   <form bindreset="cleanInput">
     <view class="sendMessage">
       <!-- <view class="item button" bindtap='increase'>+</view> -->
-      <input class="item input" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder="请输入聊天内容..." value="{{massage}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
+      <input id="message_intput" class="item input" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder="请输入聊天内容..." value="{{massage}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
       <button form-type="reset" bindtap='send' class="item">
         <view class="item button send-button">
           <image class="send-button-inner" src="./images/send.svg"></image>

@@ -1,6 +1,4 @@
 // chat.ts
-let wxyunSocket: any = null;
-
 Page({
   /**
    * 页面的初始数据
@@ -13,19 +11,37 @@ Page({
     currentMessage: "",
     sendLoading: false,
     checkLoading: false,
+    wxyunSocket: <WechatMiniprogram.SocketTask | null>null,
     times: 0,
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    const app = getApp<IAppOption>();
     let that = this;
     //从本地读取存储的数据
     const messages = wx.getStorageSync('messages') || []
     this.setData({
-      newslist: messages
+      newslist: messages,
+      wxyunSocket: wx.connectSocket({
+        url: 'wss://wsschat.idns.link',
+        header: {
+          "x-wx-openid": app.globalData.userId
+        },
+        success: (res) => {
+          console.log('success', res);
+        },
+        fail: (res) => {
+          console.log('fail', res);
+        },
+        complete: (res) => {
+          console.log('complete', res);
+        },
+      })
     }, () => {
       that.bottom();
+      this.initSocketEvent();
     });
     //
     this.getChatSocket();
@@ -145,6 +161,7 @@ Page({
             sendLoading: true,
             message: ''
           }, () => {
+            flag.clearInput();
             flag.bottom();
             let socket = flag.getChatSocket();
             if (socket) {
@@ -270,31 +287,18 @@ Page({
 
   },
   getChatSocket: function () {
-    const app = getApp<IAppOption>();
-    let flag = this;
-
-    console.log('判断wxyunSocket是否为空！');
-    if (wxyunSocket != null) {
-      return wxyunSocket;
+    if (this.data.wxyunSocket != null) {
+      return this.data.wxyunSocket;
     }
-    console.log('wxyunSocket为空！');
-
-    wxyunSocket = wx.connectSocket({
-      url: 'wss://wsschat.idns.link',
-      header: {
-        "x-wx-openid": app.globalData.userId
-      },
-      success: (res) => {
-        console.log('success', res);
-      },
-      fail: (res) => {
-        console.log('fail', res);
-      },
-      complete: (res) => {
-        console.log('complete', res);
-      },
-    });
-    console.log('wxsocket初始化', wxyunSocket, app.globalData.userId);
+    return this.data.wxyunSocket;
+  },
+  initSocketEvent: function () {
+    let flag = this;
+    let wxyunSocket = this.data.wxyunSocket;
+    if (wxyunSocket === null) {
+      console.error('wxyunSocket为空');
+      return;
+    }
     //与云端建立连接
     wxyunSocket.onMessage(function (res: any) {
       console.log("onMessage", res.data)
@@ -311,6 +315,7 @@ Page({
           currentMessage: "",
         }, () => {
           flag.bottom();
+          flag.refreshTimes();
         });
       } else if (res.data === '$__rrai_error') {
         //错误
@@ -359,7 +364,11 @@ Page({
         flag.bottom();
       });
     });
-    return wxyunSocket;
+  },
+  clearInput: function () {
+    // const query = wx.createSelectorQuery()
+    // let input = query.select('#message_intput');
+    // console.log(input);
   }
 })
 

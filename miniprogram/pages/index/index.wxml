@@ -1,8 +1,8 @@
 <!--index.wxml-->
 <view class="container">
   <image bindtap="bindViewTap" class="rr-avatar" src="./images/logo.png" mode="cover"></image>
-  <view class="top-title">您好,我是内核为ChatGPT的人工智能机器人“软软”</view>
-  <text class="hi_text0">我可以为您：</text>
+  <view class="top-title">您好,我是软软AI智能机器人,你可以叫我“软软”</view>
+  <text class="hi_text0">我在以下方面帮到您：</text>
   <text class="hi_text">写代码</text>
   <text class="hi_text">写故事</text>
   <text class="hi_text">写论文</text>
