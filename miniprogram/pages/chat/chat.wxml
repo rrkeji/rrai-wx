@@ -1,6 +1,10 @@
 <!--pages/chat/chat.wxml-->
-<view class="news" bindtap='outbtn'>
-  <!-- <view class="chat-notice">说出您想知道的?</view> -->
+<view class="news">
+  <view class="tipBox">
+    <view class="tipMessage">
+      <image class='notice-icon' src="../../images/notice.png"></image>1. 您可以通过分享、浏览广告增加使用次数.
+    </view>
+  </view>
   <view class="historycon">
     <scroll-view enable-flex scroll-y="true" class="history" scroll-top="{{scrollTop}}">
       <block wx:for="{{newslist}}" wx:key="item">
@@ -12,13 +16,14 @@
             </view>
           </view>
           <view class="news-avatar">
-            <image class='avatar' src="./images/logo.png"></image>
+            <image class='avatar' src="../../images/logo.png"></image>
+
           </view>
         </view>
         <!-- AI  -->
         <view class="chat-news response" wx:else>
           <view class="news-avatar">
-            <image class='avatar' src="./images/logo.png"></image>
+            <image class='avatar' src="../../images/logo.png"></image>
           </view>
           <view class='news-content'>
             <view class='response-content'>
@@ -49,57 +54,48 @@
       <block wx:if="{{sendLoading}}">
         <view class="chat-news response">
           <view class="news-avatar">
-            <image class='avatar' src="./images/logo.png"></image>
-            <!-- <text class="name">软软</text> -->
+            <image class='avatar {{online? "":"offline"}}' src="../../images/logo.png"></image>
           </view>
           <block wx:if="{{currentMessage == ''}}">
             <view class='news-content'>
-              <view class='response-content new_txt loading1'>软软正在努力的思考中<image class="send-button-inner" src="./images/bars.svg"></image>
+              <view class='response-content new_txt loading1'>软软正在努力的思考中<image class="send-button-inner" src="../../images/bars.svg"></image>
               </view>
             </view>
           </block>
           <block wx:if="{{currentMessage != ''}}">
             <view class='news-content'>
-              <view class='response-content new_txt loading' style="white-space: pre-wrap">
-                {{currentMessage}}<i class="loading-blink">🖋</i>
+              <view class='response-content new_txt' style="white-space: pre-wrap">
+                <message-box type="text" text='{{currentMessage}}' content="" url="" thumbPicUrl="" title="" description=""></message-box>
+                <i class="loading-blink">🖋</i>
               </view>
             </view>
           </block>
         </view>
       </block>
       <block wx:if="{{newslist.length <= 0}}">
-        <view class="empty-message">输入类似"写一篇200字的描写杨树的短文"试试</view>
+        <view class="chat-news response">
+          <view class="news-avatar">
+            <image class='avatar {{online? "":"offline"}}' src="../../images/logo.png"></image>
+          </view>
+          <view class='news-content'>
+            <view class='response-content new_txt' style="white-space: pre-wrap">
+              <message-box type="text" text='您好，我是软软，我可以在以下帮助你：\n1. 写代码中的一些问题。\n2.写故事的大纲。\n3.写论文的思路。\n4.以及您能想到的都可以试着问我。' content="" url="" thumbPicUrl="" title="" description=""></message-box>
+            </view>
+          </view>
+        </view>
       </block>
     </scroll-view>
   </view>
 </view>
 <!-- 聊天输入 -->
 <view class="message">
-  <view class="tipBox">
-    <view class="left">
-      <view class="times" bindtap="timesOnTap">{{times}}</view>
-    </view>
-    <view class="right">
-      <view class="tipMessage">次数通过分享等增加.(有效分享才可以,有效是分享的链接有好友进入小程序.)</view>
-
-      <view class="tipItems">
-        <!-- <block wx:for="{{links}}" wx:key>
-          <view class="tipItem" bindtap='quickSend' data-msg="{{item.message}}">{{item.label}}</view>
-        </block> -->
-        <!-- <block wx:if="{{links.length <= 0}}">
-          <view class="tipItem" bindtap='quickSend' data-msg="黄历">今日黄历</view>
-          <view class="tipItem" bindtap='quickSend' data-msg="随机头像">随机头像</view>
-        </block> -->
-      </view>
-    </view>
-  </view>
   <form bindreset="cleanInput">
     <view class="sendMessage">
-      <!-- <view class="item button" bindtap='increase'>+</view> -->
-      <input id="message_intput" class="item input" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder="请输入聊天内容..." value="{{massage}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
-      <button form-type="reset" bindtap='send' class="item">
-        <view class="item button send-button">
-          <image class="send-button-inner" src="./images/send.svg"></image>
+      <view class="times" bindtap="timesOnTap">{{times}}</view>
+      <input id="message_intput" class="item input" placeholder-class="input-placeholder" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder='随便和软软聊点什么吧~' value="{{massage}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
+      <button form-type="reset" bindtap='send' class="item button">
+        <view class='item send-button {{online? "":"offline"}}'>
+          <image class="send-button-inner" src="../../images/send.png"></image>
         </view>
       </button>
     </view>

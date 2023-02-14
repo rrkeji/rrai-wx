@@ -1,15 +1,42 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/chat/chat",
     "pages/webview/webview",
-    "pages/docs/docs"
+    "pages/ai/ai",
+    "pages/docs/docs",
+    "pages/mine/mine",
+    "pages/chat/chat"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#499CFB",
     "navigationBarTitleText": "软软AI",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#A7E9BB",
+    "selectedColor": "#499CFB",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/chat/chat",
+        "iconPath": "images/bar_1_2.png",
+        "selectedIconPath": "images/bar_1_1.png",
+        "text": "软软"
+      },
+      {
+        "pagePath": "pages/ai/ai",
+        "iconPath": "images/bar_2_2.png",
+        "selectedIconPath": "images/bar_2_1.png",
+        "text": "AI"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "images/bar_3_2.png",
+        "selectedIconPath": "images/bar_3_1.png",
+        "text": "我的"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

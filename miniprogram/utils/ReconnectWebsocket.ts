@@ -18,25 +18,25 @@ class HeartCheck {
   constructor(getSocketFunc: () => any) {
     this.getSocket = getSocketFunc;
   }
-  reset() {
-    // clearTimeout(this.timeoutObj);
-    clearTimeout(this.serverTimeoutObj);
-    return this;
-  }
   PingStart() {
     var self = this;
+    clearTimeout(this.timeoutObj);
     this.timeoutObj = setTimeout(function () {
       //这里发送一个心跳，后端收到后，返回一个心跳消息，
       //onmessage拿到返回的心跳就说明连接正常
-      if (self.getSocket() != null && self.getSocket().readyState() ==
+      if (self.getSocket() != null && self.getSocket().readyState ==
         self.getSocket().OPEN) {
-        self.getSocket().send("PING")
+        self.getSocket().send({ data: "PING" })
+        self.PingStart();
+      } else {
+        console.log('----');
         self.PingStart();
       }
     }, this.pingTime) //10秒发送一次心跳
   }
   PongStart() {
     var self = this;
+    clearTimeout(this.serverTimeoutObj);
     self.serverTimeoutObj = setTimeout(function () { //如果超过一定时间还没重置，说明后端主动断开了
       if (self.getSocket() != null) {
         //console.log("服务器30秒没有响应，关闭连接")
@@ -75,10 +75,14 @@ export class ReconnectWebsocket {
   }) {
     console.log(options1);
     this.options = options1;
-    this.heartCheck = new HeartCheck(this.getSocket);
-    this.socketInit(true);
+    this.heartCheck = new HeartCheck(() => {
+      return this.getSocket();
+    });
+    setTimeout(() => {
+      this.socketInit(true);
+    }, 10);
   }
-  getSocket() {
+  getSocket = () => {
     return this.websocket;
   }
 
@@ -101,32 +105,46 @@ export class ReconnectWebsocket {
     }
   }
 
-  socketInit(reconnection = false) {
-    console.log('sssssss');
+  isOnline(): boolean {
+    return this.websocket !== null && this.websocket.readyState === this.websocket.OPEN;
+  }
+
+  async socketInit(reconnection = false) {
+    console.log('sssssss', this.websocket);
     if (this.websocket == null) {
-      this.websocket = wx.connectSocket({
-        url: 'wss://wsschat.idns.link',
-        header: {
-          "x-wx-openid": this.options.userId,
+      const { socketTask } = await wx.cloud.connectContainer({
+        "config": {
+          "env": "prod-5gwfszum5fc2702e"
         },
-        success: (res) => {
-          console.log('success', res);
-        },
-        fail: (res) => {
-          console.log('fail', res);
-        },
-        complete: (res) => {
-          console.log('complete', res);
-        },
-      });
-      this.websocket.onOpen = (res: any) => {
+        "service": "chat",
+        "path": "/"
+      })
+      this.websocket = socketTask;
+      // this.websocket = wx.connectSocket({
+      //   // url: 'wss://wsschat.idns.link',
+      //   url: 'ws://127.0.0.1:3000',
+      //   header: {
+      //     "x-wx-openid": this.options.userId,
+      //   },
+      //   success: (res) => {
+      //     console.log('success', res);
+      //   },
+      //   fail: (res) => {
+      //     console.log('fail', res);
+      //   },
+      //   complete: (res) => {
+      //     console.log('complete', res);
+      //   },
+      // });
+      this.websocket.onOpen((res: any) => {
+        console.log('onOpen', res);
         this.options.onOpen && this.options.onOpen(res);
-        this.websocket.send("PING")
+        this.websocket.send({ data: "PING" })
         this.heartCheck!.PingStart();
         //打开心跳检测
-        this.heartCheck!.reset().PongStart();
-      }
-      this.websocket.onError = (err: any) => {
+        this.heartCheck!.PongStart();
+      });
+      this.websocket.onError((err: any) => {
         this.options.onError && this.options.onError(err);
         //console.log(err);
         if (this.websocket != null) {
@@ -135,27 +153,37 @@ export class ReconnectWebsocket {
         } else {
           this.reconnect(); //打开自动重连
         }
-      }
-      this.websocket.onMessage = (res) => {
+      });
+      this.websocket.onMessage((res: any) => {
         try {
-          this.options.onMessage(res);
+          if (res.data && res.data === '$__PONE') {
+            //心跳报文不处理
+            return;
+          }
+          try {
+            //调用处理函数
+            this.options.onMessage(res);
+          } catch (error) {
+            console.log(error);
+          }
           if (this.websocket != null) {
             //拿到任何消息都说明当前连接是正常的 心跳检测重置
-            this.heartCheck!.reset().PongStart();
+            this.heartCheck!.PingStart();
+            this.heartCheck!.PongStart();
           }
         } catch (e) {
           console.log(e);
         }
-      };
+      });
 
-      this.websocket.onClose = (res) => {
+      this.websocket.onClose((res: any) => {
         //console.log("Connection closed.");
         this.options.onClose && this.options.onClose(res);
-        this.websocket.reconnect(); //打开自动重连
-      };
+        this.reconnect(); //打开自动重连
+      });
     } else {
       //状态判断
-      switch (this.websocket.readyState()) {
+      switch (this.websocket.readyState) {
         case this.websocket.CONNECTING: //表示正在连接。
           //console.log("正在连接");
           break;
@@ -165,13 +193,13 @@ export class ReconnectWebsocket {
         case this.websocket.CLOSING: //表示连接正在关闭。
           //console.log("正在关闭,1秒后再次尝试连接");
           setTimeout(() => {
-            this.websocket.socketInit();
+            this.socketInit();
           }, 1000);
           break;
         case this.websocket.CLOSED: //表示连接已经关闭，或者打开连接失败
           //console.log("已经关闭,再次连接");
           this.websocket = null;
-          this.websocket.socketInit(true);
+          this.socketInit(true);
           break;
         default:
           // this never happens

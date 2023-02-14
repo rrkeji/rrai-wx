@@ -7,6 +7,7 @@
   "author": "",
   "license": "",
   "dependencies": {
+    "lottiejs-miniapp": "^1.1.0"
   },
   "devDependencies": {
     "miniprogram-api-typings": "^2.12.0"

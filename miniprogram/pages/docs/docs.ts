@@ -1,6 +1,8 @@
 // index.ts
 // 获取应用实例
 Page({
+  inited: false,
+  ani: null,
   data: {
   },
   request: function (userid: string, msgid: string) {
@@ -14,8 +16,6 @@ Page({
       menus: ['shareAppMessage', 'shareTimeline']
     });
     //参数判断 {stype:'',userid:'',msgid:''}
-  },
-  onShow: function () {
   },
   onShareAppMessage: function (res) {
     const app = getApp<IAppOption>();

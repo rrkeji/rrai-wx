@@ -1,0 +1,50 @@
+/**ai.wxss**/
+.page {
+  width: 100%;
+  height: 100%;
+  background-color: #F5F5F5;
+}
+
+.container-ai {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-ai .title {
+  font-size: 28rpx;
+  text-align: center;
+  width: 100%;
+  margin-top: 60rpx;
+  color: #474747;
+}
+
+.container-ai .brain-list {
+  padding: 20rpx 20rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.container-ai .brain-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.container-ai .brain-item-title {
+  color: #474747;
+  line-height: 40rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.container-ai .brain-item-icon {
+  width: 200rpx;
+  height: 200rpx;
+}

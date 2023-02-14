@@ -1,4 +1,5 @@
 // chat.ts
+import { ReconnectWebsocket } from '../../utils/ReconnectWebsocket'
 Page({
   /**
    * 页面的初始数据
@@ -10,8 +11,9 @@ Page({
     message: "",
     currentMessage: "",
     sendLoading: false,
-    checkLoading: false,
-    wxyunSocket: <WechatMiniprogram.SocketTask | null>null,
+    online: false,
+    reWebSocket: <ReconnectWebsocket | null>null,
+    timeoutHandle: 0,
     times: 0,
   },
   /**
@@ -21,35 +23,40 @@ Page({
     const app = getApp<IAppOption>();
     let that = this;
     //从本地读取存储的数据
-    const messages = wx.getStorageSync('messages') || []
     this.setData({
-      newslist: messages,
-      wxyunSocket: wx.connectSocket({
-        url: 'wss://wsschat.idns.link',
-        header: {
-          "x-wx-openid": app.globalData.userId
-        },
-        success: (res) => {
-          console.log('success', res);
-        },
-        fail: (res) => {
-          console.log('fail', res);
-        },
-        complete: (res) => {
-          console.log('complete', res);
-        },
-      })
+      reWebSocket: new ReconnectWebsocket({
+        onMessage: this.onMessage,
+        onError: this.onError,
+        onClose: this.onClose,
+        onOpen: this.onOpen,
+        userId: app.globalData.userId!,
+      }),
+      timeoutHandle: setInterval(() => {
+        this.isOnline();
+      }, 1000),
     }, () => {
-      that.bottom();
-      this.initSocketEvent();
     });
-    //
-    this.getChatSocket();
-    this.refreshTimes();
-
     wx.showShareMenu({
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline']
+    });
+  },
+  onShow: function () {
+    const app = getApp<IAppOption>();
+    let that = this;
+    this.refreshTimes();
+    //从本地读取存储的数据
+    const messages = wx.getStorageSync('messages') || []
+    this.setData({
+      newslist: messages,
+    }, () => {
+      that.bottom();
+    });
+  },
+  isOnline: function () {
+    let res = this.data.reWebSocket?.isOnline();
+    this.setData({
+      online: res
     });
   },
   onShareAppMessage: function (res) {
@@ -98,11 +105,7 @@ Page({
   },
   // 页面卸载
   onUnload() {
-    wx.showToast({
-      title: '已与软软断开连接~',
-      icon: "none",
-      duration: 2000
-    })
+    clearInterval(this.data.timeoutHandle);
   },
   //快速点击
   quickSend: function (event: any) {
@@ -161,7 +164,7 @@ Page({
             sendLoading: true,
             message: ''
           }, () => {
-            flag.clearInput();
+            flag.cleanInput();
             flag.bottom();
             let socket = flag.getChatSocket();
             if (socket) {
@@ -215,6 +218,9 @@ Page({
   },
   cleanInput() {
     //button会自动清空，所以不能再次清空而是应该给他设置目前的input值
+    // const query = wx.createSelectorQuery()
+    // let input = query.select('#message_intput');
+    // console.log(input);
     this.setData({
       message: this.data.message
     })
@@ -287,70 +293,42 @@ Page({
 
   },
   getChatSocket: function () {
-    if (this.data.wxyunSocket != null) {
-      return this.data.wxyunSocket;
+    if (this.data.reWebSocket != null) {
+      return this.data.reWebSocket.getSocket();
     }
-    return this.data.wxyunSocket;
+    console.log('reWebSocket is null!');
+    const app = getApp<IAppOption>();
+    let reWebSocket = new ReconnectWebsocket({
+      onMessage: this.onMessage,
+      onError: this.onError,
+      onClose: this.onClose,
+      onOpen: this.onOpen,
+      userId: app.globalData.userId!,
+    });
+    this.setData({
+      reWebSocket: reWebSocket
+    });
+    return reWebSocket;
   },
-  initSocketEvent: function () {
+  onMessage: function (res: any) {
     let flag = this;
-    let wxyunSocket = this.data.wxyunSocket;
-    if (wxyunSocket === null) {
-      console.error('wxyunSocket为空');
-      return;
-    }
-    //与云端建立连接
-    wxyunSocket.onMessage(function (res: any) {
-      console.log("onMessage", res.data)
-      if (res.data === '$__rrai_ok') {
-        //完成
-        let list = flag.addMessageAndSync({
-          "sender": "response",
-          "text": flag.data.currentMessage.trim(),
-          "type": "text"
-        });
-        flag.setData({
-          newslist: list,
-          sendLoading: false,
-          currentMessage: "",
-        }, () => {
-          flag.bottom();
-          flag.refreshTimes();
-        });
-      } else if (res.data === '$__rrai_error') {
-        //错误
-        let list = flag.addMessageAndSync({
-          "sender": "response",
-          "text": '服务器开小差，联系不上软软同学了~',
-          "type": "text"
-        });
-        flag.setData({
-          newslist: list,
-          sendLoading: false,
-        }, () => {
-          flag.bottom();
-        });
-      } else {
-        //追加
-        flag.setData({
-          currentMessage: flag.data.currentMessage + res.data
-        }, () => {
-          flag.bottom();
-        });
-      }
-    })
-    wxyunSocket.onOpen(function (res) {
-      console.log('onOpen', res);
-      console.log('成功连接到服务器', res)
-    })
-    wxyunSocket.onClose(function (res) {
-      console.log('onClose', res);
-      flag.setData({
-        sendLoading: false,
+    console.log("onMessage", res.data)
+    if (res.data === '$__rrai_ok') {
+      //完成
+      let list = flag.addMessageAndSync({
+        "sender": "response",
+        "text": flag.data.currentMessage.trim(),
+        "type": "text"
       });
-    })
-    wxyunSocket.onError(function (res) {
-      console.log('onError', res);
+      flag.setData({
+        newslist: list,
+        sendLoading: false,
+        currentMessage: "",
+      }, () => {
+        flag.bottom();
+        flag.refreshTimes();
+      });
+    } else if (res.data === '$__rrai_error') {
       //错误
       let list = flag.addMessageAndSync({
         "sender": "response",
@@ -363,12 +341,31 @@ Page({
       }, () => {
         flag.bottom();
       });
-    });
+    } else {
+      //追加
+      flag.setData({
+        currentMessage: flag.data.currentMessage + res.data
+      }, () => {
+        flag.bottom();
+      });
+    }
   },
-  clearInput: function () {
-    // const query = wx.createSelectorQuery()
-    // let input = query.select('#message_intput');
-    // console.log(input);
+  onError: function (res) {
+    console.log(res);
+  },
+  onClose: function (res) {
+    this.stopWrite();
+  },
+  stopWrite: function () {
+    //发送请求
+    let message = this.data.currentMessage;
+    this.setData({
+      sendLoading: false,
+      currentMessage: '',
+      message: message
+    }, () => {
+      this.bottom();
+    });
   }
 })
 

@@ -1,8 +1,40 @@
 // index.ts
+import * as lottie from 'lottiejs-miniapp';
+import data from './data';
+
 // 获取应用实例
 Page({
+  inited: false,
+  ani: null,
   data: {
-    hi_text: '您好，我是软软AI智能机器人，你可以叫我“软软”。你可以对我说“写一个笑话”、“写一篇关于人工智能的短文”。',
+  },
+  // 初始化加载动画
+  init() {
+    if (this.inited) {
+      return
+    }
+    wx.createSelectorQuery().selectAll('#lottie_demo').node(res => {
+      const canvas = res[0].node
+      const context = canvas.getContext('2d')
+      canvas.width = 300
+      canvas.height = 300
+      lottie.setup(canvas)
+      this.ani = lottie.loadAnimation({
+        loop: true,
+        autoplay: true,
+        animationData: data,
+        rendererSettings: {
+          context,
+        },
+      })
+      this.inited = true
+    }).exec()
+  },
+  play() {
+    this.ani.play()
+  },
+  pause() {
+    this.ani.pause()
   },
   onLoad: function () {
     //设置分享
@@ -10,6 +42,10 @@ Page({
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline']
     });
+    // this.init();
+  },
+  onShow: function () {
+    // this.play();
   },
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
@@ -48,7 +84,7 @@ Page({
     //查看是否微信登录成功，查看是否有token
     const app = getApp<IAppOption>();
     if (app.globalData.jwtToken) {
-      wx.navigateTo({
+      wx.switchTab({
         url: '../chat/chat',
       });
       // wx.navigateTo({

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "message-box": "/components/message-box/message-box"
+  },
+  "navigationBarTitleText": "AI"
+}

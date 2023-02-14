@@ -1,0 +1,28 @@
+<!--mine.wxml-->
+<view class="container-mine">
+  <view class="mine-user-card">
+    <user-card avatar='../../images/logo.png' nickname='小虾米'></user-card>
+  </view>
+  <view class="mine-list">
+    <view class="mine-item">
+      <view class="mine-item-icon">
+        <image src="../../images/mine/delete.png"></image>
+      </view>
+      <view class="mine-item-title">清空记录</view>
+      <view class="mine-item-button" bindtap="onDelete">清空</view>
+    </view>
+    <!-- <view class="mine-item">
+      <view class="mine-item-icon">
+        <image src="./images/gz.png"></image>
+      </view>
+      <view class="mine-item-title">关注我们</view>
+      <view class="mine-item-button">去关注</view>
+    </view> -->
+    <view class="mine-item">
+      <view class="mine-item-icon">
+        <image src="../../images/mine/gz.png"></image>
+      </view>
+      <view class="mine-item-title">软件版本:0.3.12</view>
+    </view>
+  </view>
+</view>

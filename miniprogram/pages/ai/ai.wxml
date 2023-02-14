@@ -1,0 +1,10 @@
+<!--ai.wxml-->
+<view class="container-ai">
+  <view class="title">选择进行切换AI大脑</view>
+  <view class="brain-list">
+    <view class="brain-item">
+      <image class="brain-item-icon" src="../../images/logo.png"></image>
+      <view class="brain-item-title">ChatGPT</view>
+    </view>
+  </view>
+</view>

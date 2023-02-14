@@ -2,9 +2,7 @@
 
 .new_txt {
   display: inline;
-  line-height: 50rpx;
   background-color: #fff;
-  padding: 10rpx;
   border-radius: 10rpx;
 }
 
@@ -162,4 +160,8 @@
 .request-text {
   background-color: #95EC69;
   text-align: right;
+}
+
+.response-text {
+  background-color: #ECECEC;
 }

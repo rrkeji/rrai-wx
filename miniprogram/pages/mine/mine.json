@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "user-card": "/components/user-card/user-card"
+  },
+  "navigationBarTitleText": "我的"
+}

@@ -1,0 +1,5 @@
+<!-- 这是自定义组件的内部WXML结构 -->
+<view class='user-card'>
+  <image class="avatar" src="{{avatar}}"></image>
+  <view class="nickname">{{nickname}}</view>
+</view>

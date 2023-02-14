@@ -1,6 +1,6 @@
 /* pages/chat/chat.wxss */
 page {
-  background-color: #f3f3f3;
+  background-color: #ffffff;
   height: 100%;
 }
 
@@ -9,6 +9,34 @@ page {
   padding-top: 30rpx;
   text-align: center;
   box-sizing: border-box;
+}
+
+.tipBox {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  top: 0rpx;
+  z-index: 99;
+  width: 100%;
+  height: 70rpx;
+  background-color: #EEEEEE;
+  padding: 0 10rpx;
+}
+
+.tipBox .notice-icon {
+  height: 35rpx;
+  width: 35rpx;
+  margin-top: 18rpx;
+  margin-right: 10rpx;
+}
+
+.tipBox .tipMessage {
+  display: flex;
+  justify-content: flex-start;
+  color: #666;
+  font-size: 26rpx;
+  line-height: 70rpx;
+  white-space: nowrap;
 }
 
 .historycon {
@@ -58,14 +86,16 @@ page {
   border-radius: 10rpx;
   min-width: 76%;
   line-height: 48rpx;
+  padding: 10rpx;
 }
 
 .response-content {
-  background-color: #ffffff;
+  background-color: #ECECEC;
   text-align: left;
   border-radius: 10rpx;
   min-width: 76%;
   line-height: 48rpx;
+  padding: 10rpx;
 }
 
 .news-content {
@@ -82,7 +112,7 @@ page {
   flex-direction: row;
   justify-content: flex-end;
   border-top: 2rpx solid #dedede;
-  background-color: #ffffff;
+  background-color: #ECECEC;
 }
 
 .actions-bar-button {
@@ -102,7 +132,7 @@ page {
 }
 
 .news-avatar {
-  width: 60rpx;
+  width: 96rpx;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -124,8 +154,8 @@ page {
 
 .news-avatar .avatar {
   display: inline-block;
-  width: 60rpx;
-  height: 60rpx;
+  width: 96rpx;
+  height: 96rpx;
   border-radius: 50%;
 }
 
@@ -163,65 +193,12 @@ page {
   position: fixed;
   bottom: 0;
   width: 100%;
-  min-height: 240rpx;
-  background-color: #eee;
-}
-
-.tipBox {
-  display: flex;
-  flex-direction: row;
-  min-height: 110rpx;
-  border-top: 4rpx solid #FFFFFF;
-  border-bottom: 4rpx solid #FFFFFF;
-}
-
-.tipBox .left {
-  width: 180rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.tipBox .left .times {
-  width: 120rpx;
-  height: 80rpx;
-  text-align: center;
-  line-height: 80rpx;
-  background-color: #ff4d4f;
-  color: #FFFFFF;
-  border-radius: 10rpx;
-}
-
-.tipBox .right {
-  display: flex;
-  flex-direction: column;
-}
-
-.tipBox .right .tipMessage {
-  display: flex;
-  justify-content: flex-start;
-  color: #666;
-  font-size: 26rpx;
-  padding-top: 10rpx;
-  line-height: 42rpx;
-}
-
-.tipBox .right .tipItems {
-  display: flex;
-  flex-direction: row;
-}
-
-.tipBox .right .tipItems .tipItem {
-  color: #1677ff;
-  font-size: 30rpx;
-  line-height: 52rpx;
-  margin: 0rpx 10rpx;
-  text-decoration: underline;
+  min-height: 100rpx;
+  background-color: #FFFFFF;
 }
 
 .sendMessage {
   width: 100%;
-  padding: 0rpx 10rpx;
   height: 100rpx;
   display: flex;
   flex-direction: row;
@@ -234,38 +211,57 @@ page {
   z-index: 3;
 }
 
+.sendMessage .times {
+  height: 100rpx;
+  line-height: 100rpx;
+  padding: 0 10rpx;
+  background-color: #A7E9BB;
+  color: #FFFFFF;
+}
+
 .sendMessage .item {
-  display: inline-block;
+  display: flex;
   width: 80rpx;
   padding: 0;
-  background-color: #eee;
 }
 
 .sendMessage .input {
   flex-grow: 1;
   line-height: 30px;
   height: 36px;
-  background-color: #FFF;
-  border-radius: 8rpx;
-  padding: 0 10rpx;
+  background-color: #ECECEC;
+  border-radius: 40rpx;
+  padding: 0 20rpx;
   font-size: 28rpx;
-  color: #666;
+  color: #474747;
+  display: inline-block;
+}
+
+.sendMessage .input-placeholder {
+  font-size: 24rpx;
+  color: #474747;
+  margin-left: 15rpx;
+  font-weight: 500;
 }
 
 .sendMessage .button {
-  width: 48rpx;
-  height: 48rpx;
-  line-height: 48rpx;
-  font-size: 38rpx;
-  margin: 16rpx 10rpx 10rpx 4rpx;
-  text-align: center;
-  color: #000;
-  /* border: 1rpx solid #000; */
-  border-radius: 50%;
-  overflow: hidden;
+  background-color: #FFFFFF;
+  width: 120rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.send-button {}
+.sendMessage .send-button {
+  width: 80rpx;
+  height: 80rpx;
+  text-align: center;
+  background-color: #499CFB;
+  border-radius: 50%;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
 
 .send-button-inner {
   width: 52rpx;
@@ -301,8 +297,6 @@ page {
 }
 
 .loading {
-  background-color: #FFF;
-  color: #000000;
   display: inline;
   align-items: center;
   min-width: 240rpx;
@@ -324,7 +318,7 @@ page {
 }
 
 .loading-blink {
-  animation: blink 2s linear infinite;
+  animation: blink 0.5s linear infinite;
   -webkit-animation: loading-blink 0.5s linear infinite;
   -moz-animation: loading-blink 0.5s linear infinite;
   -ms-animation: loading-blink 0.5s linear infinite;
@@ -342,5 +336,22 @@ page {
 
   100% {
     color: #000000;
+  }
+}
+
+
+.offline {
+  border: 6rpx solid red;
+  box-sizing: border-box;
+  animation: offline 1s infinite ease;
+}
+
+@keyframes offline {
+  from {
+    border: 6rpx solid red;
+  }
+
+  to {
+    border: 0rpx solid red;
   }
 }

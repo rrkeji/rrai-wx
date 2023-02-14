@@ -3,6 +3,7 @@ App<IAppOption>({
   globalData: {
   },
   onLaunch() {
+    wx.cloud.init();
     // 登录
     wx.login({
       success(res) {
