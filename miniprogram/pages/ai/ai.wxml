@@ -1,10 +1,22 @@
 <!--ai.wxml-->
 <view class="container-ai">
   <view class="title">选择进行切换AI大脑</view>
-  <view class="brain-list">
-    <view class="brain-item">
-      <image class="brain-item-icon" src="../../images/logo.png"></image>
-      <view class="brain-item-title">ChatGPT</view>
+  <scroll-view scroll-x="true" style="width: 100%;">
+    <view class="brain-list">
+      <view bindtap="onItemTap" class="brain-item {{selected === 'ChatGPT_Text'? 'selected' :''}}" data-aitype="ChatGPT_Text">
+        <image class="brain-item-icon" src="../../images/logo.png"></image>
+        <view class="brain-item-title">ChatGPT文本</view>
+        <view wx:if="{{currentAIType==='ChatGPT_Text'}}" class="brain-item-current">(当前)</view>
+      </view>
+      <view bindtap="onItemTap" class="brain-item  {{selected === 'ChatGPT_Image'? 'selected' :''}}" data-aitype="ChatGPT_Image">
+        <image class="brain-item-icon" src="../../images/hj.png"></image>
+        <view class="brain-item-title">ChatGPT图片</view>
+        <view wx:if="{{currentAIType==='ChatGPT_Image'}}" class="brain-item-current">(当前)</view>
+      </view>
     </view>
+  </scroll-view>
+  <!-- 切换按钮 -->
+  <view>
+    <button bindtap="onSwitchAI"  class="brain-item-switch" disabled="{{currentAIType === selected}}">设置为当前</button>
   </view>
 </view>

@@ -12,12 +12,20 @@
         <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
           <view class='news-content'>
             <view class='request-content'>
-              <message-box sender="true" type="{{item.type}}" text="{{item.text}}" content="{{}}" url="{{}}" thumbPicUrl="{{}}" title="{{}}" description="{{}}"></message-box>
+              <message-request result="{{item.result == 0 ? true:false}}" type="{{item.type}}" text="{{item.text}}"></message-request>
+              <view class='actions-bar'>
+                <block wx:if="{{item.result > 0}}">
+                  <view class='actions-bar-button'>
+                    <button style="width:200rpx" plain="true" bindtap="onNewsResend" data-text="{{item.text}}">
+                      发送失败!重发
+                    </button>
+                  </view>
+                </block>
+              </view>
             </view>
           </view>
           <view class="news-avatar">
             <image class='avatar' src="../../images/logo.png"></image>
-
           </view>
         </view>
         <!-- AI  -->
@@ -27,11 +35,14 @@
           </view>
           <view class='news-content'>
             <view class='response-content'>
-              <message-box type="{{item.type}}" text="{{item.text}}" content="" url="" thumbPicUrl="" title="" description=""></message-box>
+              <block wx:if="{{item.type=='text'}}">
+                <message-box type="{{item.type}}" text="{{item.text}}" content="" url="" thumbPicUrl="" title="" description=""></message-box>
+              </block>
+              <block wx:if="{{item.type=='ChatGPTImage'}}">
+                <message-chatgpt-image images="{{item.text.data}}" type="{{item.type}}"></message-chatgpt-image>
+              </block>
+
               <view class='actions-bar'>
-                <!-- <view class='actions-bar-button' bindtap="onNewsCopyImage">
-                  复制图片
-                </view> -->
                 <block wx:if="{{item.type=='text'}}">
                   <view class='actions-bar-button'>
                     <button plain="true" bindtap="onNewsCopyText" data-text="{{item.text}}">
@@ -54,7 +65,7 @@
       <block wx:if="{{sendLoading}}">
         <view class="chat-news response">
           <view class="news-avatar">
-            <image class='avatar {{online? "":"offline"}}' src="../../images/logo.png"></image>
+            <image class='avatar' src="../../images/logo.png"></image>
           </view>
           <block wx:if="{{currentMessage == ''}}">
             <view class='news-content'>
@@ -75,7 +86,7 @@
       <block wx:if="{{newslist.length <= 0}}">
         <view class="chat-news response">
           <view class="news-avatar">
-            <image class='avatar {{online? "":"offline"}}' src="../../images/logo.png"></image>
+            <image class='avatar' src="../../images/logo.png"></image>
           </view>
           <view class='news-content'>
             <view class='response-content new_txt' style="white-space: pre-wrap">
@@ -93,8 +104,8 @@
     <view class="sendMessage">
       <view class="times" bindtap="timesOnTap">{{times}}</view>
       <input id="message_intput" class="item input" placeholder-class="input-placeholder" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder='随便和软软聊点什么吧~' value="{{massage}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
-      <button form-type="reset" bindtap='send' class="item button">
-        <view class='item send-button {{online? "":"offline"}}'>
+      <button form-type="reset" bindtap='send' class="item button" disabled="{{sendLoading}}">
+        <view class='item send-button {{sendLoading? "offline":""}}'>
           <image class="send-button-inner" src="../../images/send.png"></image>
         </view>
       </button>

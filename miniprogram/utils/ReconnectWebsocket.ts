@@ -26,7 +26,7 @@ class HeartCheck {
       //onmessage拿到返回的心跳就说明连接正常
       if (self.getSocket() != null && self.getSocket().readyState ==
         self.getSocket().OPEN) {
-        self.getSocket().send({ data: "PING" })
+        self.getSocket().send({ data: JSON.stringify({ "cmd": "Ping" }) })
         self.PingStart();
       } else {
         console.log('----');
@@ -49,9 +49,16 @@ class HeartCheck {
 export class ReconnectWebsocket {
   //
   websocket: any = null;
+
+  //
+  isBusy: boolean = false;
+
+  //
+  isSending: boolean = false;
+
   //
   options: {
-    onMessage: (res: any) => void;
+    onMessage: (cmd: string, data: any) => void;
     onOpen?: (res: any) => void;
     onError?: (res: any) => void;
     onClose?: (res: any) => void;
@@ -67,7 +74,7 @@ export class ReconnectWebsocket {
   heartCheck: HeartCheck | null = null;
 
   constructor(options1: {
-    onMessage: (res: any) => void;
+    onMessage: (cmd: string, data: any) => void;
     onOpen?: (res: any) => void;
     onError?: (res: any) => void;
     onClose?: (res: any) => void;
@@ -110,13 +117,12 @@ export class ReconnectWebsocket {
   }
 
   async socketInit(reconnection = false) {
-    console.log('sssssss', this.websocket);
     if (this.websocket == null) {
       const { socketTask } = await wx.cloud.connectContainer({
         "config": {
           "env": "prod-5gwfszum5fc2702e"
         },
-        "service": "chat",
+        "service": "chat2",
         "path": "/"
       })
       this.websocket = socketTask;
@@ -139,33 +145,45 @@ export class ReconnectWebsocket {
       this.websocket.onOpen((res: any) => {
         console.log('onOpen', res);
         this.options.onOpen && this.options.onOpen(res);
-        this.websocket.send({ data: "PING" })
+        this.websocket.send({ data: JSON.stringify({ "cmd": "Ping" }) })
         this.heartCheck!.PingStart();
         //打开心跳检测
         this.heartCheck!.PongStart();
       });
       this.websocket.onError((err: any) => {
         this.options.onError && this.options.onError(err);
-        //console.log(err);
-        if (this.websocket != null) {
-          //console.log("异常，关闭连接", err);
-          this.websocket.close();
-        } else {
-          this.reconnect(); //打开自动重连
-        }
+        console.log(err);
       });
       this.websocket.onMessage((res: any) => {
         try {
-          if (res.data && res.data === '$__PONE') {
+          let messageStr = res.data;
+          let messageObj: any = JSON.parse(messageStr);
+          console.log('接收到的数据:', messageObj);
+          if (messageObj.src === 'Ping') {
             //心跳报文不处理
-            return;
+          } else if (messageObj.cmd === 'Error') {
+            //错误
+            this.isBusy = false;
+            this.options.onError && this.options.onError(messageStr);
+          } else if (messageObj.cmd === 'Response' && messageObj.cmd !== '') {
+            //普通的命令返回
+            try {
+              //调用处理函数
+              this.isBusy = false;
+              this.options.onMessage(messageObj.src, messageObj.message);
+            } catch (error) {
+              console.log(error);
+            }
+          } else if (messageObj.cmd === 'Stream' && messageObj.cmd !== '') {
+            //Stream
+            try {
+              //调用处理函数
+              this.options.onMessage('Stream', messageObj.message);
+            } catch (error) {
+              console.log(error);
+            }
           }
-          try {
-            //调用处理函数
-            this.options.onMessage(res);
-          } catch (error) {
-            console.log(error);
-          }
+
           if (this.websocket != null) {
             //拿到任何消息都说明当前连接是正常的 心跳检测重置
             this.heartCheck!.PingStart();
@@ -173,6 +191,7 @@ export class ReconnectWebsocket {
           }
         } catch (e) {
           console.log(e);
+          this.options.onError && this.options.onError(e);
         }
       });
 
@@ -205,6 +224,38 @@ export class ReconnectWebsocket {
           // this never happens
           break;
       }
+    }
+  }
+
+  /**
+   * 
+   * @param command 
+   * @param data 
+   */
+  sendCommand = (command: string, data: any): number => {
+
+    if (this.websocket.readyState === this.websocket.OPEN) {
+      if (this.isSending) {
+        return 1;
+      }
+      this.isSending = true;
+      try {
+        this.websocket.send({
+          data: JSON.stringify({
+            cmd: command,
+            args: data
+          })
+        });
+      } catch (e) {
+        console.log(e);
+        //发送失败
+        return 2;
+      }
+      this.isSending = false;
+      this.isBusy = true;
+      return 0;
+    } else {
+      return 3;
     }
   }
 }

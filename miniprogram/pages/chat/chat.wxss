@@ -115,6 +115,12 @@ page {
   background-color: #ECECEC;
 }
 
+.request-content .actions-bar {
+  border-top: 2rpx solid #dedede;
+  background-color: #95EC69;
+}
+
+
 .actions-bar-button {
   height: 80rpx;
 }

@@ -1,5 +1,7 @@
 // chat.ts
 import { ReconnectWebsocket } from '../../utils/ReconnectWebsocket'
+import { messageSecCheck } from '../../services/message_service';
+
 Page({
   /**
    * 页面的初始数据
@@ -11,7 +13,6 @@ Page({
     message: "",
     currentMessage: "",
     sendLoading: false,
-    online: false,
     reWebSocket: <ReconnectWebsocket | null>null,
     timeoutHandle: 0,
     times: 0,
@@ -28,7 +29,6 @@ Page({
         onMessage: this.onMessage,
         onError: this.onError,
         onClose: this.onClose,
-        onOpen: this.onOpen,
         userId: app.globalData.userId!,
       }),
       timeoutHandle: setInterval(() => {
@@ -54,10 +54,6 @@ Page({
     });
   },
   isOnline: function () {
-    let res = this.data.reWebSocket?.isOnline();
-    this.setData({
-      online: res
-    });
   },
   onShareAppMessage: function (res) {
     const app = getApp<IAppOption>();
@@ -139,60 +135,29 @@ Page({
       return;
     }
     let msg = this.data.message;
+
     const app = getApp<IAppOption>();
 
     //消息安全检测
-    wx.request({
-      method: 'POST',
-      url: 'https://www.idns.link/rrai/wx/msg/check',
-      header: {
-        'content-type': 'text/plain',
-        'Authorization': app.globalData.jwtToken
-      },
-      data: msg,
-      success(res) {
-        let resObj = res.data as any;
-        if (resObj && resObj.code == 0) {
-          //发送请求
-          let list = flag.addMessageAndSync({
-            "sender": "client",
-            "text": msg,
-            "type": "text"
-          });
-          flag.setData({
-            newslist: list,
-            sendLoading: true,
-            message: ''
-          }, () => {
-            flag.cleanInput();
-            flag.bottom();
-            let socket = flag.getChatSocket();
-            if (socket) {
-              socket.send({ data: msg });
-            } else {
-              //发送请求
-              let list = flag.addMessageAndSync({
-                "sender": "client",
-                "text": '服务器开小差，联系不上软软同学了~',
-                "type": "text"
-              });
-              flag.setData({
-                newslist: list,
-                sendLoading: false,
-                message: ''
-              }, () => {
-                flag.bottom();
-              });
-            }
-          });
-        } else {
-          wx.showToast({
-            title: '消息不符合发言的规范,请重新编辑~',
-            icon: "none",
-            duration: 2000
-          });
-        }
-      }
+    messageSecCheck(msg, () => {
+      //安全检测成功
+      this._send(msg);
+
+    }, () => {
+      //不安全
+      wx.showToast({
+        title: '消息不符合发言的规范,请重新编辑~',
+        icon: "none",
+        duration: 2000
+      });
+    }, (code, message) => {
+      console.log(code, message);
+      //
+      wx.showToast({
+        title: '发言的规范检测失败,请重试~',
+        icon: "none",
+        duration: 2000
+      });
     });
   },
   //
@@ -221,9 +186,7 @@ Page({
     // const query = wx.createSelectorQuery()
     // let input = query.select('#message_intput');
     // console.log(input);
-    this.setData({
-      message: this.data.message
-    })
+
   },
   //聊天消息始终显示最底端
   bottom: function () {
@@ -251,8 +214,7 @@ Page({
       success(res) {
         console.log(res.data)
         that.setData({
-          times: res.data.times,
-          links: (res.data && res.data.links) ? res.data.links : [{ message: '黄历', label: '今日黄历' }, { message: '随机头像', label: '随机头像' }]
+          times: res.data.times
         });
       }
     });
@@ -286,34 +248,72 @@ Page({
       });
     }
   },
+  onNewsResend: function (event: any) {
+    if (event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.text) {
+      //重新发送
+      this._send(event.currentTarget.dataset.text);
+    }
+  },
+  _send: function (msg: string) {
+    let flag = this;
+
+    //进行发送
+    let socket = flag.data.reWebSocket;
+    if (socket) {
+      //进行发送
+      const currentAIType = wx.getStorageSync('CurrentAIType') || "ChatGPT_Text";
+      console.log(currentAIType);
+      let res = socket.sendCommand(currentAIType, {
+        "prompt": msg,
+      });
+      let sendResult = res;
+      if (res === 0) {
+        //发送成功
+        sendResult = res;
+      } else {
+        //发送失败
+        sendResult = res;
+      }
+      let list = flag.addMessageAndSync({
+        "sender": "client",
+        "result": sendResult,
+        "text": msg,
+        "type": "text"
+      });
+      flag.setData({
+        newslist: list,
+        sendLoading: sendResult === 0 ? true : false,
+        message: ''
+      }, () => {
+        flag.cleanInput();
+        flag.bottom();
+      });
+    } else {
+      //没有 socket 连接
+      wx.showToast({
+        title: '联系不到软软，请检测网络是否连接或者重新载入小程序~',
+        icon: "none",
+        duration: 2000
+      });
+    }
+  },
   onNewsCopyImage: function (event: any) {
 
   },
   onNewsShareImage: function (event: any) {
 
   },
-  getChatSocket: function () {
-    if (this.data.reWebSocket != null) {
-      return this.data.reWebSocket.getSocket();
-    }
-    console.log('reWebSocket is null!');
-    const app = getApp<IAppOption>();
-    let reWebSocket = new ReconnectWebsocket({
-      onMessage: this.onMessage,
-      onError: this.onError,
-      onClose: this.onClose,
-      onOpen: this.onOpen,
-      userId: app.globalData.userId!,
-    });
-    this.setData({
-      reWebSocket: reWebSocket
-    });
-    return reWebSocket;
-  },
-  onMessage: function (res: any) {
+  onMessage: function (cmd: string, data: any) {
     let flag = this;
-    console.log("onMessage", res.data)
-    if (res.data === '$__rrai_ok') {
+    console.log("onMessage", cmd, data)
+    if (cmd === 'Stream') {
+      //追加
+      flag.setData({
+        currentMessage: flag.data.currentMessage + data
+      }, () => {
+        flag.bottom();
+      });
+    } else if (cmd === 'ChatGPT_Text') {
       //完成
       let list = flag.addMessageAndSync({
         "sender": "response",
@@ -328,8 +328,24 @@ Page({
         flag.bottom();
         flag.refreshTimes();
       });
-    } else if (res.data === '$__rrai_error') {
-      //错误
+    } else if (cmd === 'ChatGPT_Image') {
+      //图片格式的处理
+      console.log(data, data.data);
+      let list = flag.addMessageAndSync({
+        "sender": "response",
+        "text": data,
+        "type": "ChatGPTImage"
+      });
+      flag.setData({
+        newslist: list,
+        sendLoading: false,
+        currentMessage: "",
+      }, () => {
+        flag.bottom();
+        flag.refreshTimes();
+      });
+    } else {
+      //完成
       let list = flag.addMessageAndSync({
         "sender": "response",
         "text": '服务器开小差，联系不上软软同学了~',
@@ -341,33 +357,79 @@ Page({
       }, () => {
         flag.bottom();
       });
-    } else {
-      //追加
-      flag.setData({
-        currentMessage: flag.data.currentMessage + res.data
-      }, () => {
-        flag.bottom();
-      });
     }
   },
   onError: function (res) {
     console.log(res);
+    this.stopWrite(true);
   },
   onClose: function (res) {
     this.stopWrite();
   },
-  stopWrite: function () {
+  stopWrite: function (error?: boolean) {
     //发送请求
     let message = this.data.currentMessage;
-    this.setData({
-      sendLoading: false,
-      currentMessage: '',
-      message: message
-    }, () => {
-      this.bottom();
-    });
+    let flag = this;
+
+    if (!this.data.sendLoading) {
+      //没有正在返回的，不处理
+      return;
+    }
+
+    if (message && message.length > 0) {
+      // 有正在输入的情况下
+      let list = flag.addMessageAndSync({
+        "sender": "response",
+        "text": flag.data.currentMessage.trim(),
+        "stop": error ? 1 : 0,
+        "type": "text"
+      });
+      flag.setData({
+        newslist: list,
+        sendLoading: false,
+        currentMessage: "",
+      }, () => {
+        flag.bottom();
+        flag.refreshTimes();
+      });
+    } else {
+      //当前没有正在输入的
+      if (error) {
+        let list = flag.addMessageAndSync({
+          "sender": "client",
+          "text": '服务器开小差，联系不上软软同学了~',
+          "type": "text"
+        });
+        flag.setData({
+          newslist: list,
+          sendLoading: false,
+        }, () => {
+          flag.bottom();
+        });
+      } else {
+        flag.setData({
+          sendLoading: false,
+        }, () => {
+        });
+      }
+    }
   }
 })
 
 
 
+
+
+// //发送请求
+// let list = flag.addMessageAndSync({
+//   "sender": "client",
+//   "text": '服务器开小差，联系不上软软同学了~',
+//   "type": "text"
+// });
+// flag.setData({
+//   newslist: list,
+//   sendLoading: false,
+//   message: ''
+// }, () => {
+//   flag.bottom();
+// });

@@ -2,6 +2,8 @@
 // 获取应用实例
 Page({
   data: {
+    currentAIType: 'ChatGPT_Text',
+    selected: 'ChatGPT_Text'
   },
   request: function (userid: string, msgid: string) {
     //获取消息的内容
@@ -16,6 +18,11 @@ Page({
     //参数判断 {stype:'',userid:'',msgid:''}
   },
   onShow: function () {
+    const currentAIType = wx.getStorageSync('CurrentAIType') || "ChatGPT_Text";
+    this.setData({
+      currentAIType: currentAIType,
+      selected: currentAIType
+    });
   },
   onShareAppMessage: function (res) {
     const app = getApp<IAppOption>();
@@ -55,4 +62,19 @@ Page({
   // 事件处理函数
   bindViewTap() {
   },
+  onItemTap(event: any) {
+    if (event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.aitype) {
+      console.log(event.currentTarget.dataset.aitype);
+      this.setData({
+        selected: event.currentTarget.dataset.aitype
+      });
+    }
+  },
+  onSwitchAI(event: any) {
+    //设置本地存储
+    wx.setStorageSync('CurrentAIType', this.data.selected);
+    this.setData({
+      currentAIType: this.data.selected
+    });
+  }
 })
