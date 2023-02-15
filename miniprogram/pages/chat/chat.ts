@@ -265,6 +265,7 @@ Page({
       console.log(currentAIType);
       let res = socket.sendCommand(currentAIType, {
         "prompt": msg,
+        "size":"1024x1024"
       });
       let sendResult = res;
       if (res === 0) {

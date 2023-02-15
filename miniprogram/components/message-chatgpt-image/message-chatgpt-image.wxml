@@ -1,4 +1,12 @@
 <!-- 这是自定义组件的内部WXML结构 -->
-<block wx:for="{{images}}" wx:key="item">
-  <image src="{{item.url}}"></image>
-</block>
+<view class="images-list">
+  <block wx:for="{{images}}" wx:key="item" wx:for-index='index'>
+    <block wx:if="{{errors[index] === true}}">
+      <view class="images-list-item-tip">图片已经过期</view>
+    </block>
+    <block wx:else="{{errors[index] === true}}">
+      <view class="images-list-item-tip">可以点击并长按保存图片，图片会过期</view>
+    </block>
+    <image class="images-list-item {{errors[index] === true ?'error':''}}" src="{{item.url}}" bindtap="onImageItemTap" data-index="{{index}}" data-url="{{item.url}}" binderror="onError"></image>
+  </block>
+</view>

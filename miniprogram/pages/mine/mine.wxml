@@ -22,7 +22,7 @@
       <view class="mine-item-icon">
         <image src="../../images/mine/gz.png"></image>
       </view>
-      <view class="mine-item-title">软件版本:0.3.15</view>
+      <view class="mine-item-title">软件版本:0.3.16</view>
     </view>
   </view>
 </view>

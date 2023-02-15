@@ -1,12 +1,19 @@
 /* components/message-box/message-box.wxss */
 
-.new_txt {
+.images-list {
   display: inline;
-  background-color: #fff;
   border-radius: 10rpx;
 }
 
-.request-text {
-  background-color: #95EC69;
+.images-list .images-list-item {
   text-align: right;
+}
+
+.images-list .images-list-item-tip {
+  font-size:24rpx;
+}
+
+.images-list .images-list-item.error {
+  width: 100rpx;
+  height: 100rpx;
 }
