@@ -1,6 +1,7 @@
 // index.ts
 import * as lottie from 'lottiejs-miniapp';
 import data from './data';
+import { getShareAppMessage } from '../../services/share_service';
 
 // 获取应用实例
 Page({
@@ -52,50 +53,16 @@ Page({
       // 来自页面内转发按钮
       console.log(res.target)
     }
-    const app = getApp<IAppOption>();
-    const promise = new Promise(resolve => {
-      wx.request({
-        method: 'GET',
-        url: 'https://www.idns.link/rrai/wx/share/msgid',
-        header: {
-          'content-type': 'text/plain',
-          'Authorization': app.globalData.jwtToken
-        },
-        success(res) {
-          console.log(res.data);
-          let data = res.data as Record<string, any>;
-          resolve({
-            title: '来软软AI,体验下智能对话!',
-            // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
-            path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId + '&smsgid=' + data.msg_id,
-          });
-        }
-      });
-    });
-    return {
-      title: '来软软AI,体验下智能对话!',
-      // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
-      path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId,
-      promise
-    };
+    return getShareAppMessage();
   },
   // 事件处理函数
   bindViewTap() {
     //查看是否微信登录成功，查看是否有token
-    const app = getApp<IAppOption>();
-    if (app.globalData.jwtToken) {
-      wx.switchTab({
-        url: '../chat/chat',
-      });
-      // wx.navigateTo({
-      //   url: '../docs/docs?stype=wxuser&userid=oZ3cl4xEzpiKYmL1-t-2DSGC-2j0&msgid=31',
-      // });
-    } else {
-      wx.showToast({
-        title: '微信登录小程序未完成或者失败，请重试~',
-        icon: "none",
-        duration: 2000
-      });
-    }
+    wx.switchTab({
+      url: '../chat/chat',
+    });
+    // wx.navigateTo({
+    //   url: '../docs/docs?stype=wxuser&userid=oZ3cl4xEzpiKYmL1-t-2DSGC-2j0&msgid=31',
+    // });
   },
 })

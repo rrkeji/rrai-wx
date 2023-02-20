@@ -1,24 +1,21 @@
-export const messageSecCheck = (msg: string, isOk: () => void, notOk: () => void, error: (code: number, message: string) => void) => {
+export const messageSecCheck = async (msg: string) => {
   const app = getApp<IAppOption>();
+  //进行安全检测
   //请求剩余次数等
-  wx.request({
-    method: 'POST',
-    url: 'https://www.idns.link/rrai/wx/msg/check',
-    header: {
-      'content-type': 'text/plain',
-      'Authorization': app.globalData.jwtToken
+  let res = await wx.cloud.callContainer({
+    "config": {
+      "env": "prod-5gwfszum5fc2702e"
     },
-    data: msg,
-    success(res) {
-      let resObj = res.data as any;
-      if (resObj && resObj.code == 0) {
-        isOk();
-      } else {
-        notOk()
-      }
+    "path": "/wx/msg/sec_check",
+    "header": {
+      "X-WX-SERVICE": "rrai",
+      "content-type": "application/json"
     },
-    fail() {
-      error(1, '系统错误');
+    "method": "POST",
+    "data": {
+      content: msg
     }
   });
+  console.log(res.data);
+  return res.data;
 }

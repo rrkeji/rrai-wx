@@ -118,30 +118,30 @@ export class ReconnectWebsocket {
 
   async socketInit(reconnection = false) {
     if (this.websocket == null) {
-      const { socketTask } = await wx.cloud.connectContainer({
-        "config": {
-          "env": "prod-5gwfszum5fc2702e"
+      // const { socketTask } = await wx.cloud.connectContainer({
+      //   "config": {
+      //     "env": "prod-5gwfszum5fc2702e"
+      //   },
+      //   "service": "chat",
+      //   "path": "/"
+      // })
+      // this.websocket = socketTask;
+      this.websocket = wx.connectSocket({
+        // url: 'wss://wsschat.idns.link',
+        url: 'ws://127.0.0.1:3000',
+        header: {
+          "x-wx-openid": this.options.userId,
         },
-        "service": "chat2",
-        "path": "/"
-      })
-      this.websocket = socketTask;
-      // this.websocket = wx.connectSocket({
-      //   // url: 'wss://wsschat.idns.link',
-      //   url: 'ws://127.0.0.1:3000',
-      //   header: {
-      //     "x-wx-openid": this.options.userId,
-      //   },
-      //   success: (res) => {
-      //     console.log('success', res);
-      //   },
-      //   fail: (res) => {
-      //     console.log('fail', res);
-      //   },
-      //   complete: (res) => {
-      //     console.log('complete', res);
-      //   },
-      // });
+        success: (res) => {
+          console.log('success', res);
+        },
+        fail: (res) => {
+          console.log('fail', res);
+        },
+        complete: (res) => {
+          console.log('complete', res);
+        },
+      });
       this.websocket.onOpen((res: any) => {
         console.log('onOpen', res);
         this.options.onOpen && this.options.onOpen(res);
@@ -157,15 +157,25 @@ export class ReconnectWebsocket {
       this.websocket.onMessage((res: any) => {
         try {
           let messageStr = res.data;
-          let messageObj: any = JSON.parse(messageStr);
-          console.log('接收到的数据:', messageObj);
+          console.log('接收到的数据:', messageStr, typeof (messageStr));
+          if (!messageStr) {
+            console.error("messageStr为空");
+            return;
+          }
+          let messageObj: any = {};
+          try {
+            messageObj = JSON.parse(messageStr);
+          } catch (error) {
+            console.error("解析json失败");
+            return;
+          }
           if (messageObj.src === 'Ping') {
             //心跳报文不处理
           } else if (messageObj.cmd === 'Error') {
             //错误
             this.isBusy = false;
             this.options.onError && this.options.onError(messageStr);
-          } else if (messageObj.cmd === 'Response' && messageObj.cmd !== '') {
+          } else if (messageObj.cmd === 'Response' && messageObj.src !== '') {
             //普通的命令返回
             try {
               //调用处理函数
@@ -174,7 +184,7 @@ export class ReconnectWebsocket {
             } catch (error) {
               console.log(error);
             }
-          } else if (messageObj.cmd === 'Stream' && messageObj.cmd !== '') {
+          } else if (messageObj.cmd === 'Stream' && messageObj.message !== '') {
             //Stream
             try {
               //调用处理函数
@@ -234,6 +244,7 @@ export class ReconnectWebsocket {
    */
   sendCommand = (command: string, data: any): number => {
 
+    console.log(this.websocket.readyState, this.websocket.OPEN);
     if (this.websocket.readyState === this.websocket.OPEN) {
       if (this.isSending) {
         return 1;

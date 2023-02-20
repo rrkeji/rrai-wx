@@ -1,4 +1,7 @@
 // ai.ts
+
+import { getShareAppMessage } from "../../services/share_service";
+
 // 获取应用实例
 Page({
   data: {
@@ -25,39 +28,7 @@ Page({
     });
   },
   onShareAppMessage: function (res) {
-    const app = getApp<IAppOption>();
-
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-      return;
-    }
-
-    const promise = new Promise(resolve => {
-      wx.request({
-        method: 'GET',
-        url: 'https://www.idns.link/rrai/wx/share/msgid',
-        header: {
-          'content-type': 'text/plain',
-          'Authorization': app.globalData.jwtToken
-        },
-        success(res) {
-          console.log(res.data);
-          let data = res.data as Record<string, any>;
-          resolve({
-            title: '来软软AI,体验下智能对话!',
-            // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
-            path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId + '&smsgid=' + data.msg_id,
-          });
-        }
-      });
-    });
-    return {
-      title: '来软软AI,体验下智能对话!',
-      // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
-      path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId,
-      promise
-    };
+    return getShareAppMessage();
   },
   // 事件处理函数
   bindViewTap() {

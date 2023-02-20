@@ -1,6 +1,7 @@
 // chat.ts
 import { ReconnectWebsocket } from '../../utils/ReconnectWebsocket'
 import { messageSecCheck } from '../../services/message_service';
+import { getShareAppMessage, getUserConfig } from '../../services/share_service';
 
 Page({
   /**
@@ -56,71 +57,11 @@ Page({
   isOnline: function () {
   },
   onShareAppMessage: function (res) {
-    const app = getApp<IAppOption>();
-    if (res.from === 'button') {
-      //消息上的分享
-      console.log(res.target);
-      if (res.target && res.target.dataset && res.target.dataset.msg_id > 0) {
-        //userid msgId
-        return {
-          title: '来软软AI,体验下智能对话!',
-          // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
-          path: '/pages/docs/docs?stype=wxuser&userid=' + app.globalData.userId + '&msgid=' + res.target.dataset.text,
-        };
-      } else {
-        return {
-          title: '来软软AI,体验下智能对话!',
-          // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
-          path: '/pages/docs/docs?stype=wxuser&userid=' + app.globalData.userId + '&msgid=0',
-        };
-      }
-    }
-    const promise = new Promise(resolve => {
-      wx.request({
-        method: 'GET',
-        url: 'https://www.idns.link/rrai/wx/share/msgid',
-        header: {
-          'content-type': 'text/plain',
-          'Authorization': app.globalData.jwtToken
-        },
-        success(res) {
-          resolve({
-            title: '来软软AI,体验下智能对话!',
-            // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
-            path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId + '&smsgid=' + res.data.msg_id,
-          });
-        }
-      });
-    });
-    return {
-      title: '来软软AI,体验下智能对话!',
-      // imageUrl: 'https://www.idns.link/statics/rrai/share_app.png',
-      path: '/pages/index/index?stype=wxuser&sid=' + app.globalData.userId,
-      promise
-    };
+    return getShareAppMessage();
   },
   // 页面卸载
   onUnload() {
     clearInterval(this.data.timeoutHandle);
-  },
-  //快速点击
-  quickSend: function (event: any) {
-    var flag = this;
-    if (event.currentTarget.dataset && event.currentTarget.dataset.msg) {
-      var list: any[] = []
-      list = flag.addMessageAndSync({
-        "sender": "client",
-        "text": event.currentTarget.dataset.msg,
-        "type": "text"
-      });
-
-      // socket.emit('user_uttered', { message: event.currentTarget.dataset.msg });
-      flag.setData({
-        newslist: list
-      }, () => {
-        flag.bottom();
-      });
-    }
   },
   //事件处理函数
   send: function () {
@@ -136,29 +77,37 @@ Page({
     }
     let msg = this.data.message;
 
-    const app = getApp<IAppOption>();
-
-    //消息安全检测
-    messageSecCheck(msg, () => {
-      //安全检测成功
-      this._send(msg);
-
-    }, () => {
-      //不安全
-      wx.showToast({
-        title: '消息不符合发言的规范,请重新编辑~',
-        icon: "none",
-        duration: 2000
+    try {
+      //消息安全检测
+      messageSecCheck(msg).then((res) => {
+        if (res && res.code === 0) {
+          //安全检测成功
+          this._send(msg);
+        } else {
+          //
+          wx.showToast({
+            title: '发言的规范检测失败,请重试~',
+            icon: "none",
+            duration: 2000
+          });
+        }
+      }).catch((e) => {
+        //
+        wx.showToast({
+          title: '发言的规范检测失败,请重试~',
+          icon: "none",
+          duration: 2000
+        });
       });
-    }, (code, message) => {
-      console.log(code, message);
+
+    } catch (e) {
       //
       wx.showToast({
         title: '发言的规范检测失败,请重试~',
         icon: "none",
         duration: 2000
       });
-    });
+    }
   },
   //
   bindConfirm(event: any) {
@@ -201,23 +150,14 @@ Page({
   },
   //刷新次数
   refreshTimes: function () {
-    const app = getApp<IAppOption>();
-    let that = this;
     //请求剩余次数等
-    wx.request({
-      method: 'GET',
-      url: 'https://www.idns.link/rrai/wx/share/times',
-      header: {
-        'content-type': 'text/plain',
-        'Authorization': app.globalData.jwtToken
-      },
-      success(res) {
-        console.log(res.data)
-        that.setData({
-          times: res.data.times
-        });
-      }
-    });
+    const callback = async () => {
+      let userConfig = await getUserConfig();
+      this.setData({
+        times: userConfig.times
+      });
+    }
+    callback();
   },
   timesOnTap: function () {
     // wx.shareAppMessage({
@@ -265,7 +205,7 @@ Page({
       console.log(currentAIType);
       let res = socket.sendCommand(currentAIType, {
         "prompt": msg,
-        "size":"1024x1024"
+        "size": "1024x1024"
       });
       let sendResult = res;
       if (res === 0) {
