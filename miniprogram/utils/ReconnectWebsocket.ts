@@ -1,11 +1,6 @@
 // 每隔5秒向服务端发送消息"ping",服务端接收到消息后给我们回个话"pong"
 // 如果超过5秒服务端还没回复“pong”，则认为连接断开的（将启动重连）
 class HeartCheck {
-  lockReconnect = false;//避免ws重复连接
-  maxReconnectionDelay = 30 * 60000;//最大重连时间
-  minReconnectionDelay = 10 * 1000; //最小重连时间
-  reconnectionDelayGrowFactor = 1.5; //自动重连失败后重连时间倍数增长
-  connectionTimeout = 10 * 1000;//重连时间
   pongTime = 30 * 1000; //30秒接收心跳
   pingTime = (30 * 1000 / 10) * 8;//30秒向服务器发送心跳
   timeoutObj = 0;//Ping定时器
@@ -91,25 +86,6 @@ export class ReconnectWebsocket {
   }
   getSocket = () => {
     return this.websocket;
-  }
-
-  reconnect() {
-    //避免ws重复连接
-    if (this.heartCheck!.lockReconnect)
-      return;
-    this.heartCheck!.lockReconnect = true;
-
-    setTimeout(() => {
-      //没连接上会一直重连，设置延迟避免请求过多
-      this.socketInit(true);
-      this.heartCheck!.lockReconnect = false;
-    }, this.heartCheck!.connectionTimeout);
-
-    if (this.heartCheck!.connectionTimeout >= this.heartCheck!.minReconnectionDelay && this.heartCheck!.connectionTimeout < this.heartCheck!.maxReconnectionDelay) {
-      this.heartCheck!.connectionTimeout = this.heartCheck!.connectionTimeout * this.heartCheck!.reconnectionDelayGrowFactor
-    } else {
-      this.heartCheck!.connectionTimeout = this.heartCheck!.minReconnectionDelay;
-    }
   }
 
   isOnline(): boolean {
@@ -208,7 +184,9 @@ export class ReconnectWebsocket {
       this.websocket.onClose((res: any) => {
         //console.log("Connection closed.");
         this.options.onClose && this.options.onClose(res);
-        this.reconnect(); //打开自动重连
+        setTimeout(() => {
+          this.socketInit();
+        }, 1000);
       });
     } else {
       //状态判断
