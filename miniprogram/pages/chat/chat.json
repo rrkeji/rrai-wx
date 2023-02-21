@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "message-box": "/components/message-box/message-box",
-    "message-request": "/components/message-request/message-request",
-    "message-chatgpt-image": "/components/message-chatgpt-image/message-chatgpt-image"
-  },
-  "navigationBarTitleText": "软软"
-}

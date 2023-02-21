@@ -1,0 +1,6 @@
+<!--pkg_prompts/components/header/index.wxml-->
+<view>
+  <view>推荐</view>
+  <view>大家</view>
+  <view>我的</view>
+</view>

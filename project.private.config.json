@@ -3,7 +3,7 @@
   "projectname": "rrai-wx",
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": false
+    "urlCheck": true
   },
   "libVersion": "2.30.0"
 }

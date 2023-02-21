@@ -1,42 +1,36 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/webview/webview",
-    "pages/ai/ai",
-    "pages/docs/docs",
-    "pages/mine/mine",
-    "pages/chat/chat"
+    "pages/webview/webview"
+  ],
+  "subpackages": [
+    {
+      "root": "pkg_rr",
+      "pages": [
+        "pages/chat/chat",
+        "pages/rr/rr",
+        "pages/image-edit/image-edit"
+      ]
+    },
+    {
+      "root": "pkg_mine",
+      "pages": [
+        "pages/mine/mine",
+        "pages/ai/ai"
+      ]
+    },
+    {
+      "root": "pkg_prompts",
+      "pages": [
+        "pages/prompts/prompts"
+      ]
+    }
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#499CFB",
     "navigationBarTitleText": "软软AI",
     "navigationBarTextStyle": "white"
-  },
-  "tabBar": {
-    "color": "#A7E9BB",
-    "selectedColor": "#499CFB",
-    "backgroundColor": "#FFFFFF",
-    "list": [
-      {
-        "pagePath": "pages/chat/chat",
-        "iconPath": "images/bar_1_2.png",
-        "selectedIconPath": "images/bar_1_1.png",
-        "text": "软软"
-      },
-      {
-        "pagePath": "pages/ai/ai",
-        "iconPath": "images/bar_2_2.png",
-        "selectedIconPath": "images/bar_2_1.png",
-        "text": "AI"
-      },
-      {
-        "pagePath": "pages/mine/mine",
-        "iconPath": "images/bar_3_2.png",
-        "selectedIconPath": "images/bar_3_1.png",
-        "text": "我的"
-      }
-    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

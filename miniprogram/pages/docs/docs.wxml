@@ -1,9 +1,0 @@
-<!--docs.wxml-->
-<view class="container">
-  <!-- <view style="text-align: center;">
-    <canvas id="lottie_demo" type="2d" style="display: inline-block; width: 300px; height: 300px;" />
-    <button bindtap="init" style="width: 300px;">初始化</button>
-    <button bindtap="play" style="width: 300px;">播放</button>
-    <button bindtap="pause" style="width: 300px;">暂停</button>
-  </view> -->
-</view>

@@ -1,0 +1,16 @@
+/**mine.wxss**/
+page {
+  background-color: #F5F5F5;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

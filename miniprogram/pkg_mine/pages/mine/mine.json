@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "tab-bar": "/components/tab-bar/tab-bar",
+    "c-bar": "/components/c-bar/index",
+    "user-card": "/components/user-card/user-card"
+  },
+  "navigationBarTitleText": "我的"
+}

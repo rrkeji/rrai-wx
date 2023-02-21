@@ -4,7 +4,7 @@
 }
 
 .rr-avatar {
-  margin-top:80rpx;
+  margin-top: 80rpx;
   overflow: hidden;
   width: 480rpx;
   height: 480rpx;
@@ -14,21 +14,22 @@
   background-color: #A7E9BB;
   color: #717372;
   font-weight: 600;
-  font-size:20rpx;
-  width:300rpx;
-  padding:16rpx 40rpx;
-  margin-top:40rpx;
+  font-size: 20rpx;
+  width: 300rpx;
+  padding: 16rpx 40rpx;
+  margin-top: 40rpx;
   border-radius: 36rpx;
 }
 
 .hi_text0 {
-  margin-top:40rpx;
+  margin-top: 40rpx;
   text-indent: 20px;
-  line-height: 30px;  
+  line-height: 30px;
   color: #717372;
   font-size: 26rpx;
   font-weight: 400;
 }
+
 .hi_text {
   text-indent: 20px;
   line-height: 20px;
@@ -43,7 +44,7 @@
   width: 100%;
   text-align: center;
   margin: 0 auto;
-  margin-top:60rpx;
+  margin-top: 60rpx;
 }
 
 .entry-button {
@@ -54,14 +55,15 @@
   align-items: center;
 }
 
-.entry-button .bg{
-  height:100rpx;
-  width:480rpx;
+.entry-button .bg {
+  height: 100rpx;
+  width: 480rpx;
   border-radius: 60rpx;
   background-color: #499CFB;
 }
-.entry-button .img{
-  height:76rpx;
-  width:220rpx;
+
+.entry-button .img {
+  height: 76rpx;
+  width: 220rpx;
   position: absolute;
 }

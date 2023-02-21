@@ -1,0 +1,116 @@
+<!--pages/chat/chat.wxml-->
+<!-- <c-bar id="c-bar" title="{{title}}" showBack="true" showHome="true"></c-bar> -->
+<view class="container" style="{{mainHeight}}">
+  <view class="tipBox">
+    <view class="tipMessage">
+      <image class='notice-icon' src="../../../images/notice.png"></image>1. 您可以通过分享、浏览广告增加使用次数.
+    </view>
+  </view>
+  <view class="historycon">
+    <scroll-view enable-flex scroll-y="true" class="history" scroll-top="{{scrollTop}}">
+      <block wx:for="{{newslist}}" wx:key="item">
+        <!--send  -->
+        <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
+          <view class='news-content'>
+            <view class='request-content'>
+              <message-request result="{{item.result == 0 ? true:false}}" type="{{item.type}}" text="{{item.text}}"></message-request>
+              <view class='actions-bar'>
+                <block wx:if="{{item.result > 0}}">
+                  <view class='actions-bar-button'>
+                    <button style="width:200rpx" plain="true" bindtap="onNewsResend" data-text="{{item.text}}">
+                      发送失败!重发
+                    </button>
+                  </view>
+                </block>
+              </view>
+            </view>
+          </view>
+          <view class="news-avatar">
+            <image class='avatar' src="../../../images/logo.png"></image>
+          </view>
+        </view>
+        <!-- AI  -->
+        <view class="chat-news response" wx:else>
+          <view class="news-avatar">
+            <image class='avatar' src="../../../images/logo.png"></image>
+          </view>
+          <view class='news-content'>
+            <view class='response-content'>
+              <block wx:if="{{item.type=='text'}}">
+                <message-box type="{{item.type}}" text="{{item.text}}" content="" url="" thumbPicUrl="" title="" description=""></message-box>
+              </block>
+              <block wx:if="{{item.type=='ChatGPTImage'}}">
+                <message-chatgpt-image images="{{item.text.data}}" type="{{item.type}}"></message-chatgpt-image>
+              </block>
+
+              <view class='actions-bar'>
+                <block wx:if="{{item.type=='text'}}">
+                  <view class='actions-bar-button'>
+                    <button plain="true" bindtap="onNewsCopyText" data-text="{{item.text}}">
+                      复制
+                    </button>
+                  </view>
+                </block>
+                <block wx:if="{{item.msg_id > 0}}">
+                  <view class='actions-bar-button'>
+                    <button plain="true" open-type="share" bindtap="onNewsShareImage" data-msgId="{{item.msg_id}}">
+                      分享
+                    </button>
+                  </view>
+                </block>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:if="{{sendLoading}}">
+        <view class="chat-news response">
+          <view class="news-avatar">
+            <image class='avatar' src="../../../images/logo.png"></image>
+          </view>
+          <block wx:if="{{currentMessage == ''}}">
+            <view class='news-content'>
+              <view class='response-content new_txt loading1'>软软正在努力的思考中<image class="send-button-inner" src="../../../images/bars.svg"></image>
+              </view>
+            </view>
+          </block>
+          <block wx:if="{{currentMessage != ''}}">
+            <view class='news-content'>
+              <view class='response-content new_txt' style="white-space: pre-wrap">
+                <message-box type="text" text='{{currentMessage}}' content="" url="" thumbPicUrl="" title="" description=""></message-box>
+                <i class="loading-blink">🖋</i>
+              </view>
+            </view>
+          </block>
+        </view>
+      </block>
+      <block wx:if="{{newslist.length <= 0}}">
+        <view class="chat-news response">
+          <view class="news-avatar">
+            <image class='avatar' src="../../../images/logo.png"></image>
+          </view>
+          <view class='news-content'>
+            <view class='response-content new_txt' style="white-space: pre-wrap">
+              <message-box type="text" text='您好，我是软软，我可以在以下帮助你：\n1. 写代码中的一些问题。\n2.写故事的大纲。\n3.写论文的思路。\n4.以及您能想到的都可以试着问我。' content="" url="" thumbPicUrl="" title="" description=""></message-box>
+            </view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+  <!-- 聊天输入 -->
+  <view class="message">
+    <form bindreset="cleanInput">
+      <view class="sendMessage">
+        <view class="times" bindtap="timesOnTap">{{times}}</view>
+        <input id="message_intput" class="item input" placeholder-class="input-placeholder" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder='随便和软软聊点什么吧~' value="{{massage}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
+        <button form-type="reset" bindtap='send' class="item button" disabled="{{sendLoading}}">
+          <view class='item send-button {{sendLoading? "offline":""}}'>
+            <image class="send-button-inner" src="../../../images/send.png"></image>
+          </view>
+        </button>
+      </view>
+    </form>
+  </view>
+</view>
+<tab-bar id="f-bar" idx="1"></tab-bar>
