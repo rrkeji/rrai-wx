@@ -1,4 +1,6 @@
 // pkg_rr/pages/image-edit/image-edit.ts
+import { FormData } from '../../../utils/form-data';
+
 Page({
 
   /**
@@ -126,17 +128,10 @@ Page({
     let _this = this;
     console.log(path);
     _this.setData({
-      imageList: [path, path],
-      resultList: [path, path]
+      imageList: [path]
     })
+
     return;
-    let { ossUrl } = this.data.form;
-    console.log(ossUrl)
-    wx.showToast({
-      icon: "loading",
-      title: "正在上传"
-    }),
-      
   },
   // 删除图片
   removeChooseImage(e) {
@@ -160,52 +155,67 @@ Page({
   },
   onSubmit() {
 
+    const app = getApp<IAppOption>();
+
+    wx.showToast({
+      icon: "loading",
+      title: "正在上传"
+    });
+    let formData = new FormData();
+
+    formData.append('prompt', '肖像，一名士兵，写实的面向镜头的。');
+    formData.appendFile('image', this.data.imageList[0], 'image.png');
+
+    let data = formData.getData();
+
     //将本地资源上传到服务器
-    wx.uploadFile({
-      url: baseUrl,    // 开发者服务器地址
-      filePath: path,   // 要上传文件资源的路径 (本地路径)
-      name: 'editormd-image-file',   // 文件对应的 key，开发者在服务端可以通过这个 key 获取文件的二进制内容
+    // wx.cloud.callContainer({
+    //   "config": {
+    //     "env": "prod-5gwfszum5fc2702e"
+    //   },
+    //   "path": "/openai/images/edits",
+    //   "header": {
+    //     "X-WX-SERVICE": "rrai",
+    //     "content-type": data.contentType
+    //   },
+    //   "method": "POST",
+    //   "data": data.buffer
+    // }).then((res) => {
+    //   console.log(res);
+    //   wx.hideToast(); //隐藏Toast
+    // }).catch((err) => {
+    //   console.log(err);
+    //   wx.showToast({
+    //     title: '上传失败',
+    //     icon: 'none'
+    //   })
+    // });
+    wx.request({
+      // url: 'https://rrai-29154-7-1315753304.sh.run.tcloudbase.com/openai/images/edits',
+      url: 'http://localhost/openai/images/edits',
+      "method": "POST",
       header: {
-        // HTTP 请求 Header，Header 中不能设置 Referer
-        "Content-Transfer-Encoding": "binary",
-        "Content-Type": "application/octet-stream",
-        "Content-Disposition": "form-data"
+        "Env": "prod-5gwfszum5fc2702e",
+        "X-WX-SERVICE": "rrai",
+        "x-wx-openid": app.globalData.userId,
+        'content-type': data.contentType
       },
-      formData: {
-        //和服务器约定的token, 一般也可以放在header中
-        'token': wx.getStorageSync('userData').token,
-      },
-      success: function (res) {
-        console.log(res)
-        // 判断下
-        if (res && res.data) {
-          const data = JSON.parse(res.data);
-          if (res.statusCode != 200) {
-            wx.showToast({
-              title: data.responseBody.data.message,
-              icon: 'none'
-            })
-            return;
-          } else {
-            if (!!data.responseBody.data) {
-              ossUrl.push(data.responseBody.data.url);
-              _this.setData({
-                imageList: ossUrl,
-                'form.ossUrl': ossUrl
-              })
-            }
-          }
+      data: data.buffer,
+      success: (res) => {
+        console.log(res);
+        if (res && res.statusCode == 200) {
+          wx.hideToast(); //隐藏Toast
+        } else {
+          //请求失败
+          wx.showToast({
+            title: '提交失败',
+            icon: 'none'
+          });
         }
       },
-      fail: function (e) {
-        wx.showToast({
-          title: '上传失败',
-          icon: 'none'
-        })
-      },
-      complete: function () {
-        wx.hideToast(); //隐藏Toast
+      fail: (err) => {
+        console.log(err);
       }
-    })
+    });
   }
 })

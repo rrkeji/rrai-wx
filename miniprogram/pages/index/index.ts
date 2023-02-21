@@ -1,5 +1,6 @@
 // index.ts
 import { getShareAppMessage } from '../../services/share_service';
+import { FormData } from '../../utils/form-data';
 
 // 获取应用实例
 Page({

@@ -1,4 +1,6 @@
 // app.ts
+import { getUserConfig } from './services/share_service';
+
 App<IAppOption>({
   globalData: {
     systemInfo: wx.getSystemInfoSync() || {},
@@ -8,6 +10,12 @@ App<IAppOption>({
   async onLaunch() {
     //初始化云
     wx.cloud.init();
+    //
+    let res = await getUserConfig();
+    console.log(res);
+    if (res && res.user_id) {
+      this.globalData.userId = res.user_id;
+    }
   },
   async onShow(ops) {
     // 分享统计放到此处的目的是因为热启动会不走onload，导致统计不准确。
@@ -48,4 +56,4 @@ App<IAppOption>({
         }) : rs(0)
     });
   }
-})
+});

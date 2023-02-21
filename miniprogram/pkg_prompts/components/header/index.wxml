@@ -1,6 +1,14 @@
 <!--pkg_prompts/components/header/index.wxml-->
-<view>
-  <view>推荐</view>
-  <view>大家</view>
-  <view>我的</view>
-</view>
+<mp-tabs tabs="{{tabs}}" activeTab="{{activeTab}}" tabClass="tab-class" swiperClass="tab-swiper" tabUnderlineColor="#07c160" tabActiveTextColor="#000000" tabInactiveTextColor="#000000" tabBackgroundColor="#ffffff" bindtabclick="onTabClick" bindchange="onChange" activeClass="tab-active">
+  <block wx:for="{{tabs}}" wx:key="title">
+    <view class="tab-content" data-set="{{item}}" slot="tab-content-{{index}}" bind:tap="handleClick">
+      <image src="{{item.img}}" mode="widthFix"></image>
+      <view class="item-title">
+        {{item.title2}}
+      </view>
+      <view class="item-desc">
+        {{item.desc}}
+      </view>
+    </view>
+  </block>
+</mp-tabs>

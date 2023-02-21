@@ -17,3 +17,7 @@ page {
   flex-direction: column;
   align-items: center;
 }
+
+.container-prompts .header {
+  width: 100%;
+}

@@ -1,1 +1,13 @@
 /* pkg_prompts/components/header/index.wxss */
+
+.tab-class {
+  width: 100%;
+  background-color: #000;
+  width: 200rpx;
+}
+.tab-swiper{
+  width: 100%;
+}
+.tab-active{
+
+}

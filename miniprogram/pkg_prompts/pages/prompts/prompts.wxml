@@ -1,6 +1,9 @@
 <!--mine.wxml-->
 <!-- <c-bar id="c-bar" title="{{title}}" showBack="true" showHome="true"></c-bar> -->
 <view class="container-prompts" style="{{mainHeight}}">
-  <prompts-header></prompts-header>
+  <view class="header">
+    <prompts-header></prompts-header>
+  </view>
+
 </view>
 <tab-bar id="f-bar" idx="0"></tab-bar>

@@ -1,9 +1,13 @@
 // mine.ts
 import { getShareAppMessage } from "../../../services/share_service";
+import { PromptEntity, getRecommendList } from '../../services/prompts_service';
 
 // 获取应用实例
 Page({
   data: {
+    recommendList: <Array<PromptEntity>>[],
+    myPrompts: <Array<PromptEntity>>[],
+    prompts: <Array<PromptEntity>>[],
   },
   request: function (userid: string, msgid: string) {
     //获取消息的内容
