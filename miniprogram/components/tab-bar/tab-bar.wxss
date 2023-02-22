@@ -7,11 +7,12 @@
 }
 
 .tabBar {
-  width: 100%;
   position: fixed;
+  width: 100%;
   bottom: 0;
   font-size: 20rpx;
   color: #8A8A8A;
+  z-index: 99;
 }
 
 .shadow {
@@ -288,6 +289,7 @@
   background-color: #499CFB;
   color: #fff;
 }
+
 .text-normal .bg-rr {
   background-color: #A7E8BB;
   color: #fff;
