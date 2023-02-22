@@ -1,10 +1,12 @@
 // 获取应用实例
 const utils = require("coolui-scroller/index.js");
 
+import { getPromptsCategories, PromptsCategory, searchPrompts } from '../../services/prompts_service';
+
 Page({
   data: {
     isEmpty: true,
-    list: [],
+    list: <Array<Array<any>>>[],
     baseConfig: {
       shake: true, // 是否开启下拉震动
       height: 70,
@@ -38,28 +40,7 @@ Page({
       img: "/images/empty.png",
       text: "暂无文章",
     },
-    nav: [
-      {
-        id: 1,
-        title: "全部",
-      },
-      {
-        id: 2,
-        title: "推荐",
-      },
-      {
-        id: 3,
-        title: "头像",
-      },
-      {
-        id: 4,
-        title: " 作业",
-      },
-      {
-        id: 5,
-        title: "资讯",
-      },
-    ],
+    nav: <Array<PromptsCategory>>[],
     active: 0,
     key: "",
   },
@@ -69,7 +50,7 @@ Page({
   pageHeightArr: [],
   totalPageNum: 0,
   param: {
-    limit: 4,
+    page_size: 10,
     page: 0,
   },
   //-----
@@ -84,9 +65,23 @@ Page({
     this.totalPageNum = 0;
     // 设置分页
     this.param = {
-      limit: 4,
+      page_size: 10,
       page: 0,
     };
+    //获取分类
+    getPromptsCategories().then((res: any) => {
+      this.setData({
+        nav: [{
+          id: 0,
+          title: '全部',
+          category: '全部',
+          icon: null,
+          ctype: null,
+        }].concat(res)
+      });
+    }).catch(() => {
+
+    });
     this.getList();
   },
   /**
@@ -102,6 +97,8 @@ Page({
         loadMoreSetting,
       });
       const page = this.param.page;
+      const pageSize = this.param.page_size;
+
       this.currentRenderIndex = page;
       if (than.totalPageNum > 0 && page == than.totalPageNum) {
         const loadMoreSetting = than.data.loadMoreSetting;
@@ -111,47 +108,41 @@ Page({
         });
       } else {
         //  获取远程数据可换成自己封装的请求方法
-        
-        wx.request({
-          url: "https://api.wzs.pub/mock/21/list",
-          data: {
-            page: page + 1,
-            limit: 5,
-            isempty: 0, // 设置为1可测试空数据
-            pagenum: 10,
-          },
-          method: "get",
-          success(res) {
-            if (res.data.code === 200) {
-              // than.scroller.getData(res.data.data.list)
-              // console.log(res.data.data.last)
-              // console.log(page)
-              than.totalPageNum = res.data.data.last;
-              if (res.data.data.list.length === 0 && page === 0) {
+        searchPrompts(page + 1, pageSize).then((res) => {
+          if (res && res.data) {
+            console.log(res);
+            let data = res.data;
+            //总数
+            than.totalPageNum = Math.ceil(data.total / pageSize);
+
+            if (data.length === 0 && page === 0) {
+              const loadMoreSetting = than.data.loadMoreSetting;
+              loadMoreSetting.status = "noMore";
+              than.setData({
+                isEmpty: true,
+                loadMoreSetting,
+              });
+            } else {
+              than.wholeList[page] = data;
+              // const datas = {};
+              // datas["list[" + page + "]"] = data;
+              let list:Array<Array<any>> = [];
+              list[page] = data;
+              than.setData({
+                list: list
+              }, () => {
+                utils.setHeight(than);
                 const loadMoreSetting = than.data.loadMoreSetting;
-                loadMoreSetting.status = "noMore";
+                loadMoreSetting.status = "more";
                 than.setData({
-                  isEmpty: true,
                   loadMoreSetting,
                 });
-              } else {
-                than.wholeList[page] = res.data.data.list;
-                const datas = {};
-                datas["list[" + page + "]"] = res.data.data.list;
-                setTimeout(() => {
-                  than.setData(datas, () => {
-                    utils.setHeight(than);
-                    const loadMoreSetting = than.data.loadMoreSetting;
-                    loadMoreSetting.status = "more";
-                    than.setData({
-                      loadMoreSetting,
-                    });
-                    than.param.page += 1;
-                  });
-                }, 500);
-              }
+                than.param.page += 1;
+              });
             }
-          },
+          }
+        }).catch((err) => {
+          console.log(err);
         });
       }
     }
@@ -163,7 +154,7 @@ Page({
     this.currentRenderIndex = 0;
     this.pageHeightArr = [];
     this.param = {
-      limit: 4,
+      page_size: 4,
       page: 0,
     };
     that.setData({

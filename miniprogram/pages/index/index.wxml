@@ -1,7 +1,9 @@
 <!--index.wxml-->
 <view class="container">
   <!-- <canvas id="lottie_demo" type="2d" class="rr-avatar" bindtap="bindViewTap" /> -->
-  <image bindtap="bindViewTap" class="rr-avatar" src="../../images/logo.png" mode="cover"></image>
+  <view class="logo-ring">
+    <image bindtap="bindViewTap" class="rr-avatar" src="../../images/logo.png" mode="cover"></image>
+  </view>
   <view class="top-title">您好,我是软软AI智能机器人,你可以叫我“软软”</view>
   <text class="hi_text0">我在以下方面帮到您：</text>
   <text class="hi_text">写代码</text>

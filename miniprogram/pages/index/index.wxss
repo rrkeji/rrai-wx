@@ -3,11 +3,24 @@
   width: 100%;
 }
 
-.rr-avatar {
-  margin-top: 80rpx;
-  overflow: hidden;
+.logo-ring {
   width: 480rpx;
   height: 480rpx;
+  margin-top: 80rpx;
+  padding: 0;
+  border: 16rpx solid #A7E9BB;
+  border-radius: 50%;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rr-avatar {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .top-title {
