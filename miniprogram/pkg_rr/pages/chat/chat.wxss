@@ -246,6 +246,7 @@ page {
   font-size: 28rpx;
   color: #474747;
   display: inline-block;
+  text-align: left;
 }
 
 .sendMessage .input-placeholder {

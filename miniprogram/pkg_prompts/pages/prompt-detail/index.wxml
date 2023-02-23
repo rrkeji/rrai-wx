@@ -1,0 +1,53 @@
+<!--pkg_prompts/pages/prompt-detail/index.wxml-->
+<view class="prompt-detail-container">
+  <block wx:if="{{prompt == null}}">
+    没有数据
+  </block>
+  <block wx:else="{{prompt == null}}">
+    <!-- 标题 -->
+    <view class="detail-title">{{prompt.title}}</view>
+    <!-- 标签 -->
+    <view class="detail-tags">{{prompt.tags}}</view>
+    <!-- 目标 -->
+    <view class="detail-purpose">Become the paladin with our free AI prompt</view>
+    <!-- 图片 -->
+    <view class="detail-images">
+      <image mode="widthFix" src="https://photoshot.app/prompts/romy/paladin.png"></image>
+      <image mode="widthFix" src="https://photoshot.app/prompts/sacha/paladin.png"></image>
+    </view>
+    <!-- 按钮 -->
+    <view class="detail-buttons">
+      <view class="interaction-buttons">
+        <view class="iconf icon icon-time"></view>
+        <view class=" iconf icon icon-like"></view>
+        <view class=" iconf icon icon-favorfill"></view>
+        <view class=" iconf icon icon-rechargefill"></view>
+        <view class=" iconf icon icon-tagfill"></view>
+        <view class=" iconf icon icon-hotfill"></view>
+      </view>
+      <view class="action-buttons">
+        <view>试试</view>
+      </view>
+    </view>
+    <!-- 提示 -->
+    <view class="detail-prompts">
+      <view class="detail-prompts-item">
+        <view class="item-content">
+          closeup portrait of @me as a paladin, wearing brilliant white armor and a crown, fantasy concept art, artstation trending, highly detailed, beautiful landscape in the background, art by wlop, greg rutkowski, thierry doizon, charlie bowater, alphonse mucha, golden hour lighting, ultra realistic.
+        </view>
+        <image class="item-avatar" src="/images/logo.png"></image>
+      </view>
+    </view>
+    <!-- 示例 -->
+    <view class="detail-examples">
+      <view class="detail-examples-item">
+        <image class="item-avatar" src="/images/logo.png"></image>
+        <view class="item-content">
+          closeup portrait of @me as a paladin, wearing brilliant white armor and a crown, fantasy concept art, artstation trending, highly detailed, beautiful landscape in the background, art by wlop, greg rutkowski, thierry doizon, charlie bowater, alphonse mucha, golden hour lighting, ultra realistic.
+        </view>
+      </view>
+    </view>
+    <!-- 时间 -->
+    <view class="detail-time">{{prompt.create_time_str}}</view>
+  </block>
+</view>

@@ -2,15 +2,10 @@
   "usingComponents": {
     "tab-bar": "/components/tab-bar/tab-bar",
     "c-bar": "/components/c-bar/index",
-    "scroller": "coolui-scroller/scroller/index",
-    "scroller-page": "coolui-scroller/scroll-page/index",
-    "item": "coolui-scroller/item/index",
-    "loadmore": "coolui-scroller/loadmore/index",
-    "empty": "coolui-scroller/empty/index",
-    "handtip": "coolui-scroller/handtip/index",
-    "nav": "coolui-scroller/nav/index",
-    "refresh": "coolui-scroller/refresh/index",
-    "search": "coolui-scroller/search/index"
+    "prompt-list-item": "../../components/prompt-list-item/index",
+    "prompt-view": "../../components/prompt-view/index",
+    "nav": "/components/nav/index",
+    "search": "/components/search/index"
   },
   "pageOrientation": "auto",
   "navigationBarTitleText": "趣问"

@@ -22,7 +22,8 @@
     {
       "root": "pkg_prompts",
       "pages": [
-        "pages/prompts/prompts"
+        "pages/prompts/prompts",
+        "pages/prompt-detail/index"
       ]
     }
   ],

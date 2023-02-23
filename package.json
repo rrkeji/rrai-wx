@@ -8,8 +8,5 @@
   "license": "",
   "devDependencies": {
     "miniprogram-api-typings": "^2.12.0"
-  },
-  "dependencies": {
-    "coolui-scroller": "^3.1.4"
   }
 }
