@@ -2,10 +2,19 @@
 import { formatTime } from '../../utils/util';
 
 export interface PromptEntity {
+  id: number,
   prompts: Array<string>,
   images: Array<string>,
-  aiType: string,
+  ai_type: string,
   args: string,
+  create_time_str: string,
+  update_time_str: string,
+  user_id: string,
+  title: string,
+  tags: Array<string>,
+  recommend: boolean,
+  purpose: string,
+  examples: string,
 }
 
 export interface PromptsCategory {
@@ -17,9 +26,15 @@ export interface PromptsCategory {
 
 
 const convertPromptEntity = (item: any): any => {
+  //tags
+  let tags = item.tags.split(',');
+  item.tags = tags.filter((str)=>str!='');
   //prompts
   let prompts = item.prompts;
-  item.prompts = JSON.parse(prompts);
+  try {
+    item.prompts = JSON.parse(prompts);
+  } catch (error) {
+  }
   //images
   let images = item.images;
   item.images = JSON.parse(images);
@@ -78,6 +93,8 @@ export const searchPrompts = async (page: number, pageSize: number, keywords?: s
   });
   console.log(res);
   if (res && res.statusCode == 200) {
+    console.log(res.data);
+    res.data.data = res.data.data.map((item)=>convertPromptEntity(item));
     return res.data;
   }
 };

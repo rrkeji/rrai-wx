@@ -12,16 +12,6 @@ page {
   align-items: flex-start;
 }
 
-.iconf {
-  font-family: "iconfont" !important;
-  font-size: inherit;
-  font-style: normal;
-}
-
-.icon {
-  font-size: 40rpx;
-}
-
 .prompt-detail-container {
   background-color: #FFFFFF;
   padding: 20rpx 20rpx;
@@ -41,8 +31,36 @@ page {
   line-height: 60rpx;
 }
 
+.detail-subtitle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-ai-type {
+  display: flex;
+}
+
 .detail-tags {
   font-size: 22rpx;
+  color: #499CFB;
+  line-height: 60rpx;
+}
+
+.detail-tag {
+  margin: 0 10rpx;
+  display: flex;
+  align-items: center;
+}
+
+.detail-tag image {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+
+.detail-tag text {
+  width: 40rpx;
+  line-height: 60rpx;
 }
 
 .detail-images {
@@ -56,7 +74,7 @@ page {
 
 /* 按钮 */
 .detail-buttons {
-  margin: 10rpx 0;
+  margin: 10rpx 0 10rpx 0;
   display: flex;
   justify-content: space-between;
   background-color: #dedede;
@@ -72,6 +90,53 @@ page {
   display: flex;
 }
 
+.interaction-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 120rpx;
+}
+
+.interaction-button .icon {
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 60rpx;
+}
+
+.interaction-button .number {
+  font-size: 20rpx;
+}
+
+.action-button {
+  width: 90rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #499CFB;
+  font-size: 26rpx;
+  color: #FFFFFF;
+  /* animation: action-button 1s linear infinite; */
+}
+
+@keyframes action-button {
+  0% {
+    background-color: #499CFB;
+    font-size: 26rpx;
+  }
+
+  50% {
+    background-color: transparent;
+    font-size: 18rpx;
+  }
+
+  100% {
+    background-color: #499CFB;
+    font-size: 26rpx;
+  }
+}
+
 /* 目标 */
 .detail-purpose {
   margin: 10rpx 0;
@@ -79,7 +144,7 @@ page {
 }
 
 .detail-prompts {
-  margin: 10rpx 0;
+  margin: 30rpx 0;
 }
 
 .detail-prompts-item {
@@ -88,7 +153,7 @@ page {
 }
 
 .detail-examples {
-  margin: 10rpx 0;
+  margin: 30rpx 0;
 }
 
 .detail-examples-item {
@@ -119,35 +184,7 @@ page {
 }
 
 .detail-time {
-  margin: 10rpx 0;
-  font-size: 20rpx;
+  font-size: 24rpx;
+  text-align: right;
+  border-top: 1rpx solid #999999;
 }
-
-.icon-read:before {
-  content: "\e742";
-}
-
-.icon-calendar:before {
-  content: "\e74a";
-}
-.icon-down:before { content: "\e703"; }
-.icon-upstagefill:before { content: "\e70e"; }
-.icon-pullup:before { content: "\e6a0"; }
-
-.icon-likefill:before { content: "\e668"; }
-.icon-like:before { content: "\e669"; }
-
-.icon-timefill:before { content: "\e65e"; }
-.icon-time:before { content: "\e65f"; }
-
-.icon-favorfill:before { content: "\e64b"; }
-.icon-favor:before { content: "\e64c"; }
-
-.icon-rechargefill:before { content: "\e6ec"; }
-.icon-recharge:before { content: "\e6ed"; }
-
-.icon-tagfill:before { content: "\e751"; }
-.icon-tag:before { content: "\e752"; }
-
-.icon-hotfill:before { content: "\e757"; }
-.icon-hot:before { content: "\e758"; }

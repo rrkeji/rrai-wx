@@ -1,0 +1,22 @@
+/* components/ai-type-avatar/index.wxss */
+.ai-type-avatar {
+  display: flex;
+}
+
+.ai-type-avatar.rounded {
+  border-radius: 50%;
+}
+
+.ai-type-avatar.square {
+  border-radius: 6rpx;
+}
+
+.ai-type-avatar image {
+  width: 100%;
+  height: 100%;
+}
+
+.ai-type-avatar .title {
+  margin-left: 10rpx;
+  color: #000000;
+}

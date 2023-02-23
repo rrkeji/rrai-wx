@@ -4,11 +4,11 @@
 }
 
 .logo-ring {
-  width: 480rpx;
-  height: 480rpx;
-  margin-top: 80rpx;
+  width: 460rpx;
+  height: 460rpx;
+  margin-top: 60rpx;
   padding: 0;
-  border: 16rpx solid #A7E9BB;
+  /* border: 16rpx solid #A7E9BB; */
   border-radius: 50%;
   box-sizing: border-box;
   overflow: hidden;
@@ -30,7 +30,6 @@
   font-size: 20rpx;
   width: 300rpx;
   padding: 16rpx 40rpx;
-  margin-top: 40rpx;
   border-radius: 36rpx;
 }
 

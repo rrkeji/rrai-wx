@@ -1,9 +1,13 @@
 <view class="tabBar">
   <view class="cu-bar tabbar bg-white shadow">
-    <block wx:for="{{tabBar}}" wx:for-item="item" wx:key="tabBar">
-      <view class="action {{item.iconTopClass}} {{item.current==1?'text-current':'text-normal'}}" catchtap='goToTab' data-url="{{item.pagePath}}" data-index="{{index}}">
-        <botton class='iconf {{item.iconClass}}'></botton> {{item.text}}
-      </view>
-    </block>
+    <view class="action {{idx==0?'text-current':'text-normal'}}" catchtap='goToTab' data-url="../../../pkg_prompts/pages/prompts/prompts" data-index="0">
+      <botton class='iconf icon-discover'></botton>趣问
+    </view>
+    <view class="action add-action {{idx==1?'text-current':'text-normal'}}" catchtap='goToTab' data-url="../../../pkg_rr/pages/rr/rr" data-index="1">
+      <botton class='iconf cu-btn icon-skinfill bg-rr shadow'></botton>软软
+    </view>
+    <view class="action {{idx==2?'text-current':'text-normal'}}" catchtap='goToTab' data-url="../../../pkg_mine/pages/mine/mine" data-index="2">
+      <botton class='iconf icon-my'></botton>我的
+    </view>
   </view>
 </view>

@@ -6,34 +6,53 @@
   <block wx:else="{{prompt == null}}">
     <!-- 标题 -->
     <view class="detail-title">{{prompt.title}}</view>
-    <!-- 标签 -->
-    <view class="detail-tags">{{prompt.tags}}</view>
+    <view class="detail-subtitle">
+      <!-- AI TYPE -->
+      <view class="detail-ai-type">
+        <ai-type-avatar size="60" ai_type="{{prompt.ai_type}}" withTitle="{{true}}" titleSize="{{26}}" titleColor="#444444"></ai-type-avatar>
+      </view>
+      <!-- 标签 -->
+      <view class="detail-tags" wx:if="{{prompt.tags.length}}">
+        <view wx:for="{{ prompt.tags }}" wx:for-index="tagIndex" wx:for-item="tagItem" wx:key="index" class="detail-tag">
+          <image src="/images/tag.svg"></image>
+          <text>{{tagItem}}</text>
+        </view>
+      </view>
+    </view>
     <!-- 目标 -->
-    <view class="detail-purpose">Become the paladin with our free AI prompt</view>
+    <block wx:if="{{prompt.purpose.length > 0}}">
+      <view class="detail-purpose">{{prompt.purpose}}</view>
+    </block>
     <!-- 图片 -->
-    <view class="detail-images">
-      <image mode="widthFix" src="https://photoshot.app/prompts/romy/paladin.png"></image>
-      <image mode="widthFix" src="https://photoshot.app/prompts/sacha/paladin.png"></image>
+    <view class="detail-images" wx:if="{{prompt.images.length}}">
+      <image mode="widthFix" wx:for="{{ prompt.tags }}" wx:for-index="imageIndex" wx:for-item="imageSrc" wx:key="index" src="{{imageSrc}}"></image>
     </view>
     <!-- 按钮 -->
     <view class="detail-buttons">
       <view class="interaction-buttons">
-        <view class="iconf icon icon-time"></view>
-        <view class=" iconf icon icon-like"></view>
-        <view class=" iconf icon icon-favorfill"></view>
-        <view class=" iconf icon icon-rechargefill"></view>
-        <view class=" iconf icon icon-tagfill"></view>
-        <view class=" iconf icon icon-hotfill"></view>
+        <view class="interaction-button">
+          <image class="icon" src="/images/thumbs-down.svg"></image>
+          <view class="number">0</view>
+        </view>
+        <view class="interaction-button">
+          <image class="icon" src="/images/thumbs-up.svg"></image>
+          <view class="number">0</view>
+        </view>
+        <view class="interaction-button">
+          <image class="icon" src="/images/heart.svg"></image>
+          <view class="number">0</view>
+        </view>
       </view>
       <view class="action-buttons">
-        <view>试试</view>
+        <view class="action-button" bindtap="onTry">试试</view>
       </view>
     </view>
     <!-- 提示 -->
     <view class="detail-prompts">
       <view class="detail-prompts-item">
         <view class="item-content">
-          closeup portrait of @me as a paladin, wearing brilliant white armor and a crown, fantasy concept art, artstation trending, highly detailed, beautiful landscape in the background, art by wlop, greg rutkowski, thierry doizon, charlie bowater, alphonse mucha, golden hour lighting, ultra realistic.
+          <text wx:for="{{ prompt.prompts }}" wx:for-index="promptIndex" wx:for-item="promptItem" wx:key="index">{{promptItem}}
+          </text>
         </view>
         <image class="item-avatar" src="/images/logo.png"></image>
       </view>
@@ -43,11 +62,17 @@
       <view class="detail-examples-item">
         <image class="item-avatar" src="/images/logo.png"></image>
         <view class="item-content">
-          closeup portrait of @me as a paladin, wearing brilliant white armor and a crown, fantasy concept art, artstation trending, highly detailed, beautiful landscape in the background, art by wlop, greg rutkowski, thierry doizon, charlie bowater, alphonse mucha, golden hour lighting, ultra realistic.
+          <block wx:if="{{prompt.examples.length}}">
+            <text>{{prompt.examples}}</text>
+          </block>
+          <block wx:else="{{prompt.examples.length}}">
+            <text>没有提供回答示例~</text>
+          </block>
         </view>
       </view>
     </view>
     <!-- 时间 -->
     <view class="detail-time">{{prompt.create_time_str}}</view>
+    <view class="hr"></view>
   </block>
 </view>

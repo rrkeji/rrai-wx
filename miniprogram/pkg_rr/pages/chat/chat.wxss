@@ -9,7 +9,7 @@ page {
 
 .container {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 140rpx);
   position: relative;
   overflow: hidden;
   padding-top: 30rpx;

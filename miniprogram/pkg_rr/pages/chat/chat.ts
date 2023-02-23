@@ -11,7 +11,7 @@ Page({
     newslist: <any>[],
     links: <any>[],
     scrollTop: 0,
-    message: "",
+    message: "2222",
     currentMessage: "",
     sendLoading: false,
     reWebSocket: <ReconnectWebsocket | null>null,
@@ -21,21 +21,12 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
+  onLoad: function (options) {
     const app = getApp<IAppOption>();
-    let that = this;
-    app.getMainAreaHeight(that).then(res => {
-      that.setData({
-        mainHeight: 'height:-webkit-calc(100vh - ' + res + 'px);height: calc(100vh - ' + res + 'px);'
-      })
-    })
-    // const eventChannel = this.getOpenerEventChannel()
-    // eventChannel.on('detailData', function (data) {
-    //   console.log(data)
-    //   that.setData({
-    //     mapDetailList: data
-    //   })
-    // })
+    let message = '';
+    if (options && options.prompt && options.prompt.length > 0) {
+      message = options.prompt;
+    }
     //从本地读取存储的数据
     this.setData({
       reWebSocket: new ReconnectWebsocket({
@@ -44,6 +35,7 @@ Page({
         onClose: this.onClose,
         userId: app.globalData.userId!,
       }),
+      message: message,
       timeoutHandle: setInterval(() => {
         this.isOnline();
       }, 1000),
@@ -367,14 +359,4 @@ Page({
       }
     }
   },
-  pageLifetimes: {
-    show() {
-      if (typeof this.getTabBar === 'function' &&
-        this.getTabBar()) {
-        this.getTabBar().setData({
-          selected: 0
-        })
-      }
-    }
-  }
 })

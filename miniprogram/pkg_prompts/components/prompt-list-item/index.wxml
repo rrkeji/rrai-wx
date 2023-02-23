@@ -15,7 +15,7 @@
         <image class='item-image' lazy-load="{{true}}" src="{{images[0]}}"></image>
       </block>
       <block wx:else="{{images.length}}">
-        <image class='item-image' lazy-load="{{true}}" src="/images/logo.png"></image>
+        <ai-type-avatar size="120" background="#499CFB" rounded="{{false}}"></ai-type-avatar>
       </block>
       <view class="item-content" bindtap="onItemTap">
         <block wx:if="{{title.length}}">

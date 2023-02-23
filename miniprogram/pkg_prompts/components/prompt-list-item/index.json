@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "ai-type-avatar":"/components/ai-type-avatar/index"
+  }
 }

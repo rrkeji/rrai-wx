@@ -95,6 +95,6 @@
   text-align: center;
   color: #FFFFFF;
   box-sizing: border-box;
-  background-color: crimson;
+  background-color: #499CFB;
   border-radius: 50%;
 }

@@ -1,6 +1,6 @@
 <!--pages/chat/chat.wxml-->
 <!-- <c-bar id="c-bar" title="{{title}}" showBack="true" showHome="true"></c-bar> -->
-<view class="container" style="{{mainHeight}}">
+<view class="container">
   <view class="tipBox">
     <view class="tipMessage">
       <image class='notice-icon' src="../../../images/notice.png"></image>1. 您可以通过分享、浏览广告增加使用次数.

@@ -30,51 +30,24 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
    * 用户点击右上角分享
    */
   onShareAppMessage() {
 
+  },
+
+  onTry(event: any) {
+    if (this.data.prompt == null) {
+      wx.showToast({
+        title: '跳转失败!',
+        icon: 'error',
+        duration: 2000
+      });
+      return;
+    }
+    //执行
+    wx.redirectTo({
+      url: '../../../pkg_rr/pages/rr/rr?src=try&ai_type=' + this.data.prompt.ai_type + '&prompts=' + JSON.stringify(this.data.prompt.prompts)
+    });
   }
 })
