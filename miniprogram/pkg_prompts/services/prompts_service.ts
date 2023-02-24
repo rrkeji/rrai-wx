@@ -129,7 +129,7 @@ export const searchUserPrompts = async (page: number, pageSize: number, keywords
     "config": {
       "env": "prod-5gwfszum5fc2702e"
     },
-    "path": "/prompts/prompts",
+    "path": "/prompts/user_prompts",
     "header": {
       "X-WX-SERVICE": "rrai",
       "content-type": "application/json"

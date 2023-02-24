@@ -1,5 +1,5 @@
 // 获取应用实例
-import { getPromptsCategories, PromptsCategory, searchPrompts } from '../../services/prompts_service';
+import { getPromptsCategories, PromptsCategory, searchPrompts, searchUserPrompts } from '../../services/prompts_service';
 
 Page({
   data: {
@@ -14,6 +14,7 @@ Page({
     nav: <Array<PromptsCategory>>[],
     activeModule: 0,
     active: 0,
+    key: '',
   },
   //-----
   currentRenderIndex: 0,
@@ -56,12 +57,40 @@ Page({
     const than = this;
     let page = this.param.page;
     let pageSize = this.param.page_size;
-
     //获取分类
     let categoryItem = this.data.nav[this.data.active];
-    console.log(categoryItem);
     //  获取远程数据可换成自己封装的请求方法
-    searchPrompts(page + 1, pageSize, "", categoryItem?.category).then((res) => {
+    searchPrompts(page + 1, pageSize, this.data.key, categoryItem?.category).then((res) => {
+      if (res && res.data) {
+        console.log(res);
+        let data = res.data;
+        //总数
+        than.totalPageNum = Math.ceil(data.total / pageSize);
+
+        if (data.length === 0 && page === 0) {
+        } else {
+          let list: Array<Array<any>> = [];
+          list[page] = data;
+          than.setData({
+            list: list
+          }, () => {
+            than.param.page += 1;
+          });
+        }
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+  /**
+   * 获取数据
+   */
+  getUserPromptList() {
+    const than = this;
+    let page = this.param.page;
+    let pageSize = this.param.page_size;
+    //  获取远程数据可换成自己封装的请求方法
+    searchUserPrompts(page + 1, pageSize, this.data.key).then((res) => {
       if (res && res.data) {
         console.log(res);
         let data = res.data;
@@ -84,14 +113,15 @@ Page({
     });
   },
   refresh() {
+    // 初始化缓存数据
+    const that = this;
+    that.setData({
+      list: [],
+    });
     if (this.data.activeModule === 1) {
       //我的
+      that.getUserPromptList();
     } else {
-      // 初始化缓存数据
-      const that = this;
-      that.setData({
-        list: [],
-      });
       // 重新拉取数据
       that.getList();
     }

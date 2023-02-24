@@ -9,6 +9,7 @@
       "pages": [
         "pages/chat/chat",
         "pages/rr/rr",
+        "pages/openai-image/index",
         "pages/image-edit/image-edit"
       ]
     },

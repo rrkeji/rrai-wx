@@ -1,4 +1,4 @@
-<!--pages/chat/chat.wxml-->
+<!--pages/openai-image/index.wxml-->
 <!-- <c-bar id="c-bar" title="{{title}}" showBack="true" showHome="true"></c-bar> -->
 <view class="container">
   <view class="tipBox">
@@ -26,22 +26,17 @@
             </view>
           </view>
           <view class="news-avatar">
-            <image class='avatar' src="../../../images/logo.png"></image>
+            <image class='avatar' src="../../../images/hj.png"></image>
           </view>
         </view>
         <!-- AI  -->
         <view class="chat-news response" wx:else>
           <view class="news-avatar">
-            <image class='avatar' src="../../../images/logo.png"></image>
+            <image class='avatar' src="../../../images/hj.png"></image>
           </view>
           <view class='news-content'>
             <view class='response-content'>
-              <block wx:if="{{item.type=='text'}}">
-                <message-box type="{{item.type}}" text="{{item.text}}" content="" url="" thumbPicUrl="" title="" description=""></message-box>
-              </block>
-              <block wx:if="{{item.type=='ChatGPTImage'}}">
-                <message-chatgpt-image images="{{item.text.data}}" type="{{item.type}}"></message-chatgpt-image>
-              </block>
+              <message-chatgpt-image images="{{item.text.data}}" type="{{item.type}}"></message-chatgpt-image>
 
               <view class='actions-bar'>
                 <view class='actions-bar-button'>
@@ -49,13 +44,6 @@
                     发布
                   </button>
                 </view>
-                <block wx:if="{{item.type=='text'}}">
-                  <view class='actions-bar-button'>
-                    <button plain="true" bindtap="onNewsCopyText" data-text="{{item.text}}">
-                      复制
-                    </button>
-                  </view>
-                </block>
                 <block wx:if="{{item.msg_id > 0}}">
                   <view class='actions-bar-button'>
                     <button plain="true" open-type="share" bindtap="onNewsShareImage" data-msgId="{{item.msg_id}}">
@@ -71,32 +59,22 @@
       <block wx:if="{{sendLoading}}">
         <view class="chat-news response">
           <view class="news-avatar">
-            <image class='avatar' src="../../../images/logo.png"></image>
+            <image class='avatar' src="../../../images/hj.png"></image>
           </view>
-          <block wx:if="{{currentMessage == ''}}">
-            <view class='news-content'>
-              <view class='response-content new_txt loading1'>软软正在努力的思考中<image class="send-button-inner" src="../../../images/bars.svg"></image>
-              </view>
+          <view class='news-content'>
+            <view class='response-content new_txt loading1'>软软正在努力的思考中<image class="send-button-inner" src="../../../images/bars.svg"></image>
             </view>
-          </block>
-          <block wx:if="{{currentMessage != ''}}">
-            <view class='news-content'>
-              <view class='response-content new_txt' style="white-space: pre-wrap">
-                <message-box type="text" text='{{currentMessage}}' content="" url="" thumbPicUrl="" title="" description=""></message-box>
-                <i class="loading-blink">🖋</i>
-              </view>
-            </view>
-          </block>
+          </view>
         </view>
       </block>
       <block wx:if="{{newslist.length <= 0}}">
         <view class="chat-news response">
           <view class="news-avatar">
-            <image class='avatar' src="../../../images/logo.png"></image>
+            <image class='avatar' src="../../../images/hj.png"></image>
           </view>
           <view class='news-content'>
             <view class='response-content new_txt' style="white-space: pre-wrap">
-              <message-box type="text" text='您好，我是软软，我可以在以下帮助你：\n1. 写代码中的一些问题。\n2.写故事的大纲。\n3.写论文的思路。\n4.以及您能想到的都可以试着问我。' content="" url="" thumbPicUrl="" title="" description=""></message-box>
+              <message-box type="text" text='您好，我是软软（图片生成），我可以根据您的提示生成一些图片，快来试试吧~' content="" url="" thumbPicUrl="" title="" description=""></message-box>
             </view>
           </view>
         </view>

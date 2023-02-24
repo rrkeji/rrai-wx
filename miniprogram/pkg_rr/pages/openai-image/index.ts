@@ -1,5 +1,4 @@
 // chat.ts
-import { ReconnectWebsocket } from '../../services/ReconnectWebsocket'
 import { messageSecCheck } from '../../services/message_service';
 import { getShareAppMessage, getUserConfig } from '../../../services/share_service';
 
@@ -9,12 +8,9 @@ Page({
    */
   data: {
     newslist: <any>[],
-    links: <any>[],
     scrollTop: 0,
     messageValue: "",
-    currentMessage: "",
     sendLoading: false,
-    reWebSocket: <ReconnectWebsocket | null>null,
     timeoutHandle: 0,
     times: 0,
   },
@@ -28,18 +24,12 @@ Page({
       message = options.prompt;
     }
     //从本地读取存储的数据
+    const messages = wx.getStorageSync('ChatGPT_Image_messages') || []
     this.setData({
-      reWebSocket: new ReconnectWebsocket({
-        onMessage: this.onMessage,
-        onError: this.onError,
-        onClose: this.onClose,
-        userId: app.globalData.userId!,
-      }),
+      newslist: messages,
       messageValue: message,
-      timeoutHandle: setInterval(() => {
-        this.isOnline();
-      }, 1000),
     }, () => {
+      this.bottom();
     });
     wx.showShareMenu({
       withShareTicket: true,
@@ -47,16 +37,7 @@ Page({
     });
   },
   onShow: function () {
-    const app = getApp<IAppOption>();
-    let that = this;
     this.refreshTimes();
-    //从本地读取存储的数据
-    const messages = wx.getStorageSync('messages') || []
-    this.setData({
-      newslist: messages,
-    }, () => {
-      that.bottom();
-    });
   },
   isOnline: function () {
   },
@@ -175,7 +156,7 @@ Page({
       list.shift();
     }
     list.push(item);
-    wx.setStorageSync('messages', list);
+    wx.setStorageSync('ChatGPT_Image_messages', list);
     return list;
   },
   onNewsCopyText: function (event: any) {
@@ -200,163 +181,40 @@ Page({
   },
   _send: function (msg: string) {
     let flag = this;
-
     //进行发送
-    let socket = flag.data.reWebSocket;
-    if (socket) {
-      //进行发送
-      const currentAIType = wx.getStorageSync('CurrentAIType') || "ChatGPT_Text";
-      console.log(currentAIType);
-      let res = socket.sendCommand(currentAIType, {
-        "prompt": msg,
-        "size": "1024x1024"
-      });
-      let sendResult = res;
-      if (res === 0) {
-        //发送成功
-        sendResult = res;
-      } else {
-        //发送失败
-        sendResult = res;
-      }
-      let list = flag.addMessageAndSync({
-        "sender": "client",
-        "result": sendResult,
-        "text": msg,
-        "type": "text"
-      });
-      flag.setData({
-        newslist: list,
-        sendLoading: sendResult === 0 ? true : false,
-        messageValue: ''
-      }, () => {
-        flag.cleanInput();
-        flag.bottom();
-      });
+    const currentAIType = wx.getStorageSync('CurrentAIType') || "ChatGPT_Text";
+    console.log(currentAIType);
+    let res = socket.sendCommand(currentAIType, {
+      "prompt": msg,
+      "size": "1024x1024"
+    });
+    let sendResult = res;
+    if (res === 0) {
+      //发送成功
+      sendResult = res;
     } else {
-      //没有 socket 连接
-      wx.showToast({
-        title: '联系不到软软，请检测网络是否连接或者重新载入小程序~',
-        icon: "none",
-        duration: 2000
-      });
+      //发送失败
+      sendResult = res;
     }
+    let list = flag.addMessageAndSync({
+      "sender": "client",
+      "result": sendResult,
+      "text": msg,
+      "type": "text"
+    });
+    flag.setData({
+      newslist: list,
+      sendLoading: sendResult === 0 ? true : false,
+      messageValue: ''
+    }, () => {
+      flag.cleanInput();
+      flag.bottom();
+    });
   },
   onNewsCopyImage: function (event: any) {
 
   },
   onNewsShareImage: function (event: any) {
 
-  },
-  onMessage: function (cmd: string, data: any) {
-    let flag = this;
-    console.log("onMessage", cmd, data)
-    if (cmd === 'Stream') {
-      //追加
-      flag.setData({
-        currentMessage: flag.data.currentMessage + data
-      }, () => {
-        flag.bottom();
-      });
-    } else if (cmd === 'ChatGPT_Text') {
-      //完成
-      let list = flag.addMessageAndSync({
-        "sender": "response",
-        "text": flag.data.currentMessage.trim(),
-        "type": "text"
-      });
-      flag.setData({
-        newslist: list,
-        sendLoading: false,
-        currentMessage: "",
-      }, () => {
-        flag.bottom();
-        flag.refreshTimes();
-      });
-    } else if (cmd === 'ChatGPT_Image') {
-      //图片格式的处理
-      console.log(data, data.data);
-      let list = flag.addMessageAndSync({
-        "sender": "response",
-        "text": data,
-        "type": "ChatGPTImage"
-      });
-      flag.setData({
-        newslist: list,
-        sendLoading: false,
-        currentMessage: "",
-      }, () => {
-        flag.bottom();
-        flag.refreshTimes();
-      });
-    } else {
-      //完成
-      let list = flag.addMessageAndSync({
-        "sender": "response",
-        "text": '服务器开小差，联系不上软软同学了~',
-        "type": "text"
-      });
-      flag.setData({
-        newslist: list,
-        sendLoading: false,
-      }, () => {
-        flag.bottom();
-      });
-    }
-  },
-  onError: function (res) {
-    console.log(res);
-    this.stopWrite(true);
-  },
-  onClose: function (res) {
-    this.stopWrite();
-  },
-  stopWrite: function (error?: boolean) {
-    //发送请求
-    let message = this.data.currentMessage;
-    let flag = this;
-
-    if (!this.data.sendLoading) {
-      //没有正在返回的，不处理
-      return;
-    }
-
-    if (message && message.length > 0) {
-      // 有正在输入的情况下
-      let list = flag.addMessageAndSync({
-        "sender": "response",
-        "text": flag.data.currentMessage.trim(),
-        "stop": error ? 1 : 0,
-        "type": "text"
-      });
-      flag.setData({
-        newslist: list,
-        sendLoading: false,
-        currentMessage: "",
-      }, () => {
-        flag.bottom();
-        flag.refreshTimes();
-      });
-    } else {
-      //当前没有正在输入的
-      if (error) {
-        let list = flag.addMessageAndSync({
-          "sender": "client",
-          "text": '服务器开小差，联系不上软软同学了~',
-          "type": "text"
-        });
-        flag.setData({
-          newslist: list,
-          sendLoading: false,
-        }, () => {
-          flag.bottom();
-        });
-      } else {
-        flag.setData({
-          sendLoading: false,
-        }, () => {
-        });
-      }
-    }
   },
 })

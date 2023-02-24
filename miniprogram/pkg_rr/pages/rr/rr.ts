@@ -49,10 +49,15 @@ Page({
     }
     console.log(currentAIType);
     //
-    if (currentAIType === 'ChatGPT_Text' || currentAIType === 'ChatGPT_Image') {
+    if (currentAIType === 'ChatGPT_Text') {
       //跳转到chat
       wx.redirectTo({
         url: '../../pages/chat/chat?prompt=' + prompts
+      });
+    } else if (currentAIType === 'ChatGPT_Image') {
+      //跳转到图片编辑
+      wx.redirectTo({
+        url: '../../pages/openai-image/index?prompt=' + prompts
       });
     } else if (currentAIType === 'ChatGPT_Edit_Image') {
       //跳转到图片编辑
