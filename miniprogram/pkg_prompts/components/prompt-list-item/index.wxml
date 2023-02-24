@@ -25,7 +25,12 @@
           <view class="item-prompts">{{prompts[0]}}</view>
         </block>
         <block wx:if="{{tags.length}}">
-          <view class="item-tags">{{tags}}</view>
+          <view class="item-tags">
+            <view wx:for="{{ tags }}" wx:for-index="tagIndex" wx:for-item="tagItem" wx:key="index" class="item-tag">
+              <image src="/images/tag.svg"></image>
+              <text>{{tagItem}}</text>
+            </view>
+          </view>
         </block>
       </view>
       <view class="item-right">

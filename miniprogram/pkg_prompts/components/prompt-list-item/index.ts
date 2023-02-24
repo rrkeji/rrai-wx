@@ -37,8 +37,8 @@ Component({
       value: ''
     },
     tags: {
-      type: String,
-      value: ''
+      type: Array,
+      value: []
     },
     examples: {
       type: String,
@@ -69,13 +69,11 @@ Component({
       //
       this.triggerEvent('itemtap', this.data, { bubbles: true, composed: true })
     },
-    onTry: function (event: any) {
-      console.log('========');
-      wx.navigateTo({
-        url: '',
-        success: (res) => {
-
-        }
+    onTry(event: any) {
+      console.log(event,this);
+      //执行
+      wx.redirectTo({
+        url: '../../../pkg_rr/pages/rr/rr?src=try&ai_type=' + this.data.ai_type + '&prompts=' + JSON.stringify(this.data.prompts)
       });
     }
   }

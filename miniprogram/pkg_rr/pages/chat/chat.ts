@@ -11,7 +11,7 @@ Page({
     newslist: <any>[],
     links: <any>[],
     scrollTop: 0,
-    message: "2222",
+    messageValue: "2222",
     currentMessage: "",
     sendLoading: false,
     reWebSocket: <ReconnectWebsocket | null>null,
@@ -35,7 +35,7 @@ Page({
         onClose: this.onClose,
         userId: app.globalData.userId!,
       }),
-      message: message,
+      messageValue: message,
       timeoutHandle: setInterval(() => {
         this.isOnline();
       }, 1000),
@@ -71,7 +71,7 @@ Page({
   send: function () {
     var flag = this;
     //消息为空
-    if (this.data.message.trim() == "") {
+    if (this.data.messageValue.trim() == "") {
       wx.showToast({
         title: '消息不能为空哦~',
         icon: "none",
@@ -79,7 +79,7 @@ Page({
       });
       return;
     }
-    let msg = this.data.message;
+    let msg = this.data.messageValue;
 
     try {
       //消息安全检测
@@ -116,7 +116,7 @@ Page({
   //
   bindConfirm(event: any) {
     this.setData({
-      message: event.detail.value
+      messageValue: event.detail.value
     });
     this.send();
   },
@@ -131,7 +131,7 @@ Page({
       return;
     }
     this.setData({
-      message: res.detail.value
+      messageValue: res.detail.value
     })
   },
   cleanInput() {
@@ -228,7 +228,7 @@ Page({
       flag.setData({
         newslist: list,
         sendLoading: sendResult === 0 ? true : false,
-        message: ''
+        messageValue: ''
       }, () => {
         flag.cleanInput();
         flag.bottom();

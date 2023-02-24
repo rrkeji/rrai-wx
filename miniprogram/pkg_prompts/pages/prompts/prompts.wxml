@@ -1,6 +1,6 @@
 <view class="container-prompts">
   <view class="header">
-    <nav list="{{modules}}" bind:change="onChange" model:active="{{activeModule}}" active-color="#d13435"></nav>
+    <nav list="{{modules}}" bind:change="onModuleChange" model:active="{{activeModule}}" active-color="#d13435"></nav>
   </view>
   <!-- 头部区域 -->
   <view class="header">

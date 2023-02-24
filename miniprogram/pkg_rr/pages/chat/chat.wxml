@@ -103,7 +103,7 @@
     <form bindreset="cleanInput">
       <view class="sendMessage">
         <view class="times" bindtap="timesOnTap">{{times}}</view>
-        <input id="message_intput" class="item input" placeholder-class="input-placeholder" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder='随便和软软聊点什么吧~' value="{{massage}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
+        <input id="message_intput" class="item input" placeholder-class="input-placeholder" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder='随便和软软聊点什么吧~' value="{{messageValue}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
         <button form-type="reset" bindtap='send' class="item button" disabled="{{sendLoading}}">
           <view class='item send-button {{sendLoading? "offline":""}}'>
             <image class="send-button-inner" src="../../../images/send.png"></image>

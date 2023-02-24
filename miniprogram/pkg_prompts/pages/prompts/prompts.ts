@@ -57,8 +57,11 @@ Page({
     let page = this.param.page;
     let pageSize = this.param.page_size;
 
+    //获取分类
+    let categoryItem = this.data.nav[this.data.active];
+    console.log(categoryItem);
     //  获取远程数据可换成自己封装的请求方法
-    searchPrompts(page + 1, pageSize).then((res) => {
+    searchPrompts(page + 1, pageSize, "", categoryItem?.category).then((res) => {
       if (res && res.data) {
         console.log(res);
         let data = res.data;
@@ -81,18 +84,17 @@ Page({
     });
   },
   refresh() {
-    // 初始化缓存数据
-    const that = this;
-    this.currentRenderIndex = 0;
-    this.param = {
-      page_size: 10,
-      page: 0,
-    };
-    that.setData({
-      list: [],
-    });
-    // 重新拉取数据
-    that.getList();
+    if (this.data.activeModule === 1) {
+      //我的
+    } else {
+      // 初始化缓存数据
+      const that = this;
+      that.setData({
+        list: [],
+      });
+      // 重新拉取数据
+      that.getList();
+    }
   },
   onBtnClick({ detail }) {
     this.refresh();
@@ -101,6 +103,20 @@ Page({
     this.refresh();
   },
   onChange: function (event: any) {
+    this.param = {
+      page_size: 10,
+      page: 0,
+    };
+    this.currentRenderIndex = 0;
+    this.refresh();
+  },
+  onModuleChange: function (event: any) {
+    //重置分页参数
+    this.param = {
+      page_size: 10,
+      page: 0,
+    };
+    this.currentRenderIndex = 0;
     this.refresh();
   },
   onShareAppMessage: function () {

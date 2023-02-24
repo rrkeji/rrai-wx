@@ -28,7 +28,7 @@ export interface PromptsCategory {
 const convertPromptEntity = (item: any): any => {
   //tags
   let tags = item.tags.split(',');
-  item.tags = tags.filter((str)=>str!='');
+  item.tags = tags.filter((str) => str != '');
   //prompts
   let prompts = item.prompts;
   try {
@@ -86,7 +86,7 @@ export const searchPrompts = async (page: number, pageSize: number, keywords?: s
       "page": page,
       "page_size": pageSize,
       "conditions": {
-        "keywords": keywords,
+        "keywords": (!keywords || keywords.trim() == '') ? undefined : keywords,
         "category": category
       }
     }
@@ -94,7 +94,7 @@ export const searchPrompts = async (page: number, pageSize: number, keywords?: s
   console.log(res);
   if (res && res.statusCode == 200) {
     console.log(res.data);
-    res.data.data = res.data.data.map((item)=>convertPromptEntity(item));
+    res.data.data = res.data.data.map((item) => convertPromptEntity(item));
     return res.data;
   }
 };
@@ -121,3 +121,33 @@ export const getPromptById = async (promptId: number): Promise<any> => {
     return convertPromptEntity(res.data);
   }
 }
+
+
+export const searchUserPrompts = async (page: number, pageSize: number, keywords?: string, category?: string): Promise<any> => {
+
+  let res = await wx.cloud.callContainer({
+    "config": {
+      "env": "prod-5gwfszum5fc2702e"
+    },
+    "path": "/prompts/prompts",
+    "header": {
+      "X-WX-SERVICE": "rrai",
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "data": {
+      "page": page,
+      "page_size": pageSize,
+      "conditions": {
+        "keywords": keywords,
+        "category": category
+      }
+    }
+  });
+  console.log(res);
+  if (res && res.statusCode == 200) {
+    console.log(res.data);
+    res.data.data = res.data.data.map((item) => convertPromptEntity(item));
+    return res.data;
+  }
+};

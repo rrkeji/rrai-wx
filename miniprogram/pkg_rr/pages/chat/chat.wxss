@@ -223,6 +223,7 @@ page {
 }
 
 .sendMessage .times {
+  min-width: 100rpx;
   height: 100rpx;
   line-height: 100rpx;
   padding: 0 10rpx;
