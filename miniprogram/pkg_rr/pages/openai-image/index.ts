@@ -14,6 +14,8 @@ Page({
     sendLoading: false,
     timeoutHandle: 0,
     times: 0,
+    showCreateDialog: false,
+    publishItem: <{ prompt: string, examples: string } | null>null
   },
   /**
    * 生命周期函数--监听页面加载
@@ -118,14 +120,13 @@ Page({
   },
   //聊天消息始终显示最底端
   bottom: function () {
-    var query = wx.createSelectorQuery()
-    query.selectViewport().scrollOffset()
-    query.exec(function (res) {
-      wx.pageScrollTo({
-        scrollTop: res[0] && res[0].scrollHeight  // #the-id节点的下边界坐标  
-      })
-      res[1] && res[1].scrollTop // 显示区域的竖直滚动位置  
-    })
+    let that = this;
+    wx.createSelectorQuery()
+      .select('.history').scrollOffset().exec(function (res) {
+        that.setData({
+          scrollTop: res[0] && res[0].scrollHeight
+        });
+      });
   },
   //刷新次数
   refreshTimes: function () {
@@ -177,7 +178,7 @@ Page({
     let flag = this;
     let list = flag.addMessageAndSync({
       "sender": "client",
-      "result": true,
+      "result": 0,
       "text": msg,
       "type": "text"
     });
@@ -194,7 +195,7 @@ Page({
       console.log(res);
       let list = flag.addMessageAndSync({
         "sender": "response",
-        "text": res,
+        "data": res.data,
         "type": "ChatGPTImage"
       });
       flag.setData({
@@ -226,4 +227,16 @@ Page({
   onNewsShareImage: function (event: any) {
 
   },
+  onPublish: function (event: any) {
+    let publishItem: any = {
+      ...event.currentTarget.dataset
+    };
+    console.log(publishItem);
+    publishItem.examples = JSON.stringify(publishItem.examples);
+
+    this.setData({
+      showCreateDialog: true,
+      publishItem
+    });
+  }
 })

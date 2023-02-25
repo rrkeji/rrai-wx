@@ -12,9 +12,13 @@ Component({
       type: Number,
       value: 0
     },
+    aiType: {
+      type: String,
+      value: 'ChatGPT_Text'
+    }
   },
   data: {
-    showTopBar: true,
+    aiSelectShow: false
   },
   methods: {
     goToTab: function (e: any) {
@@ -25,6 +29,33 @@ Component({
       wx.redirectTo({
         url: url
       })
+    },
+    onAIItemTap: function (event: any) {
+      if (event.currentTarget && event.currentTarget.dataset && event.currentTarget.dataset.aitype) {
+        //如果和当前的一致，那么不进行跳转
+        let to = event.currentTarget.dataset.aitype;
+        if (this.data.aiType === to) {
+          //
+          this.setData({
+            aiSelectShow: false,
+          });
+        } else {
+          //进行跳转
+          wx.setStorageSync('CurrentAIType', to);
+          this.setData({
+            aiType: to,
+          }, () => {
+            wx.redirectTo({
+              url: '../../../pkg_rr/pages/rr/rr'
+            })
+          });
+        }
+      }
+    },
+    showAISelect: function (e: any) {
+      this.setData({
+        aiSelectShow: !this.data.aiSelectShow
+      });
     }
   }
 });

@@ -19,80 +19,6 @@
   box-shadow: 0 1rpx 6rpx rgba(0, 0, 0, 0.1);
 }
 
-.bg-red {
-  background-color: #e54d42;
-  color: #fff;
-}
-
-.bg-orange {
-  background-color: #f37b1d;
-  color: #fff;
-}
-
-.bg-yellow {
-  background-color: #fbbd08;
-  color: #333;
-}
-
-.bg-olive {
-  background-color: #8dc63f;
-  color: #fff;
-}
-
-.bg-green {
-  background-color: #39b54a;
-  color: #fff;
-}
-
-.bg-green {
-  background-color: #A7E9BB;
-  color: #fff;
-}
-
-.bg-cyan {
-  background-color: #1cbbb4;
-  color: #fff;
-}
-
-.bg-blue {
-  background-color: #0081ff;
-  color: #fff;
-}
-
-.bg-purple {
-  background-color: #6739b6;
-  color: #fff;
-}
-
-.bg-mauve {
-  background-color: #9c26b0;
-  color: #fff;
-}
-
-.bg-pink {
-  background-color: #e03997;
-  color: #fff;
-}
-
-.bg-brown {
-  background-color: #a5673f;
-  color: #fff;
-}
-
-.bg-grey {
-  background-color: #8799a3;
-  color: #fff;
-}
-
-.bg-gray {
-  background-color: #f0f0f0;
-  color: #666;
-}
-
-.bg-black {
-  background-color: #333;
-  color: #fff;
-}
 
 .bg-white {
   background-color: #fff;
@@ -229,6 +155,87 @@
   position: relative;
   z-index: 2;
   padding-top: 50rpx;
+}
+
+
+.bottom-dialog {
+  position: absolute;
+  left: 0rpx;
+  bottom: 0rpx;
+}
+
+.bottom-dialog-bg {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: calc(-100vh + 12rpx);
+  left: 0rpx;
+  background-color: #444444;
+  opacity: .8;
+}
+
+.bottom-dialog .bottom-dialog-body {
+  position: absolute;
+  width: 92vw;
+  left: 4vw;
+  bottom: 160rpx;
+  border-radius: 20rpx;
+  z-index: 100;
+  background-color: #FFFFFF;
+  padding: 20rpx 20rpx;
+}
+
+.bottom-dialog .brain-list {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.bottom-dialog .brain-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10rpx;
+  margin: 10rpx 20rpx;
+  box-sizing: border-box;
+}
+
+.bottom-dialog .brain-item.selected {
+  border: 4rpx solid #499CFB;
+  border-radius: 16rpx;
+}
+
+.bottom-dialog .brain-item-title {
+  color: #474747;
+  line-height: 40rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.bottom-dialog .brain-item-icon {
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.bottom-dialog .brain-item-current {
+  background-color: #CBE4FF;
+  color: #0062DB;
+  width: 100rpx;
+  height: 50rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 14rpx;
+  font-weight: 500;
+  font-size: 24rpx;
+}
+
+.bottom-dialog .brain-item-switch {
+  background-color: #A7E9BB;
+  color: #0062DB;
+  margin-top: 10rpx;
 }
 
 .icon-homefill,

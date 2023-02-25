@@ -1,7 +1,7 @@
 <!--pkg_prompts/pages/prompt-detail/index.wxml-->
 <view class="prompt-detail-container">
   <block wx:if="{{prompt == null}}">
-    没有数据
+    <empty img-class="empty-img" text-class="empty-text" emptyText="{{emptySetting.text}}" emptyImg="{{emptySetting.img}}" style="background-color: #fff;" />
   </block>
   <block wx:else="{{prompt == null}}">
     <!-- 标题 -->
@@ -30,15 +30,15 @@
     <!-- 按钮 -->
     <view class="detail-buttons">
       <view class="interaction-buttons">
-        <view class="interaction-button">
+        <view class="interaction-button" bindtap="onThumbsDownTap">
           <image class="icon" src="/images/thumbs-down.svg"></image>
           <view class="number">0</view>
         </view>
-        <view class="interaction-button">
+        <view class="interaction-button" bindtap="onThumbsUpTap">
           <image class="icon" src="/images/thumbs-up.svg"></image>
           <view class="number">0</view>
         </view>
-        <view class="interaction-button">
+        <view class="interaction-button" bindtap="onHeartTap">
           <image class="icon" src="/images/heart.svg"></image>
           <view class="number">0</view>
         </view>
@@ -54,16 +54,16 @@
           <text wx:for="{{ prompt.prompts }}" wx:for-index="promptIndex" wx:for-item="promptItem" wx:key="index">{{promptItem}}
           </text>
         </view>
-        <image class="item-avatar" src="/images/logo.png"></image>
+        <ai-type-avatar class="item-avatar" size="90" ai_type="{{prompt.ai_type}}"></ai-type-avatar>
       </view>
     </view>
     <!-- 示例 -->
     <view class="detail-examples">
       <view class="detail-examples-item">
-        <image class="item-avatar" src="/images/logo.png"></image>
+        <ai-type-avatar class="item-avatar" size="90" ai_type="{{prompt.ai_type}}"></ai-type-avatar>
         <view class="item-content">
           <block wx:if="{{prompt.examples.length}}">
-            <text>{{prompt.examples}}</text>
+            <text user-select="true">{{prompt.examples}}</text>
           </block>
           <block wx:else="{{prompt.examples.length}}">
             <text>没有提供回答示例~</text>

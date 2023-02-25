@@ -8,7 +8,7 @@
   </view>
   <view class="historycon">
     <scroll-view enable-flex scroll-y="true" class="history" scroll-top="{{scrollTop}}">
-      <block wx:for="{{newslist}}" wx:key="item">
+      <block wx:for="{{newslist}}" wx:key="item" wx:for-index="itemIndex">
         <!--send  -->
         <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
           <view class='news-content'>
@@ -36,10 +36,10 @@
           </view>
           <view class='news-content'>
             <view class='response-content'>
-              <message-chatgpt-image images="{{item.text.data}}"></message-chatgpt-image>
+              <message-chatgpt-image images="{{item.data}}"></message-chatgpt-image>
               <view class='actions-bar'>
-                <view class='actions-bar-button'>
-                  <button plain="true" bindtap="onPublish" data-text="{{item.text}}">
+                <view class='actions-bar-button' wx:if="{{itemIndex > 0}}">
+                  <button plain="true" bindtap="onPublish" data-prompt="{{newslist[itemIndex-1].text}}" data-examples="{{item.data}}">
                     发布
                   </button>
                 </view>
@@ -95,4 +95,5 @@
     </form>
   </view>
 </view>
-<tab-bar id="f-bar" idx="1"></tab-bar>
+<tab-bar id="f-bar" idx="1" aiType="ChatGPT_Image"></tab-bar>
+<create-prompt-dialog show="{{showCreateDialog}}" aiType="ChatGPT_Image"  prompt="{{publishItem.prompt}}" examples="{{publishItem.examples}}"></create-prompt-dialog>

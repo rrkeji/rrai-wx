@@ -1,16 +1,19 @@
 /* components/message-box/message-box.wxss */
 
 .images-list {
-  display: inline;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   border-radius: 10rpx;
 }
 
 .images-list .images-list-item {
   text-align: right;
+  width: 100%;
 }
 
 .images-list .images-list-item-tip {
-  font-size:24rpx;
+  font-size: 24rpx;
 }
 
 .images-list .images-list-item.error {

@@ -16,13 +16,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    const app = getApp<IAppOption>();
-    let that = this;
-    app.getMainAreaHeight(that).then(res => {
-      that.setData({
-        mainHeight: 'height:-webkit-calc(100vh - ' + res + 'px);height: calc(100vh - ' + res + 'px);'
-      })
-    })
   },
 
   /**

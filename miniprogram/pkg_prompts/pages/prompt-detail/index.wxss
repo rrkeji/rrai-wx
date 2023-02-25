@@ -43,6 +43,9 @@ page {
 .detail-tags {
   font-size: 22rpx;
   color: #499CFB;
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
   line-height: 60rpx;
 }
 
@@ -59,7 +62,6 @@ page {
 }
 
 .detail-tag text {
-  width: 40rpx;
   line-height: 60rpx;
 }
 

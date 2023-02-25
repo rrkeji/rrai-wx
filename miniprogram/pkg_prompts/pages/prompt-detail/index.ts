@@ -1,5 +1,5 @@
 // pkg_prompts/pages/prompt-detail/index.ts
-import { PromptEntity, getPromptById } from '../../services/prompts_service';
+import { InteracteField, PromptEntity, getPromptById, promptsInteractionByUserid, promptsInteractionById, userPromptsInteracte } from '../../services/prompts_service';
 
 Page({
 
@@ -7,9 +7,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-    prompt: <PromptEntity | null>null
+    prompt: <PromptEntity | null>null,
+    emptySetting: {
+      img: "/img/empty.png",
+      text: "暂无文章",
+    },
+    summary: {
+      favorite: 0,
+      thumbs_down: 0,
+      thumbs_up: 0,
+      view: 0
+    },
+    userInteraction: {
+      favorite: 0,
+      thumbs_down: 0,
+      thumbs_up: 0,
+      view: 0
+    }
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -27,15 +42,66 @@ Page({
     }).catch((err) => {
       console.log(err);
     });
-  },
+    //获取交互的信息
+    this.refreshInteraction(parseInt(options.prompt_id));
 
+  },
+  refreshInteraction(promptId: number) {
+    //获取交互的信息
+    promptsInteractionByUserid(promptId).then((res) => {
+      //{favorite: 0, thumbs_down: 0, thumbs_up: 0, view: 0}
+      this.setData({
+        summary: res
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+
+    promptsInteractionById(promptId).then((res) => {
+      //{favorite: 0, thumbs_down: 0, thumbs_up: 0, view: 0}
+      this.setData({
+        userInteraction: res
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage() {
 
   },
-
+  onThumbsDownTap(event: any) {
+    userPromptsInteracte(this.data.prompt.id,
+      InteracteField.ThumbsDown,
+      !this.data.userInteraction.thumbs_down
+    ).then((res) => {
+      this.refreshInteraction(this.data.prompt.id);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+  onThumbsUpTap(event: any) {
+    userPromptsInteracte(this.data.prompt.id,
+      InteracteField.ThumbsUp,
+      !this.data.userInteraction.thumbs_up
+    ).then((res) => {
+      this.refreshInteraction(this.data.prompt.id);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+  onHeartTap(event: any) {
+    userPromptsInteracte(this.data.prompt.id,
+      InteracteField.Favorite,
+      !this.data.userInteraction.favorite
+    ).then((res) => {
+      this.refreshInteraction(this.data.prompt.id);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
   onTry(event: any) {
     if (this.data.prompt == null) {
       wx.showToast({

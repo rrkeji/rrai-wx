@@ -1,20 +1,39 @@
-<view class="container-prompts">
-  <view class="header">
+<view class="container-prompts" bind:touchstart="TouchStart" bind:touchend="TouchEnd">
+  <!-- <view class="header">
     <nav list="{{modules}}" bind:change="onModuleChange" model:active="{{activeModule}}" active-color="#d13435"></nav>
-  </view>
-  <!-- 头部区域 -->
-  <view class="header">
-    <view class="search">
-      <search search-btn="search-btn" model:key="{{key}}" bind:confirm="confirm" clearable bind:btnClick="onBtnClick"></search>
+  </view> -->
+  <scroller class="{{(loadMoreSetting.status == 'loading' && list.length == 0) ? 'isloading' : ''}}" id="scroller" bind:loadmore="getList" bind:refresh="refresh" isEmpty="{{isEmpty}}" isBackBtn="{{true}}" background="#f2f2f2">
+    <!-- 下拉刷新组件 -->
+    <refresh slot="refresh" type="base" config="{{baseConfig}}" />
+    <!-- 下拉刷新组件 -->
+    <!-- 头部区域 -->
+    <view slot="header">
+      <view class="header">
+        <view class="search">
+          <search search-btn="search-btn" model:key="{{key}}" bind:confirm="confirm" clearable bind:btnClick="onBtnClick"></search>
+        </view>
+        <nav wx:if="{{activeModule == 0}}" list="{{nav}}" bind:change="onChange" model:active="{{active}}" active-color="#d13435"></nav>
+      </view>
     </view>
-    <nav wx:if="{{activeModule == 0}}" list="{{nav}}" bind:change="onChange" model:active="{{active}}" active-color="#d13435"></nav>
-  </view>
-  <!-- page组件循环页 -->
-  <view wx:for="{{ list }}" id="wrp_{{pageIndex}}" wx:for-index="pageIndex" wx:for-item="listSingleItem" wx:key="index" pageList="{{ listSingleItem }}">
-    <view ripple wx:for="{{ listSingleItem }}" wx:for-index="index" wx:for-item="listItem" wx:key="index">
-      <prompt-list-item bind:itemtap="onListItemTap" prompt_id="{{listItem.id}}" user_id="{{listItem.user_id}}" ai_type="{{listItem.ai_type}}" prompts="{{listItem.prompts}}" recommend="{{listItem.recommend}}" title="{{listItem.title}}" images="{{listItem.images}}" purpose="{{listItem.purpose}}" tags="{{listItem.tags}}" examples="{{listItem.examples}}" create_time="{{listItem.create_time}}" update_time="{{listItem.update_time}}"></prompt-list-item>
-    </view>
-  </view>
+    <!-- 头部区域 -->
+    <!-- 列表 -->
+    <!-- page组件循环页 -->
+    <scroller-page wx:for="{{ list }}" id="wrp_{{pageIndex}}" wx:for-index="pageIndex" wx:for-item="listSingleItem" wx:key="index" pageList="{{ listSingleItem }}">
+      <!-- item组件循环项 -->
+      <item ripple wx:for="{{ listSingleItem }}" wx:for-index="index" wx:for-item="listItem" wx:key="index">
+        <prompt-list-item bind:itemtap="onListItemTap" prompt_id="{{listItem.id}}" user_id="{{listItem.user_id}}" ai_type="{{listItem.ai_type}}" prompts="{{listItem.prompts}}" recommend="{{listItem.recommend}}" title="{{listItem.title}}" images="{{listItem.images}}" purpose="{{listItem.purpose}}" tags="{{listItem.tags}}" examples="{{listItem.examples}}" create_time="{{listItem.create_time}}" update_time="{{listItem.update_time}}"></prompt-list-item>
+      </item>
+      <!-- item组件循环项 -->
+    </scroller-page>
+    <!-- page组件循环页 -->
+    <!-- 列表 -->
+    <!-- 加载更多组件 -->
+    <loadmore slot="loadmore" status="{{loadMoreSetting.status}}" loading="{{loadMoreSetting.loading}}" noMore="{{loadMoreSetting.noMore}}" more="{{loadMoreSetting.more}}" />
+    <!-- 加载更多组件 -->
+    <!-- 空列表组件 -->
+    <empty slot="empty" img-class="empty-img" text-class="empty-text" emptyText="{{emptySetting.text}}" emptyImg="{{emptySetting.img}}" style="background-color: #fff;" />
+    <!-- 空列表组件 -->
+  </scroller>
+  <handtip top="下拉刷新" bottom="上拉加载" left="滑动切换分类" right="滑动切换分类" opacity="0.7" key="hand1" />
 </view>
-
 <tab-bar id="f-bar" idx="0"></tab-bar>

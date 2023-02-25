@@ -17,6 +17,7 @@
       "root": "pkg_mine",
       "pages": [
         "pages/mine/mine",
+        "pages/settings/index",
         "pages/ai/ai"
       ]
     },

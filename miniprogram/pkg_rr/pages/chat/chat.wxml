@@ -117,5 +117,5 @@
     </form>
   </view>
 </view>
-<tab-bar id="f-bar" idx="1"></tab-bar>
-<create-prompt-dialog show="{{showCreateDialog}}" prompt="{{publishItem.prompt}}" examples="{{publishItem.examples}}"></create-prompt-dialog>
+<tab-bar id="f-bar" idx="1" aiType="ChatGPT_Text"></tab-bar>
+<create-prompt-dialog show="{{showCreateDialog}}" aiType="ChatGPT_Text" prompt="{{publishItem.prompt}}" examples="{{publishItem.examples}}"></create-prompt-dialog>

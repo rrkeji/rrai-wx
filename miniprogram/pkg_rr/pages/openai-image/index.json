@@ -3,6 +3,7 @@
     "tab-bar": "/components/tab-bar/tab-bar",
     "c-bar": "/components/c-bar/index",
     "message-box": "../../components/message-box/message-box",
+    "create-prompt-dialog": "../../components/create-prompt-dialog/index",
     "message-request": "../../components/message-request/message-request",
     "message-chatgpt-image": "../../components/message-chatgpt-image/message-chatgpt-image"
   },

@@ -1,6 +1,6 @@
 <!--pkg_rr/pages/image-edit/image-edit.wxml-->
 <!-- <c-bar id="c-bar" title="{{title}}" showBack="true" showHome="true"></c-bar> -->
-<view class="container-image-edit" style="{{mainHeight}}">
+<view class="container-image-edit">
   <!-- <view class="title">
     <image src="../../../images/hj.png"></image>图片编辑
   </view> -->
@@ -50,4 +50,4 @@
     </view>
   </view>
 </view>
-<tab-bar id="f-bar" idx="1"></tab-bar>
+<tab-bar id="f-bar" idx="1" aiType="ChatGPT_Edit_Image"></tab-bar>

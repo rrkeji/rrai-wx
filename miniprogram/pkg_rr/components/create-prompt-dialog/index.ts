@@ -10,6 +10,10 @@ Component({
       type: Boolean,
       value: false
     },
+    aiType: {
+      type: String,
+      value: 'ChatGPT_Text'
+    },
     prompt: {
       type: String,
       value: ""
@@ -69,7 +73,7 @@ Component({
           tags = tag.split(",").filter((str) => str.trim() != '');
         }
         createPromptToServer({
-          ai_type: 'ChatGPT_Text',
+          ai_type: this.data.aiType,
           prompts: [this.data.prompt],
           title: title,
           images: [],

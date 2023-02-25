@@ -89,6 +89,7 @@ page {
   text-align: left;
   border-radius: 10rpx;
   min-width: 76%;
+  width: 100%;
   line-height: 48rpx;
   padding: 10rpx;
 }
@@ -98,6 +99,7 @@ page {
   text-align: left;
   border-radius: 10rpx;
   min-width: 76%;
+  width: 100%;
   line-height: 48rpx;
   padding: 10rpx;
 }

@@ -1,5 +1,5 @@
 
-import { formatTime } from '../../utils/util';
+import { formatDate } from '../../utils/util';
 
 export interface PromptEntity {
   id: number,
@@ -15,6 +15,13 @@ export interface PromptEntity {
   recommend: boolean,
   purpose: string,
   examples: string,
+}
+
+export enum InteracteField {
+  ThumbsUp = "thumbs_up",
+  ThumbsDown = "thumbs_down",
+  View = "view",
+  Favorite = "favorite",
 }
 
 export interface PromptsCategory {
@@ -39,8 +46,8 @@ const convertPromptEntity = (item: any): any => {
   let images = item.images;
   item.images = JSON.parse(images);
   //时间
-  item.create_time_str = formatTime(new Date(item.create_time * 1000));
-  item.update_time_str = formatTime(new Date(item.update_time * 1000));
+  item.create_time_str = formatDate(new Date(item.create_time * 1000));
+  item.update_time_str = formatDate(new Date(item.update_time * 1000));
   //事件
   return item;
 }
@@ -151,3 +158,64 @@ export const searchUserPrompts = async (page: number, pageSize: number, keywords
     return res.data;
   }
 };
+
+
+export const promptsInteractionByUserid = async (promptId: number) => {
+
+  let res = await wx.cloud.callContainer({
+    "config": {
+      "env": "prod-5gwfszum5fc2702e"
+    },
+    "path": "/prompts_user/interaction/byuserid/" + promptId,
+    "header": {
+      "X-WX-SERVICE": "rrai",
+    },
+    "method": "GET",
+  });
+  console.log(res);
+  if (res && res.statusCode == 200) {
+    return res.data;
+  }
+};
+
+export const promptsInteractionById = async (promptId: number) => {
+
+  let res = await wx.cloud.callContainer({
+    "config": {
+      "env": "prod-5gwfszum5fc2702e"
+    },
+    "path": "/prompts_user/interaction/byid/" + promptId,
+    "header": {
+      "X-WX-SERVICE": "rrai",
+    },
+    "method": "GET",
+  });
+  console.log(res);
+  if (res && res.statusCode == 200) {
+    return res.data;
+  }
+};
+
+export const userPromptsInteracte = async (promptId: number, field: InteracteField, value: boolean) => {
+
+  let res = await wx.cloud.callContainer({
+    "config": {
+      "env": "prod-5gwfszum5fc2702e"
+    },
+    "path": "/prompts_user/interacte/" + promptId,
+    "header": {
+      "X-WX-SERVICE": "rrai",
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "data": {
+      "field": field,
+      "value": value ? 1 : 0,
+    }
+  });
+  console.log(res);
+  if (res && res.statusCode == 200) {
+    console.log(res.data);
+    return res.data;
+  }
+}
