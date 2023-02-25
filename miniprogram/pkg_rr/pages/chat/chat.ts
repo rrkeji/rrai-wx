@@ -1,6 +1,6 @@
 // chat.ts
 import { ReconnectWebsocket } from '../../services/ReconnectWebsocket'
-import { messageSecCheck } from '../../services/message_service';
+import { messageSecCheck, createPromptToServer } from '../../services/message_service';
 import { getShareAppMessage, getUserConfig } from '../../../services/share_service';
 
 Page({
@@ -9,7 +9,6 @@ Page({
    */
   data: {
     newslist: <any>[],
-    links: <any>[],
     scrollTop: 0,
     messageValue: "",
     currentMessage: "",
@@ -17,6 +16,8 @@ Page({
     reWebSocket: <ReconnectWebsocket | null>null,
     timeoutHandle: 0,
     times: 0,
+    showCreateDialog: false,
+    publishItem: <{ prompt: string, examples: string } | null>null
   },
   /**
    * 生命周期函数--监听页面加载
@@ -45,6 +46,10 @@ Page({
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline']
     });
+  },
+  onUnload: function () {
+    console.log('=====');
+    this.data.reWebSocket?.destory();
   },
   onShow: function () {
     const app = getApp<IAppOption>();
@@ -143,14 +148,13 @@ Page({
   },
   //聊天消息始终显示最底端
   bottom: function () {
-    var query = wx.createSelectorQuery()
-    query.selectViewport().scrollOffset()
-    query.exec(function (res) {
-      wx.pageScrollTo({
-        scrollTop: res[0] && res[0].scrollHeight  // #the-id节点的下边界坐标  
-      })
-      res[1] && res[1].scrollTop // 显示区域的竖直滚动位置  
-    })
+    let that = this;
+    wx.createSelectorQuery()
+      .select('.history').scrollOffset().exec(function (res) {
+        that.setData({
+          scrollTop: res[0] && res[0].scrollHeight
+        });
+      });
   },
   //刷新次数
   refreshTimes: function () {
@@ -359,4 +363,13 @@ Page({
       }
     }
   },
+  onPublish: function (event: any) {
+    let publishItem: any = {
+      ...event.currentTarget.dataset
+    };
+    this.setData({
+      showCreateDialog: true,
+      publishItem
+    });
+  }
 })

@@ -1,5 +1,4 @@
 <!--pages/chat/chat.wxml-->
-<!-- <c-bar id="c-bar" title="{{title}}" showBack="true" showHome="true"></c-bar> -->
 <view class="container">
   <view class="tipBox">
     <view class="tipMessage">
@@ -8,7 +7,7 @@
   </view>
   <view class="historycon">
     <scroll-view enable-flex scroll-y="true" class="history" scroll-top="{{scrollTop}}">
-      <block wx:for="{{newslist}}" wx:key="item">
+      <block wx:for="{{newslist}}" wx:for-item="item" wx:key="item" wx:for-index="itemIndex">
         <!--send  -->
         <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
           <view class='news-content'>
@@ -44,8 +43,8 @@
               </block>
 
               <view class='actions-bar'>
-                <view class='actions-bar-button'>
-                  <button plain="true" bindtap="onPublish" data-text="{{item.text}}">
+                <view class='actions-bar-button' wx:if="{{itemIndex > 0}}">
+                  <button plain="true" bindtap="onPublish" data-prompt="{{newslist[itemIndex-1].text}}" data-examples="{{item.text}}">
                     发布
                   </button>
                 </view>
@@ -108,7 +107,7 @@
     <form bindreset="cleanInput">
       <view class="sendMessage">
         <view class="times" bindtap="timesOnTap">{{times}}</view>
-        <input id="message_intput" class="item input" placeholder-class="input-placeholder" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder='随便和软软聊点什么吧~' value="{{messageValue}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
+        <input class="item input" placeholder-class="input-placeholder" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder='随便和软软聊点什么吧~' value="{{messageValue}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
         <button form-type="reset" bindtap='send' class="item button" disabled="{{sendLoading}}">
           <view class='item send-button {{sendLoading? "offline":""}}'>
             <image class="send-button-inner" src="../../../images/send.png"></image>
@@ -119,3 +118,4 @@
   </view>
 </view>
 <tab-bar id="f-bar" idx="1"></tab-bar>
+<create-prompt-dialog show="{{showCreateDialog}}" prompt="{{publishItem.prompt}}" examples="{{publishItem.examples}}"></create-prompt-dialog>

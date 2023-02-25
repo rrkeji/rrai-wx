@@ -1,5 +1,6 @@
 // chat.ts
 import { messageSecCheck } from '../../services/message_service';
+import { openaiImagesGenerations } from '../../services/openai_service';
 import { getShareAppMessage, getUserConfig } from '../../../services/share_service';
 
 Page({
@@ -115,13 +116,6 @@ Page({
       messageValue: res.detail.value
     })
   },
-  cleanInput() {
-    //button会自动清空，所以不能再次清空而是应该给他设置目前的input值
-    // const query = wx.createSelectorQuery()
-    // let input = query.select('#message_intput');
-    // console.log(input);
-
-  },
   //聊天消息始终显示最底端
   bottom: function () {
     var query = wx.createSelectorQuery()
@@ -181,34 +175,49 @@ Page({
   },
   _send: function (msg: string) {
     let flag = this;
-    //进行发送
-    const currentAIType = wx.getStorageSync('CurrentAIType') || "ChatGPT_Text";
-    console.log(currentAIType);
-    let res = socket.sendCommand(currentAIType, {
-      "prompt": msg,
-      "size": "1024x1024"
-    });
-    let sendResult = res;
-    if (res === 0) {
-      //发送成功
-      sendResult = res;
-    } else {
-      //发送失败
-      sendResult = res;
-    }
     let list = flag.addMessageAndSync({
       "sender": "client",
-      "result": sendResult,
+      "result": true,
       "text": msg,
       "type": "text"
     });
     flag.setData({
       newslist: list,
-      sendLoading: sendResult === 0 ? true : false,
+      sendLoading: true,
       messageValue: ''
     }, () => {
-      flag.cleanInput();
       flag.bottom();
+    });
+
+    //进行发送
+    openaiImagesGenerations(msg).then((res) => {
+      console.log(res);
+      let list = flag.addMessageAndSync({
+        "sender": "response",
+        "text": res,
+        "type": "ChatGPTImage"
+      });
+      flag.setData({
+        newslist: list,
+        sendLoading: false,
+        currentMessage: "",
+      }, () => {
+        flag.bottom();
+        flag.refreshTimes();
+      });
+    }).catch((err) => {
+      console.log(err);
+      let list = flag.addMessageAndSync({
+        "sender": "response",
+        "text": '服务器开小差，联系不上软软同学了~',
+        "type": "text"
+      });
+      flag.setData({
+        newslist: list,
+        sendLoading: false,
+      }, () => {
+        flag.bottom();
+      });
     });
   },
   onNewsCopyImage: function (event: any) {

@@ -20,8 +20,8 @@ Page({
   currentRenderIndex: 0,
   totalPageNum: 0,
   param: {
-    page_size: 10,
     page: 0,
+    page_size: 10,
   },
   //-----
   onLoad() {
@@ -118,6 +118,11 @@ Page({
     that.setData({
       list: [],
     });
+    this.param = {
+      page: 0,
+      page_size: 10,
+    };
+    this.currentRenderIndex = 0;
     if (this.data.activeModule === 1) {
       //我的
       that.getUserPromptList();
@@ -133,20 +138,9 @@ Page({
     this.refresh();
   },
   onChange: function (event: any) {
-    this.param = {
-      page_size: 10,
-      page: 0,
-    };
-    this.currentRenderIndex = 0;
     this.refresh();
   },
   onModuleChange: function (event: any) {
-    //重置分页参数
-    this.param = {
-      page_size: 10,
-      page: 0,
-    };
-    this.currentRenderIndex = 0;
     this.refresh();
   },
   onShareAppMessage: function () {

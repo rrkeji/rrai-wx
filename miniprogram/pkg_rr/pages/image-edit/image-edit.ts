@@ -169,53 +169,62 @@ Page({
     let data = formData.getData();
 
     //将本地资源上传到服务器
-    // wx.cloud.callContainer({
-    //   "config": {
-    //     "env": "prod-5gwfszum5fc2702e"
-    //   },
-    //   "path": "/openai/images/edits",
-    //   "header": {
-    //     "X-WX-SERVICE": "rrai",
-    //     "content-type": data.contentType
-    //   },
-    //   "method": "POST",
-    //   "data": data.buffer
-    // }).then((res) => {
-    //   console.log(res);
-    //   wx.hideToast(); //隐藏Toast
-    // }).catch((err) => {
-    //   console.log(err);
-    //   wx.showToast({
-    //     title: '上传失败',
-    //     icon: 'none'
-    //   })
-    // });
-    wx.request({
-      // url: 'https://rrai-29154-7-1315753304.sh.run.tcloudbase.com/openai/images/edits',
-      url: 'http://localhost/openai/images/edits',
-      "method": "POST",
-      header: {
-        "Env": "prod-5gwfszum5fc2702e",
+    wx.cloud.callContainer({
+      "config": {
+        "env": "prod-5gwfszum5fc2702e"
+      },
+      "path": "/openai/images/edits",
+      "header": {
         "X-WX-SERVICE": "rrai",
-        "x-wx-openid": app.globalData.userId,
-        'content-type': data.contentType
+        "content-type": data.contentType
       },
-      data: data.buffer,
-      success: (res) => {
-        console.log(res);
-        if (res && res.statusCode == 200) {
-          wx.hideToast(); //隐藏Toast
-        } else {
-          //请求失败
-          wx.showToast({
-            title: '提交失败',
-            icon: 'none'
-          });
-        }
-      },
-      fail: (err) => {
-        console.log(err);
+      "method": "POST",
+      "data": data.buffer
+    }).then((res) => {
+      console.log(res);
+      if (res && res.statusCode == 200) {
+        wx.hideToast(); //隐藏Toast
+      } else {
+        //请求失败
+        wx.showToast({
+          title: '提交失败',
+          icon: 'none'
+        });
       }
+    }).catch((err) => {
+      console.log(err);
+      wx.showToast({
+        title: '提交失败',
+        icon: 'none'
+      })
     });
+
+    // wx.request({
+    //   url: 'https://rrai-29154-7-1315753304.sh.run.tcloudbase.com/openai/images/edits',
+    //   // url: 'http://localhost/openai/images/edits',
+    //   "method": "POST",
+    //   header: {
+    //     "Env": "prod-5gwfszum5fc2702e",
+    //     "X-WX-SERVICE": "rrai",
+    //     "x-wx-openid": app.globalData.userId,
+    //     'content-type': data.contentType
+    //   },
+    //   data: data.buffer,
+    //   success: (res) => {
+    //     console.log(res);
+    //     if (res && res.statusCode == 200) {
+    //       wx.hideToast(); //隐藏Toast
+    //     } else {
+    //       //请求失败
+    //       wx.showToast({
+    //         title: '提交失败',
+    //         icon: 'none'
+    //       });
+    //     }
+    //   },
+    //   fail: (err) => {
+    //     console.log(err);
+    //   }
+    // });
   }
 })

@@ -36,8 +36,7 @@
           </view>
           <view class='news-content'>
             <view class='response-content'>
-              <message-chatgpt-image images="{{item.text.data}}" type="{{item.type}}"></message-chatgpt-image>
-
+              <message-chatgpt-image images="{{item.text.data}}"></message-chatgpt-image>
               <view class='actions-bar'>
                 <view class='actions-bar-button'>
                   <button plain="true" bindtap="onPublish" data-text="{{item.text}}">

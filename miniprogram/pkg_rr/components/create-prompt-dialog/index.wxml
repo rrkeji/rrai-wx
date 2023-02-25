@@ -1,0 +1,22 @@
+<!--pkg_rr/components/create-prompt-dialog/index.wxml-->
+<mp-dialog title="发布" show="{{show}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <view class="container">
+    <view class="form-item">
+      <view class="form-item-label"><text style="color:red">*</text>标题</view>
+      <input class="item form-item-input" placeholder-class="input-placeholder" type="text" placeholder='输入标题让其快速的了解内容' value="{{title}}" bindinput='onTitleChange'></input>
+    </view>
+    <view class="form-item">
+      <view class="form-item-label">作用</view>
+      <input class="item form-item-input" placeholder-class="input-placeholder" type="text" placeholder='输入作用让其可以快速检索到' value="{{purpose}}" bindinput='onPurposeChange'></input>
+    </view>
+    <view class="form-item">
+      <view class="form-item-label">标签</view>
+      <input class="item form-item-input" placeholder-class="input-placeholder" type="text" placeholder='输入标签以便归类' value="{{tags}}" bindinput='onTagsChange'></input>
+    </view>
+    <view class="form-item">
+      <view class="form-item-tips">
+        {{prompt}}{{examples}}
+      </view>
+    </view>
+  </view>
+</mp-dialog>

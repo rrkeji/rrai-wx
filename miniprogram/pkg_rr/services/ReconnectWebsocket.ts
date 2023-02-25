@@ -13,6 +13,12 @@ class HeartCheck {
   constructor(getSocketFunc: () => any) {
     this.getSocket = getSocketFunc;
   }
+
+  destory() {
+    clearTimeout(this.timeoutObj);
+    clearTimeout(this.serverTimeoutObj);
+  }
+
   PingStart() {
     var self = this;
     clearTimeout(this.timeoutObj);
@@ -52,6 +58,12 @@ export class ReconnectWebsocket {
   isSending: boolean = false;
 
   //
+  timeoutHandle: number = 0;
+
+  //
+  destoryFlag: boolean = false;
+
+  //
   options: {
     onMessage: (cmd: string, data: any) => void;
     onOpen?: (res: any) => void;
@@ -80,7 +92,8 @@ export class ReconnectWebsocket {
     this.heartCheck = new HeartCheck(() => {
       return this.getSocket();
     });
-    setTimeout(() => {
+    clearTimeout(this.timeoutHandle);
+    this.timeoutHandle = setTimeout(() => {
       this.socketInit(true);
     }, 10);
   }
@@ -93,6 +106,10 @@ export class ReconnectWebsocket {
   }
 
   async socketInit(reconnection = false) {
+    if (this.destoryFlag) {
+      return;
+    }
+
     if (this.websocket == null) {
       const { socketTask } = await wx.cloud.connectContainer({
         "config": {
@@ -184,7 +201,8 @@ export class ReconnectWebsocket {
       this.websocket.onClose((res: any) => {
         //console.log("Connection closed.");
         this.options.onClose && this.options.onClose(res);
-        setTimeout(() => {
+        clearTimeout(this.timeoutHandle);
+        this.timeoutHandle = setTimeout(() => {
           this.socketInit();
         }, 1000);
       });
@@ -199,7 +217,8 @@ export class ReconnectWebsocket {
           break;
         case this.websocket.CLOSING: //表示连接正在关闭。
           //console.log("正在关闭,1秒后再次尝试连接");
-          setTimeout(() => {
+          clearTimeout(this.timeoutHandle);
+          this.timeoutHandle = setTimeout(() => {
             this.socketInit();
           }, 1000);
           break;
@@ -213,6 +232,12 @@ export class ReconnectWebsocket {
           break;
       }
     }
+  }
+
+  destory() {
+    this.destoryFlag = true;
+    this.heartCheck?.destory();
+    clearTimeout(this.timeoutHandle);
   }
 
   /**
