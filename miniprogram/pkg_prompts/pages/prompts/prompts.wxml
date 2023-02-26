@@ -25,6 +25,7 @@
       </item>
       <!-- item组件循环项 -->
     </scroller-page>
+    <ad unit-id="adunit-9c64e457097d841f"></ad>
     <!-- page组件循环页 -->
     <!-- 列表 -->
     <!-- 加载更多组件 -->
@@ -33,7 +34,9 @@
     <!-- 空列表组件 -->
     <empty slot="empty" img-class="empty-img" text-class="empty-text" emptyText="{{emptySetting.text}}" emptyImg="{{emptySetting.img}}" style="background-color: #fff;" />
     <!-- 空列表组件 -->
+
   </scroller>
   <handtip top="下拉刷新" bottom="上拉加载" left="滑动切换分类" right="滑动切换分类" opacity="0.7" key="hand1" />
+
 </view>
 <tab-bar id="f-bar" idx="0"></tab-bar>

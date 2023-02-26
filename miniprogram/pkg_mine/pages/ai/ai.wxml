@@ -14,7 +14,7 @@
         <view class="brain-item-title">图片生成</view>
         <view wx:if="{{currentAIType==='ChatGPT_Image'}}" class="brain-item-current">(当前)</view>
       </view>
-      <view bindtap="onItemTap" class="brain-item  {{selected === 'ChatGPT_Edit_Image'? 'selected' :''}}" data-aitype="ChatGPT_Edit_Image">
+      <view bindtap="onItemTap" style="display: none;" class="brain-item  {{selected === 'ChatGPT_Edit_Image'? 'selected' :''}}" data-aitype="ChatGPT_Edit_Image">
         <image class="brain-item-icon" src="../../../images/hj.png"></image>
         <view class="brain-item-title">图片编辑</view>
         <view wx:if="{{currentAIType==='ChatGPT_Edit_Image'}}" class="brain-item-current">(当前)</view>

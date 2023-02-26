@@ -1,0 +1,15 @@
+<!--pkg_mine/components/reward-point/index.wxml-->
+<view class="container">
+  <!-- 统计数 -->
+  <view class="reward-summary">
+    <view class="reward-points">{{points}}</view>
+    <view>
+      <!-- <view>昨日新增:0</view>
+      <view>昨日消费:0</view> -->
+    </view>
+  </view>
+  <scroll-view enable-flex scroll-y="true" class="reward-logs-container">
+    <block wx:for="{{rewardLogs}}" wx:for-item="item" wx:key="item" wx:for-index="itemIndex">
+    </block>
+  </scroll-view>
+</view>

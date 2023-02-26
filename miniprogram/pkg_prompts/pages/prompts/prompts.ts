@@ -1,5 +1,5 @@
 // 获取应用实例
-import { getPromptsCategories, PromptsCategory, searchPrompts, searchUserPrompts } from '../../services/prompts_service';
+import { getPromptsCategories, PromptsCategory, searchPrompts, searchUserPrompts } from '../../../services/prompts_service';
 import { setHeight } from '../../../utils/scroller-util';
 const PAGE_SIZE: number = 5;
 Page({
@@ -44,7 +44,7 @@ Page({
     emptySetting: {
       img: "/img/empty.png",
       // img: 'http://www.365editor.com/images/nodata.png',
-      text: "暂无文章",
+      text: "暂无内容",
     },
     nav: <Array<PromptsCategory>>[],
     activeModule: 0,

@@ -30,17 +30,17 @@
     <!-- 按钮 -->
     <view class="detail-buttons">
       <view class="interaction-buttons">
-        <view class="interaction-button" bindtap="onThumbsDownTap">
+        <view class="interaction-button {{userInteraction.thumbs_down?'active':''}}" bindtap="onThumbsDownTap">
           <image class="icon" src="/images/thumbs-down.svg"></image>
-          <view class="number">0</view>
+          <view class="number">{{summary.thumbs_down}}</view>
         </view>
-        <view class="interaction-button" bindtap="onThumbsUpTap">
+        <view class="interaction-button {{userInteraction.thumbs_up?'active':''}}" bindtap="onThumbsUpTap">
           <image class="icon" src="/images/thumbs-up.svg"></image>
-          <view class="number">0</view>
+          <view class="number">{{summary.thumbs_up}}</view>
         </view>
-        <view class="interaction-button" bindtap="onHeartTap">
+        <view class="interaction-button {{userInteraction.favorite?'active':''}}" bindtap="onHeartTap">
           <image class="icon" src="/images/heart.svg"></image>
-          <view class="number">0</view>
+          <view class="number">{{summary.favorite}}</view>
         </view>
       </view>
       <view class="action-buttons">
@@ -75,4 +75,5 @@
     <view class="detail-time">{{prompt.create_time_str}}</view>
     <view class="hr"></view>
   </block>
+  <ad unit-id="adunit-9c64e457097d841f"></ad>
 </view>

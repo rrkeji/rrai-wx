@@ -1,5 +1,5 @@
 // pkg_prompts/pages/prompt-detail/index.ts
-import { InteracteField, PromptEntity, getPromptById, promptsInteractionByUserid, promptsInteractionById, userPromptsInteracte } from '../../services/prompts_service';
+import { InteracteField, PromptEntity, getPromptById, promptsInteractionByUserid, promptsInteractionById, userPromptsInteracte } from '../../../services/prompts_service';
 
 Page({
 

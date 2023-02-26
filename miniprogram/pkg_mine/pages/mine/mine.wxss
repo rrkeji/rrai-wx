@@ -31,87 +31,70 @@ page {
   height: 300rpx;
   background-color: #FFFFFF;
   border-bottom: 2px solid #EBEBEB;
-  display: none;
 }
 
-.mine-list {
-  margin-top: 10rpx;
-  width: 100%;
+.user-card {
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
-  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
   align-items: center;
-  background-color: #F5F5F5;
-}
-
-.mine-item {
-  width: 90%;
-  height: 120rpx;
   background-color: #FFFFFF;
-  border-radius: 60rpx;
-  margin: 20rpx 0rpx;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.mine-item .mine-item-title {
-  color: #a4a4a4;
-  flex-grow: 1;
-  font-size: 24rpx;
-  line-height: 120rpx;
-  margin-left: 20rpx;
-}
-
-.mine-item .mine-item-icon {
-  background-color: #499CFB;
-  width: 90rpx;
-  height: 90rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.avatar-wrapper {
+  padding: 0;
+  width: 180rpx !important;
+  height: 180rpx !important;
   border-radius: 50%;
-  margin-left: 30rpx;
+  border: 4rpx solid #95dfab;
+  box-sizing: border-box;
 }
 
-.mine-item .mine-item-button {
-  background-color: #CBE4FF;
-  color: #0062DB;
-  width: 120rpx;
-  height: 60rpx;
+.avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.nickname-form {
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 24rpx;
-  margin-right: 30rpx;
-  font-weight: 500;
+  height: 60rpx;
+}
+
+.nickname {
+  font-size: 28rpx;
+  font-weight: 600;
+  line-height: 50rpx;
+  text-align: center;
+}
+
+.nickname-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 90rpx;
+  margin-right: -90rpx;
+  padding-left: 10rpx;
   font-size: 24rpx;
+  line-height: 50rpx;
+  text-decoration: underline;
+  color: #0062DB;
 }
 
-.mine-item .mine-item-icon image {
-  width: 46rpx;
-  height: 46rpx;
-}
+.nickname-button .edit-button {}
 
-.mine-item-icon .icon {
-  color: #FFFFFF;
-  font-size: 46rpx;
-}
-
-.icon-deletefill:before {
-  content: "\e6a6";
-}
-
-.icon-favorfill:before {
-  content: "\e64b";
-}
-
-.icon-paintfill:before {
-  content: "\e72a";
-}
-
-.icon-skinfill:before {
-  content: "\e7cc";
+.save-button {
+  display: inline !important;
+  width: 90rpx !important;
+  height: 40rpx !important;
+  bottom: -28rpx;
+  margin-top: 4rpx;
+  line-height: 40rpx;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background-color: #FFFFFF;
 }

@@ -29,7 +29,8 @@
   box-shadow: 6rpx 6rpx 8rpx rgba(48, 156, 63, 0.2);
 }
 
-.cu-bar.tabbar .action.add-action .icon-skinfill {
+.cu-bar.tabbar .action.add-action .icon-skinfill,
+.cu-bar.tabbar .action.add-action .icon-close {
   position: absolute;
   width: 70rpx;
   z-index: 2;
@@ -244,6 +245,7 @@
 .icon-discover,
 .icon-question,
 .icon-selection,
+.icon-close,
 .icon-my {
   width: 100rpx;
   position: relative;
@@ -254,6 +256,9 @@
   font-size: 40rpx;
 }
 
+.icon-close:before {
+  content: "\e646";
+}
 
 .icon-homefill:before {
   content: "\e6bb";

@@ -1,0 +1,26 @@
+/* pkg_mine/components/reward-point/index.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.reward-summary {
+  background-color: #FFFFFF;
+  width: 96vw;
+  border-radius: 12rpx;
+  padding: 20rpx 20rpx;
+}
+
+.reward-points {
+  width: 120rpx;
+  height: 120rpx;
+  line-height: 120rpx;
+  text-align: center;
+  background-color: #A7E9BB;
+  color: #FFFFFF;
+}
+
+.reward-logs-container {
+  display: flex;
+  flex: 1;
+}

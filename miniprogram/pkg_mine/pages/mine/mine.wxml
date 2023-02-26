@@ -2,40 +2,41 @@
 <!-- <c-bar id="c-bar" title="{{title}}" showBack="true" showHome="true"></c-bar> -->
 <view class="container-mine" style="{{mainHeight}}">
   <view class="mine-user-card">
-    <user-card avatar='../../images/logo.png' nickname='小虾米'></user-card>
+    <view class='user-card'>
+      <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{avatarUrl}}"></image>
+      </button>
+      <form bindsubmit="formSubmit">
+        <view class="nickname-form">
+          <block wx:if="{{isEdit}}">
+            <input type="nickname" name="nickname" class="nickname" placeholder="请输入昵称" />
+            <button class="nickname-button save-button" type="plain" formType="submit">保存</button>
+          </block>
+          <block wx:else="{{isEdit}}">
+            <view class="nickname">{{nickname}}</view>
+            <view class="nickname-button edit-button" bindtap="onEditButton">编辑</view>
+          </block>
+        </view>
+      </form>
+    </view>
   </view>
   <view class="header">
     <nav list="{{modules}}" bind:change="onModuleChange" model:active="{{activeModule}}" active-color="#d13435"></nav>
   </view>
-  <view class="mine-list">
-    <view class="mine-item">
-      <view class="mine-item-icon">
-        <view class="icon iconf icon-skinfill"></view>
-      </view>
-      <view class="mine-item-title">AI大脑切换</view>
-      <view class="mine-item-button" bindtap="onAIChange">切换</view>
-    </view>
 
-    <view class="mine-item">
-      <view class="mine-item-icon">
-        <view class="icon iconf icon-deletefill"></view>
-      </view>
-      <view class="mine-item-title">清空记录</view>
-      <view class="mine-item-button" bindtap="onDelete">清空</view>
-    </view>
-    <!-- <view class="mine-item">
-      <view class="mine-item-icon">
-        <image src="./images/gz.png"></image>
-      </view>
-      <view class="mine-item-title">关注我们</view>
-      <view class="mine-item-button">去关注</view>
-    </view> -->
-    <view class="mine-item">
-      <view class="mine-item-icon">
-        <view class="icon iconf icon-favorfill"></view>
-      </view>
-      <view class="mine-item-title">软件版本:0.3.16</view>
-    </view>
+  <view>
+    <block wx:if="{{activeModule == 2}}">
+      <!-- 我的积分 -->
+      <reward-point></reward-point>
+    </block>
+    <block wx:if="{{activeModule == 1}}">
+      <!-- 我的发布 -->
+      <my-publish></my-publish>
+    </block>
+    <block wx:if="{{activeModule == 0}}">
+      <!-- 我的设置 -->
+      <settings></settings>
+    </block>
   </view>
 </view>
 <tab-bar id="f-bar" idx="2"></tab-bar>

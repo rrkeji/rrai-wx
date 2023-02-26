@@ -6,15 +6,13 @@ import { getShareAppMessage } from "../../../services/share_service";
 Page({
   data: {
     modules: [{
-      id: 1,
-      title: 'AI大脑'
-    }, {
-      id: 2,
-      title: '发布'
-    }, {
-      id: 2,
-      title: '设置'
+      id: 3,
+      title: '我的设置'
     }],
+    isEdit: false,
+    activeModule: 0,
+    avatarUrl: "/images/logo.png",
+    nickname: "昵称",
   },
   request: function (userid: string, msgid: string) {
     //获取消息的内容
@@ -22,6 +20,11 @@ Page({
   },
   onLoad: function (query) {
     const app = getApp<IAppOption>();
+    wx.onThemeChange((result) => {
+      this.setData({
+        theme: result.theme
+      })
+    })
     //设置分享
     wx.showShareMenu({
       withShareTicket: true,
@@ -44,19 +47,26 @@ Page({
   // 事件处理函数
   bindViewTap() {
   },
-  onDelete() {
-    //
-    wx.clearStorageSync();
-    wx.showToast({
-      title: '清除成功！', //弹框内容
-      icon: 'success',  //弹框模式
-      duration: 2000    //弹框显示时间
+  
+  bindchooseavatar(e: any) {
+    console.log("avatarUrl", e.detail.avatarUrl)
+  },
+  onChooseAvatar(e) {
+    const { avatarUrl } = e.detail
+    this.setData({
+      avatarUrl,
     });
   },
-  onAIChange() {
-    //跳转到AI大脑切换页面
-    wx.navigateTo({
-      url: '../ai/ai'
+  formSubmit(event) {
+    console.log(event);
+    this.setData({
+      nickname: event.detail.value.nickname,
+      isEdit: !this.data.isEdit
+    });
+  },
+  onEditButton(event) {
+    this.setData({
+      isEdit: !this.data.isEdit
     });
   }
 })

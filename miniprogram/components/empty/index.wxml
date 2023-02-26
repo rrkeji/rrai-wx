@@ -2,5 +2,6 @@
   <view class="coolui-scroller-empty-inner">
     <image src="{{emptyImg}}" mode="aspectFill" wx:if="{{emptyImg}}" class="empty-img img-class"></image>
     <view class="empty-text text-class">{{emptyText}}</view>
+    <ad unit-id="adunit-9c64e457097d841f"></ad>
   </view>
 </view>

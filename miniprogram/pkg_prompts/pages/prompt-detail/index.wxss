@@ -110,6 +110,10 @@ page {
   font-size: 20rpx;
 }
 
+.interaction-button.active {
+  color: #499CFB;
+}
+
 .action-button {
   width: 90rpx;
   height: 90rpx;

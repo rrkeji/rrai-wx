@@ -15,10 +15,16 @@
   margin: 10rpx 0;
 }
 
+.use-prompt {
+  margin-left: 20rpx;
+  color: #0062DB;
+  text-decoration: underline;
+}
+
 .form-item-label {
   font-size: 24rpx;
   color: #474747;
-  line-height: 36rpx;
+  line-height: 50rpx;
 }
 
 .form-item input {
@@ -53,4 +59,24 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+.form-item-checkbox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag-item {
+  font-size: 26rpx;
+  display: flex;
+}
+
+.tag-item-checkbox checkbox {
+  width: 50rpx;
+}
+
+.tag-item-name {
+  min-width: 90rpx;
+  text-align: left;
+  line-height: 50rpx;
 }

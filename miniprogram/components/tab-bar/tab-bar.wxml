@@ -17,10 +17,19 @@
     </block>
     <!-- 软软菜单 -->
     <block wx:if="{{idx == 1}}">
-      <view class="action add-action text-current" catchtap='showAISelect'>
-        <botton class='iconf cu-btn icon-skinfill bg-rr shadow'></botton>
-        软软
-      </view>
+      <block wx:if="{{aiSelectShow}}">
+        <!-- 菜单展开 -->
+        <view class="action add-action text-current" catchtap='showAISelect'>
+          <botton class='iconf cu-btn icon-close bg-rr shadow'></botton>
+          软软
+        </view>
+      </block>
+      <block wx:else="{{aiSelectShow}}">
+        <view class="action add-action text-current" catchtap='showAISelect'>
+          <botton class='iconf cu-btn icon-skinfill bg-rr shadow'></botton>
+          软软
+        </view>
+      </block>
     </block>
     <block wx:else="{{idx == 1}}">
       <!-- 不是当前 -->
@@ -56,7 +65,7 @@
           <image class="brain-item-icon" src="../../images/hj.png"></image>
           <view class="brain-item-title">图片生成</view>
         </view>
-        <view bindtap="onAIItemTap" class="brain-item  {{aiType === 'ChatGPT_Edit_Image'? 'selected' :''}}" data-aitype="ChatGPT_Edit_Image">
+        <view bindtap="onAIItemTap" style="display: none;" class="brain-item  {{aiType === 'ChatGPT_Edit_Image'? 'selected' :''}}" data-aitype="ChatGPT_Edit_Image">
           <image class="brain-item-icon" src="../../images/hj.png"></image>
           <view class="brain-item-title">图片编辑</view>
         </view>

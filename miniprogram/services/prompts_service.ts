@@ -1,5 +1,5 @@
 
-import { formatDate } from '../../utils/util';
+import { formatDate } from '../utils/util';
 
 export interface PromptEntity {
   id: number,
@@ -76,6 +76,56 @@ export const getPromptsCategories = async (): Promise<Array<PromptsCategory>> =>
     })
   }
 };
+
+
+export const getTagsByCategory = async (category: string): Promise<Array<any>> => {
+  let res = await wx.cloud.callContainer({
+    "config": {
+      "env": "prod-5gwfszum5fc2702e"
+    },
+    "path": "/prompts_category/search_by_category",
+    "header": {
+      "X-WX-SERVICE": "rrai",
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "data": {
+      "page": 1,
+      "page_size": 10,
+      "conditions": {
+        "category": category
+      }
+    }
+  });
+  console.log(res);
+  if (res && res.statusCode == 200) {
+    return res.data.data;
+  }
+};
+
+export const addPromptTag = async (tag: string, category: string) => {
+
+  let res = await wx.cloud.callContainer({
+    "config": {
+      "env": "prod-5gwfszum5fc2702e"
+    },
+    "path": "/prompts_category/tag/create",
+    "header": {
+      "X-WX-SERVICE": "rrai",
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "data": {
+      "tag": tag,
+      "category": category,
+    }
+  });
+  console.log(res);
+  if (res && res.statusCode == 200) {
+    console.log(res.data);
+    return res.data;
+  }
+}
 
 export const searchPrompts = async (page: number, pageSize: number, keywords?: string, category?: string): Promise<any> => {
 

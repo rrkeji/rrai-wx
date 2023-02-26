@@ -1,6 +1,7 @@
 /**index.wxss**/
 .container {
   width: 100%;
+  margin-bottom: 60rpx;
 }
 
 .logo-ring {
@@ -35,7 +36,6 @@
 
 .hi_text0 {
   margin-top: 40rpx;
-  text-indent: 20px;
   line-height: 30px;
   color: #717372;
   font-size: 26rpx;
@@ -43,7 +43,6 @@
 }
 
 .hi_text {
-  text-indent: 20px;
   line-height: 20px;
   font-size: 22rpx;
   color: #717372;

@@ -11,9 +11,9 @@
   <text class="hi_text">写论文</text>
   <text class="hi_text">解决法律问题</text>
   <text class="hi_text">创造艺术作品</text>
-  <text class="hi_text">会议记录</text>
-  <text class="hi_text">时间管理</text>
-  <text class="hi_text">精通各国语言</text>
+  <!-- <text class="hi_text">会议记录</text> -->
+  <!-- <text class="hi_text">时间管理</text> -->
+  <!-- <text class="hi_text">精通各国语言</text> -->
   <text class="hi_text">以及你能想到的......</text>
   <view bindtap="bindViewTap" class="entry-button-container">
     <view class="entry-button">
@@ -23,3 +23,4 @@
     </view>
   </view>
 </view>
+<ad unit-id="adunit-9c64e457097d841f"></ad>
