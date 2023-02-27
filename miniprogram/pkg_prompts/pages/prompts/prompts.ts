@@ -42,8 +42,7 @@ Page({
       color: "#999",
     },
     emptySetting: {
-      img: "/img/empty.png",
-      // img: 'http://www.365editor.com/images/nodata.png',
+      img: "/images/empty.png",
       text: "暂无内容",
     },
     nav: <Array<PromptsCategory>>[],

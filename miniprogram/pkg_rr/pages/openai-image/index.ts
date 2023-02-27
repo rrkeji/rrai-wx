@@ -15,7 +15,8 @@ Page({
     timeoutHandle: 0,
     times: 0,
     showCreateDialog: false,
-    publishItem: <{ prompt: string, examples: string } | null>null
+    publishItem: <{ prompt: string, examples: string } | null>null,
+    avatarUrl: '/images/logo.png',
   },
   /**
    * 生命周期函数--监听页面加载
@@ -26,11 +27,17 @@ Page({
     if (options && options.prompt && options.prompt.length > 0) {
       message = options.prompt;
     }
+    //avatarUrl
+    let avatarUrl = '../../../images/hj.png';
+    if (app.globalData.avatar && app.globalData.avatar != '') {
+      avatarUrl = app.globalData.avatar;
+    }
     //从本地读取存储的数据
     const messages = wx.getStorageSync('ChatGPT_Image_messages') || []
     this.setData({
       newslist: messages,
       messageValue: message,
+      avatarUrl: avatarUrl,
     }, () => {
       this.bottom();
     });

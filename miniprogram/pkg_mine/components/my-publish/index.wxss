@@ -1,1 +1,9 @@
 /* pkg_mine/components/my-publish/index.wxss */
+.container {
+  display: flex;
+}
+
+.my-prompts-container {
+  display: flex;
+  flex: 1;
+}

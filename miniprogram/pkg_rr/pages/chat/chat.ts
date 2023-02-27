@@ -17,7 +17,8 @@ Page({
     timeoutHandle: 0,
     times: 0,
     showCreateDialog: false,
-    publishItem: <{ prompt: string, examples: string } | null>null
+    publishItem: <{ prompt: string, examples: string } | null>null,
+    avatarUrl: '/images/logo.png',
   },
   /**
    * 生命周期函数--监听页面加载
@@ -28,6 +29,11 @@ Page({
     if (options && options.prompt && options.prompt.length > 0) {
       message = options.prompt;
     }
+    //avatarUrl
+    let avatarUrl = '../../../images/logo.png';
+    if (app.globalData.avatar && app.globalData.avatar != '') {
+      avatarUrl = app.globalData.avatar;
+    }
     //从本地读取存储的数据
     this.setData({
       reWebSocket: new ReconnectWebsocket({
@@ -36,6 +42,7 @@ Page({
         onClose: this.onClose,
         userId: app.globalData.userId!,
       }),
+      avatarUrl: avatarUrl,
       messageValue: message,
       timeoutHandle: setInterval(() => {
         this.isOnline();
@@ -48,8 +55,9 @@ Page({
     });
   },
   onUnload: function () {
-    console.log('=====');
+    console.log('=====onUnload');
     this.data.reWebSocket?.destory();
+    clearInterval(this.data.timeoutHandle);
   },
   onShow: function () {
     const app = getApp<IAppOption>();
@@ -67,10 +75,6 @@ Page({
   },
   onShareAppMessage: function (res) {
     return getShareAppMessage();
-  },
-  // 页面卸载
-  onUnload() {
-    clearInterval(this.data.timeoutHandle);
   },
   //事件处理函数
   send: function () {
@@ -252,7 +256,7 @@ Page({
   onNewsShareImage: function (event: any) {
 
   },
-  onMessage: function (cmd: string, data: any) {
+  onMessage: function (cmd: string, data: any, code?: number) {
     let flag = this;
     console.log("onMessage", cmd, data)
     if (cmd === 'Stream') {
@@ -263,27 +267,19 @@ Page({
         flag.bottom();
       });
     } else if (cmd === 'ChatGPT_Text') {
+      let message = "";
+      if (code === 0) {
+        message = flag.data.currentMessage.trim();
+      } else if (code === 3) {
+        message = data;
+      } else {
+        message = data;
+      }
       //完成
       let list = flag.addMessageAndSync({
         "sender": "response",
-        "text": flag.data.currentMessage.trim(),
+        "text": message,
         "type": "text"
-      });
-      flag.setData({
-        newslist: list,
-        sendLoading: false,
-        currentMessage: "",
-      }, () => {
-        flag.bottom();
-        flag.refreshTimes();
-      });
-    } else if (cmd === 'ChatGPT_Image') {
-      //图片格式的处理
-      console.log(data, data.data);
-      let list = flag.addMessageAndSync({
-        "sender": "response",
-        "text": data,
-        "type": "ChatGPTImage"
       });
       flag.setData({
         newslist: list,

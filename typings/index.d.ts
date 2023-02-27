@@ -2,12 +2,12 @@
 
 interface IAppOption {
   globalData: {
-    userInfo?: WechatMiniprogram.UserInfo,
     userId?: string,
+    avatar?: string,
+    nickname?: string,
     systemInfo: any,
     statusBarHeight: number,
     customBarHeight: number,
   }
-  userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
-  getMainAreaHeight: (t: any) => Promise<number>,
+  refreshUserConfig: () => Promise<any>,
 }

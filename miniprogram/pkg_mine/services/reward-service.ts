@@ -1,5 +1,5 @@
 
-import { formatDate } from '../../utils/util';
+import { formatTime } from '../../utils/util';
 
 export interface RewardLogEntity {
   id: number,
@@ -16,8 +16,8 @@ export interface RewardLogEntity {
 }
 const convertRewardLogEntity = (item: any): any => {
   //时间
-  item.create_time_str = formatDate(new Date(item.create_time * 1000));
-  item.update_time_str = formatDate(new Date(item.update_time * 1000));
+  item.create_time_str = formatTime(new Date(item.create_time * 1000));
+  item.update_time_str = formatTime(new Date(item.update_time * 1000));
   //事件
   return item;
 }
@@ -50,3 +50,24 @@ export const searchRewardLogs = async (page: number, pageSize: number, keywords?
   }
 };
 
+export const updateUserConfig = async (config: { avatar?: string, nickname?: string }): Promise<any> => {
+  //请求剩余次数等
+  let res = await wx.cloud.callContainer({
+    "config": {
+      "env": "prod-5gwfszum5fc2702e"
+    },
+    "path": "/user/config",
+    "header": {
+      "X-WX-SERVICE": "rrai",
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "data": config
+  });
+  const app = getApp<IAppOption>();
+  if (app) {
+    app.refreshUserConfig();
+  }
+  console.log(res.data);
+  return res.data;
+}

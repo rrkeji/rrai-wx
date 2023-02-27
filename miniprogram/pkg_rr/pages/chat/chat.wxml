@@ -25,7 +25,7 @@
             </view>
           </view>
           <view class="news-avatar">
-            <image class='avatar' src="../../../images/logo.png"></image>
+            <image class='avatar' src="{{avatarUrl}}"></image>
           </view>
         </view>
         <!-- AI  -->

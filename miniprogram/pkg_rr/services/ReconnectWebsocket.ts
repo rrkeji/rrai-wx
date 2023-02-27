@@ -1,8 +1,8 @@
 // 每隔5秒向服务端发送消息"ping",服务端接收到消息后给我们回个话"pong"
 // 如果超过5秒服务端还没回复“pong”，则认为连接断开的（将启动重连）
 class HeartCheck {
-  pongTime = 30 * 1000; //30秒接收心跳
-  pingTime = (30 * 1000 / 10) * 8;//30秒向服务器发送心跳
+  pongTime = 10 * 1000; //30秒接收心跳
+  pingTime = (10 * 1000 / 10) * 8;//30秒向服务器发送心跳
   timeoutObj = 0;//Ping定时器
   serverTimeoutObj = 0;//Pong定时器
 
@@ -52,9 +52,6 @@ export class ReconnectWebsocket {
   websocket: any = null;
 
   //
-  isBusy: boolean = false;
-
-  //
   isSending: boolean = false;
 
   //
@@ -65,23 +62,17 @@ export class ReconnectWebsocket {
 
   //
   options: {
-    onMessage: (cmd: string, data: any) => void;
+    onMessage: (cmd: string, data: any, code?: number) => void;
     onOpen?: (res: any) => void;
     onError?: (res: any) => void;
     onClose?: (res: any) => void;
     userId: string;
-  } = {
-      onMessage: () => { },
-      onOpen: () => { },
-      onError: () => { },
-      onClose: () => { },
-      userId: '',
-    }
+  } | null = null;
   //
   heartCheck: HeartCheck | null = null;
 
   constructor(options1: {
-    onMessage: (cmd: string, data: any) => void;
+    onMessage: (cmd: string, data: any, code?: number) => void;
     onOpen?: (res: any) => void;
     onError?: (res: any) => void;
     onClose?: (res: any) => void;
@@ -123,7 +114,7 @@ export class ReconnectWebsocket {
       //   // url: 'wss://wsschat.idns.link',
       //   url: 'ws://127.0.0.1:3000',
       //   header: {
-      //     "x-wx-openid": this.options.userId,
+      //     "x-wx-openid": this.options!.userId,
       //   },
       //   success: (res) => {
       //     console.log('success', res);
@@ -137,14 +128,14 @@ export class ReconnectWebsocket {
       // });
       this.websocket.onOpen((res: any) => {
         console.log('onOpen', res);
-        this.options.onOpen && this.options.onOpen(res);
+        this.options!.onOpen && this.options!.onOpen(res);
         this.websocket.send({ data: JSON.stringify({ "cmd": "Ping" }) })
         this.heartCheck!.PingStart();
         //打开心跳检测
         this.heartCheck!.PongStart();
       });
       this.websocket.onError((err: any) => {
-        this.options.onError && this.options.onError(err);
+        this.options!.onError && this.options!.onError(err);
         console.log(err);
       });
       this.websocket.onMessage((res: any) => {
@@ -166,14 +157,12 @@ export class ReconnectWebsocket {
             //心跳报文不处理
           } else if (messageObj.cmd === 'Error') {
             //错误
-            this.isBusy = false;
-            this.options.onError && this.options.onError(messageStr);
+            this.options!.onError && this.options!.onError(messageStr);
           } else if (messageObj.cmd === 'Response' && messageObj.src !== '') {
             //普通的命令返回
             try {
               //调用处理函数
-              this.isBusy = false;
-              this.options.onMessage(messageObj.src, messageObj.message);
+              this.options!.onMessage(messageObj.src, messageObj.message, messageObj.code);
             } catch (error) {
               console.log(error);
             }
@@ -181,7 +170,7 @@ export class ReconnectWebsocket {
             //Stream
             try {
               //调用处理函数
-              this.options.onMessage('Stream', messageObj.message);
+              this.options!.onMessage('Stream', messageObj.message);
             } catch (error) {
               console.log(error);
             }
@@ -194,13 +183,13 @@ export class ReconnectWebsocket {
           }
         } catch (e) {
           console.log(e);
-          this.options.onError && this.options.onError(e);
+          this.options!.onError && this.options!.onError(e);
         }
       });
 
       this.websocket.onClose((res: any) => {
         //console.log("Connection closed.");
-        this.options.onClose && this.options.onClose(res);
+        this.options!.onClose && this.options!.onClose(res);
         clearTimeout(this.timeoutHandle);
         this.timeoutHandle = setTimeout(() => {
           this.socketInit();
@@ -246,10 +235,9 @@ export class ReconnectWebsocket {
    * @param data 
    */
   sendCommand = (command: string, data: any): number => {
-
-    console.log(this.websocket.readyState, this.websocket.OPEN);
     if (this.websocket.readyState === this.websocket.OPEN) {
       if (this.isSending) {
+        console.log('正在发送...');
         return 1;
       }
       this.isSending = true;
@@ -262,13 +250,14 @@ export class ReconnectWebsocket {
         });
       } catch (e) {
         console.log(e);
+        this.isSending = false;
         //发送失败
         return 2;
       }
       this.isSending = false;
-      this.isBusy = true;
       return 0;
     } else {
+      console.log('链接未打开...');
       return 3;
     }
   }

@@ -35,7 +35,7 @@
 }
 
 .hi_text0 {
-  margin-top: 40rpx;
+  margin-top: 20rpx;
   line-height: 30px;
   color: #717372;
   font-size: 26rpx;
@@ -55,7 +55,8 @@
   width: 100%;
   text-align: center;
   margin: 0 auto;
-  margin-top: 60rpx;
+  margin-top: 30rpx;
+  margin-bottom: 80rpx;
 }
 
 .entry-button {

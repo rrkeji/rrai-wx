@@ -4,16 +4,16 @@
   <view class="mine-user-card">
     <view class='user-card'>
       <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-        <image class="avatar" src="{{avatarUrl}}"></image>
+        <image class="avatar" src="{{avatarUrl == '' ? '/images/logo.png':avatarUrl}}"></image>
       </button>
       <form bindsubmit="formSubmit">
         <view class="nickname-form">
           <block wx:if="{{isEdit}}">
-            <input type="nickname" name="nickname" class="nickname" placeholder="请输入昵称" />
+            <input type="nickname" name="nickname" class="nickname" value="{{nicknamme}}" placeholder="请输入昵称" />
             <button class="nickname-button save-button" type="plain" formType="submit">保存</button>
           </block>
           <block wx:else="{{isEdit}}">
-            <view class="nickname">{{nickname}}</view>
+            <view class="nickname">{{nickname == ''?'未填写昵称':nickname}}</view>
             <view class="nickname-button edit-button" bindtap="onEditButton">编辑</view>
           </block>
         </view>
@@ -24,16 +24,31 @@
     <nav list="{{modules}}" bind:change="onModuleChange" model:active="{{activeModule}}" active-color="#d13435"></nav>
   </view>
 
-  <view>
-    <block wx:if="{{activeModule == 2}}">
+  <view class="content">
+    <block wx:if="{{activeModule == 0}}">
       <!-- 我的积分 -->
-      <reward-point></reward-point>
+      <!-- 统计数 -->
+      <view class="reward-summary">
+        <view class="reward-points">
+          <view class="number">{{points}}</view>
+          <view>当前积分</view>
+        </view>
+        <view class="reward-points-increased">
+          <view style="color:#ff4d4f">今日新增:0</view>
+          <view style="color:#95EC69">今日消费:0</view>
+        </view>
+        <view class="reward-points-ad" bindtap="onRewardedVideoAdTap">
+          <image src="../../../images/Videos.svg"></image>
+          <view>观看广告</view>
+        </view>
+      </view>
+      <reward-point class="reward-logs"></reward-point>
     </block>
-    <block wx:if="{{activeModule == 1}}">
+    <block wx:if="{{activeModule == 6}}">
       <!-- 我的发布 -->
       <my-publish></my-publish>
     </block>
-    <block wx:if="{{activeModule == 0}}">
+    <block wx:if="{{activeModule == 1}}">
       <!-- 我的设置 -->
       <settings></settings>
     </block>

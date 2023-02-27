@@ -11,11 +11,7 @@ App<IAppOption>({
     //初始化云
     wx.cloud.init();
     //
-    let res = await getUserConfig();
-    console.log(res);
-    if (res && res.user_id) {
-      this.globalData.userId = res.user_id;
-    }
+    await this.refreshUserConfig();
   },
   async onShow(ops) {
     // 分享统计放到此处的目的是因为热启动会不走onload，导致统计不准确。
@@ -41,19 +37,13 @@ App<IAppOption>({
       console.log(res);
     }
   },
-  getMainAreaHeight(t: any) {
-    var t = t || getCurrentPages().pop();
-
-    return new Promise((rs, rj) => {
-      t.selectComponent('#f-bar') ? wx.createSelectorQuery().in(t.selectComponent('#f-bar')).select('.tabBar').boundingClientRect()
-        .exec(function (res) {
-          var fH = res && res[0] ? res[0].height : 0
-          t.selectComponent('#c-bar') ? wx.createSelectorQuery().in(t.selectComponent('#c-bar')).select('.cu-custom').boundingClientRect()
-            .exec(function (res) {
-              var cH = res && res[0] ? res[0].height : 0
-              rs(cH + fH)
-            }) : rs(fH)
-        }) : rs(0)
-    });
+  async refreshUserConfig() {
+    let res = await getUserConfig();
+    console.log(res);
+    if (res && res.user_id) {
+      this.globalData.userId = res.user_id;
+      this.globalData.avatar = res.avatar;
+      this.globalData.nickname = res.nickname;
+    }
   }
 });

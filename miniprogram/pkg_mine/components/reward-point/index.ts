@@ -1,5 +1,4 @@
 // pkg_mine/components/reward-point/index.ts
-import { getShareAppMessage, getUserConfig } from '../../../services/share_service';
 import { searchRewardLogs } from '../../services/reward-service';
 
 Component({
@@ -14,38 +13,41 @@ Component({
    * 组件的初始数据
    */
   data: {
-    points: 0,
     rewardLogs: <Array<any>>[],
     page: 1,
     pageSize: 10,
     total: 0,
   },
-  pageLifetimes: {
-    // 组件所在页面的生命周期函数
-    show: function () {
-      //
-      getUserConfig().then((userConfig) => {
-        this.setData({
-          points: userConfig.times
-        });
-      }).catch((err) => {
-        console.log(err);
-      });
+  lifetimes: {
+    attached: function () {
+      // 在组件实例进入页面节点树时执行
       //reward logs
       searchRewardLogs(this.data.page, this.data.pageSize).then((res) => {
         console.log(res);
         this.setData({
           total: res.total,
+          rewardLogs: res.data.map((item: any) => {
+            item.reason = item.reason.replace('${amount}', item.amount);
+            return item;
+          }),
         });
       }).catch((err) => {
         console.log(err);
       });
+    },
+    detached: function () {
+      // 在组件实例被从页面节点树移除时执行
+    },
+  },
+  pageLifetimes: {
+    // 组件所在页面的生命周期函数
+    show: function () {
+
     }
   },
   /**
    * 组件的方法列表
    */
   methods: {
-
   }
 })
