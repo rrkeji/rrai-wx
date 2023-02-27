@@ -2,8 +2,8 @@
 <view class="container">
   <view class="reward-logs-header">
     <view>最近100条</view>
-    <view>今天</view>
-    <view>昨天</view>
+    <!-- <view>今天</view>
+    <view>昨天</view> -->
   </view>
   <scroll-view scroll-y="true" class="reward-logs-container">
     <block wx:for="{{rewardLogs}}" wx:for-item="item" wx:key="item" wx:for-index="itemIndex">

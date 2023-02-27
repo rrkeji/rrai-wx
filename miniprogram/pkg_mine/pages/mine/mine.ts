@@ -1,8 +1,9 @@
 // mine.ts
 import { getShareAppMessage, getUserConfig } from "../../../services/share_service";
-import { updateUserConfig } from '../../services/reward-service';
+import { updateUserConfig, rewardAdOrderCreate, rewardAdOrderCash, rewardUserSummaryToday } from '../../services/reward-service';
 
 let rewardedVideoAd: WechatMiniprogram.RewardedVideoAd | null = null;
+let adOrderNo: string | null = null;
 
 // 获取应用实例
 Page({
@@ -17,6 +18,8 @@ Page({
     isEdit: false,
     activeModule: 0,
     points: 0,
+    isReward0: 0,
+    isReward1: 0,
     avatarUrl: "/images/logo.png",
     nickname: "昵称",
   },
@@ -36,13 +39,7 @@ Page({
       menus: ['shareAppMessage', 'shareTimeline']
     });
     //
-    getUserConfig().then((userConfig) => {
-      this.setData({
-        points: userConfig.times
-      });
-    }).catch((err) => {
-      console.log(err);
-    });
+    this.refreshReward();
     //参数判断 {stype:'',userid:'',msgid:''}
     if (wx.createRewardedVideoAd) {
       rewardedVideoAd = wx.createRewardedVideoAd({
@@ -51,9 +48,17 @@ Page({
       rewardedVideoAd.onLoad(() => {
         console.log('onLoad event emit');
         //请求后端获取到一个UUID
+        rewardAdOrderCreate().then((res) => {
+          adOrderNo = res;
+        })
       })
       rewardedVideoAd.onError((err) => {
         console.log('onError event emit', err)
+        wx.showToast({
+          title: '加载广告失败,稍后重试~', //弹框内容
+          icon: 'success',  //弹框模式
+          duration: 2000    //弹框显示时间
+        });
       })
       rewardedVideoAd.onClose((res) => {
         //{isEnded: true}
@@ -61,14 +66,37 @@ Page({
         // 用户点击了【关闭广告】按钮
         if (res && res.isEnded) {
           // 正常播放结束，可以下发游戏奖励
+          rewardAdOrderCash(adOrderNo!).then((res) => {
+            //刷新页面
+            this.refreshReward();
+          })
         } else {
           // 播放中途退出，不下发游戏奖励
         }
       })
     }
   },
+  refreshReward() {
+    // 
+    getUserConfig().then((userConfig) => {
+      this.setData({
+        points: userConfig.times
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+    rewardUserSummaryToday().then((res: {
+      "is_reward_0": number,
+      "is_reward_1": number
+    }) => {
+      this.setData({
+        isReward0: res.is_reward_0,
+        isReward1: res.is_reward_1,
+      });
+    })
+  },
   onUnload: function () {
-    rewardedVideoAd?.destroy();
+    // rewardedVideoAd?.destroy();
   },
   onShow: function () {
   },
@@ -89,18 +117,46 @@ Page({
     console.log("avatarUrl", e.detail.avatarUrl)
   },
   onChooseAvatar(e) {
+    const app = getApp<IAppOption>();
     const { avatarUrl } = e.detail
 
-    updateUserConfig({
-      avatar: avatarUrl,
-    }).then((res) => {
-      console.log(res);
-    }).catch((err) => {
-      console.log(err);
-    });
-    this.setData({
-      avatarUrl,
-    });
+    wx.cloud.uploadFile({
+      cloudPath: `avatars/${app.globalData.userId}/avatar.png`, // 对象存储路径，根路径直接填文件名，文件夹例子 test/文件名，不要 / 开头
+      filePath: avatarUrl, // 微信本地文件，通过选择图片，聊天文件等接口获取
+      config: {
+        env: 'prod-5gwfszum5fc2702e' // 需要替换成自己的微信云托管环境ID
+      },
+      success: res => {
+        console.log(res.fileID)
+        updateUserConfig({
+          avatar: res.fileID,
+        }).then((res) => {
+          console.log(res);
+        }).catch((err) => {
+          console.log(err);
+        });
+        //通过 fileID 获取到临时的 URL
+        wx.cloud.getTempFileURL({
+          fileList: [res.fileID],
+          success: (fileTemp: any) => {
+            //{tempFileURL}
+            console.log(fileTemp.fileList);
+            if (fileTemp && fileTemp.fileList && fileTemp.fileList.length > 0) {
+              app.globalData.avatar = fileTemp.fileList[0].tempFileURL;
+              this.setData({
+                avatarUrl: fileTemp.fileList[0].tempFileURL
+              });
+            }
+          },
+          fail: (err) => {
+            console.log(err);
+          }
+        });
+      },
+      fail: err => {
+        console.error(err)
+      }
+    })
   },
   formSubmit(event) {
     console.log(event);

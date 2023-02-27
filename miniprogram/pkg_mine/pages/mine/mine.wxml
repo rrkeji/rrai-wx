@@ -31,11 +31,11 @@
       <view class="reward-summary">
         <view class="reward-points">
           <view class="number">{{points}}</view>
-          <view>当前积分</view>
+          <view class="text">当前积分</view>
         </view>
         <view class="reward-points-increased">
-          <view style="color:#ff4d4f">今日新增:0</view>
-          <view style="color:#95EC69">今日消费:0</view>
+          <view style="color:#ff4d4f">今日新增:{{isReward1}}</view>
+          <view style="color:#95EC69">今日消费:{{isReward0}}</view>
         </view>
         <view class="reward-points-ad" bindtap="onRewardedVideoAdTap">
           <image src="../../../images/Videos.svg"></image>

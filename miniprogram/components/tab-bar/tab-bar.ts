@@ -15,10 +15,21 @@ Component({
     aiType: {
       type: String,
       value: 'ChatGPT_Text'
-    }
+    },
   },
   data: {
-    aiSelectShow: false
+    aiSelectShow: false,
+  },
+  lifetimes: {
+    attached: function () {
+      const rr_tab_show = wx.getStorageSync('rr_tab_show') || false;
+      console.log(rr_tab_show);
+      if(this.data.idx == 1 && !rr_tab_show){
+        this.setData({
+          aiSelectShow: true
+        });
+      }
+    }
   },
   methods: {
     goToTab: function (e: any) {
@@ -53,8 +64,10 @@ Component({
       }
     },
     showAISelect: function (e: any) {
+      wx.setStorageSync('rr_tab_show', 'true');
       this.setData({
-        aiSelectShow: !this.data.aiSelectShow
+        aiSelectShow: !this.data.aiSelectShow,
+        first: false,
       });
     }
   }
