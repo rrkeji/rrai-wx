@@ -1,0 +1,10 @@
+<!--components/prompt-input/index.wxml-->
+<view class="container">
+  <view>
+    <view>语音</view>
+  </view>
+  <view>
+    <view></view>
+    <view></view>
+  </view>
+</view>

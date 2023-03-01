@@ -10,4 +10,5 @@ interface IAppOption {
     customBarHeight: number,
   }
   refreshUserConfig: () => Promise<any>,
+  getRecordAuth: () => void,
 }

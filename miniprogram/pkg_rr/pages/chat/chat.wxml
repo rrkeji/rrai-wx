@@ -104,7 +104,8 @@
   </view>
   <!-- 聊天输入 -->
   <view class="message">
-    <form bindreset="cleanInput">
+    <prompt-input></prompt-input>
+    <!-- <form bindreset="cleanInput">
       <view class="sendMessage">
         <view class="times" bindtap="timesOnTap">{{times}}</view>
         <input class="item input" placeholder-class="input-placeholder" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder='随便和软软聊点什么吧~' value="{{messageValue}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
@@ -114,8 +115,8 @@
           </view>
         </button>
       </view>
-    </form>
+    </form> -->
   </view>
 </view>
-<tab-bar id="f-bar" idx="1" aiType="ChatGPT_Text"></tab-bar>
+<!-- <tab-bar id="f-bar" idx="1" aiType="ChatGPT_Text"></tab-bar> -->
 <create-prompt-dialog show="{{showCreateDialog}}" aiType="ChatGPT_Text" prompt="{{publishItem.prompt}}" examples="{{publishItem.examples}}"></create-prompt-dialog>

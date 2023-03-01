@@ -205,7 +205,7 @@ page {
   position: absolute;
   bottom: 0;
   width: 100%;
-  min-height: 100rpx;
+  min-height: 400rpx;
   background-color: #FFFFFF;
 }
 

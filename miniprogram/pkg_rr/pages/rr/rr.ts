@@ -7,6 +7,7 @@ Page({
     prompts: '',
   },
   onLoad: function (options) {
+    const app = getApp<IAppOption>();
     //src,ai_type,prompts
     let src = '';
     let ai_type = '';
@@ -25,6 +26,7 @@ Page({
       ai_type,
       prompts
     });
+    app.getRecordAuth();
   },
   onShow: function () {
     //获取AI大脑类型，进行页面跳转
