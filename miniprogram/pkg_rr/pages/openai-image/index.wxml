@@ -82,17 +82,7 @@
   </view>
   <!-- 聊天输入 -->
   <view class="message">
-    <form bindreset="cleanInput">
-      <view class="sendMessage">
-        <view class="times" bindtap="timesOnTap">{{times}}</view>
-        <input id="message_intput" class="item input" placeholder-class="input-placeholder" disabled="{{sendLoading}}" confirm-type="send" type="text" placeholder='随便和软软聊点什么吧~' value="{{messageValue}}" bindinput='bindChange' bindconfirm="bindConfirm"></input>
-        <button form-type="reset" bindtap='send' class="item button" disabled="{{sendLoading}}">
-          <view class='item send-button {{sendLoading? "offline":""}}'>
-            <image class="send-button-inner" src="../../../images/send.png"></image>
-          </view>
-        </button>
-      </view>
-    </form>
+    <prompt-input content="{{messageValue}}" sendLoading="{{sendLoading}}" bindsend="bindConfirm"></prompt-input>
   </view>
 </view>
 <tab-bar id="f-bar" idx="1" aiType="ChatGPT_Image"></tab-bar>

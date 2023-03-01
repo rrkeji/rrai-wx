@@ -21,7 +21,9 @@
     "uploadWithSourceMap": true,
     "compileHotReLoad": true,
     "lazyloadPlaceholderEnable": false,
-    "useMultiFrameRuntime": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -43,10 +45,7 @@
     "useCompilerPlugins": [
       "typescript"
     ],
-    "ignoreUploadUnusedFiles": true,
-    "condition": true,
-    "useApiHook": false,
-    "useApiHostProcess": false
+    "ignoreUploadUnusedFiles": true
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
@@ -55,10 +54,10 @@
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "condition": {},
   "packOptions": {
     "ignore": [],
     "include": []
   },
-  "appid": "wxdebf9bfe7a033f29"
+  "appid": "wxdebf9bfe7a033f29",
+  "condition": {}
 }

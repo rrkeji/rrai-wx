@@ -27,7 +27,10 @@ Page({
     const app = getApp<IAppOption>();
     let message = '';
     if (options && options.prompt && options.prompt.length > 0) {
-      message = options.prompt;
+      let arr =  JSON.parse(decodeURIComponent(options.prompt));
+      if(arr && arr.length > 0){
+        message = arr[0]
+      }
     }
     //avatarUrl
     let avatarUrl = '../../../images/logo.png';
@@ -123,11 +126,12 @@ Page({
     }
   },
   //
-  bindConfirm(event: any) {
+  bindConfirm(e: any) {
     this.setData({
-      messageValue: event.detail.value
+      messageValue: e.detail.messageValue
+    }, () => {
+      this.send();
     });
-    this.send();
   },
   //监听input值的改变
   bindChange(res: any) {
@@ -217,7 +221,7 @@ Page({
       console.log(currentAIType);
       let res = socket.sendCommand(currentAIType, {
         "prompt": msg,
-        "size": "1024x1024"
+        "temperature": 0
       });
       let sendResult = res;
       if (res === 0) {

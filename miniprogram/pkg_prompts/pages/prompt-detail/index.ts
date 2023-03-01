@@ -111,9 +111,9 @@ Page({
       });
       return;
     }
-    //执行
+    //执行decodeURIComponent
     wx.redirectTo({
-      url: '../../../pkg_rr/pages/rr/rr?src=try&ai_type=' + this.data.prompt.ai_type + '&prompts=' + JSON.stringify(this.data.prompt.prompts)
+      url: '../../../pkg_rr/pages/rr/rr?src=try&ai_type=' + this.data.prompt.ai_type + '&prompts=' + encodeURIComponent(JSON.stringify(this.data.prompt.prompts))
     });
   }
 })

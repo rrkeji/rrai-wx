@@ -25,7 +25,10 @@ Page({
     const app = getApp<IAppOption>();
     let message = '';
     if (options && options.prompt && options.prompt.length > 0) {
-      message = options.prompt;
+      let arr =  JSON.parse(decodeURIComponent(options.prompt));
+      if(arr && arr.length > 0){
+        message = arr[0]
+      }
     }
     //avatarUrl
     let avatarUrl = '../../../images/hj.png';
@@ -107,9 +110,10 @@ Page({
   //
   bindConfirm(event: any) {
     this.setData({
-      messageValue: event.detail.value
+      messageValue: e.detail.messageValue
+    }, () => {
+      this.send();
     });
-    this.send();
   },
   //监听input值的改变
   bindChange(res: any) {

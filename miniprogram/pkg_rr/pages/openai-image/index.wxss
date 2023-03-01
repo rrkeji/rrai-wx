@@ -49,7 +49,7 @@ page {
   height: 100%;
   width: 100%;
   border-top: 0px;
-  padding-bottom: 90rpx;
+  padding-bottom: 200rpx;
   overflow: hidden;
 }
 
@@ -207,109 +207,10 @@ page {
   position: absolute;
   bottom: 0;
   width: 100%;
-  min-height: 100rpx;
+  min-height: 200rpx;
   background-color: #FFFFFF;
-}
-
-.sendMessage {
-  width: 100%;
-  height: 100rpx;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  line-height: 66rpx;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  z-index: 3;
-}
-
-.sendMessage .times {
-  min-width: 100rpx;
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 10rpx;
-  background-color: #A7E9BB;
-  color: #FFFFFF;
-}
-
-.sendMessage .item {
-  display: flex;
-  width: 80rpx;
-  padding: 0;
-}
-
-.sendMessage .input {
-  flex-grow: 1;
-  line-height: 30px;
-  height: 36px;
-  background-color: #ECECEC;
-  border-radius: 40rpx;
-  padding: 0 20rpx;
-  font-size: 28rpx;
-  color: #474747;
-  display: inline-block;
-  text-align: left;
-}
-
-.sendMessage .input-placeholder {
-  font-size: 24rpx;
-  color: #474747;
-  margin-left: 15rpx;
-  font-weight: 500;
-}
-
-.sendMessage .button {
-  background-color: #FFFFFF;
-  width: 120rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.sendMessage .send-button {
-  width: 80rpx;
-  height: 80rpx;
-  text-align: center;
-  background-color: #499CFB;
-  border-radius: 50%;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-}
-
-.send-button-inner {
-  width: 52rpx;
-  height: 52rpx;
-}
-
-@keyframes slidedown {
-  from {
-    transform: translateY(0);
-  }
-
-  to {
-    transform: translateY(100%);
-  }
-}
-
-.slidedown {
-  animation: slidedown 0.5s linear;
-}
-
-.slideup {
-  animation: slideup 0.5s linear;
-}
-
-@keyframes slideup {
-  from {
-    transform: translateY(100%);
-  }
-
-  to {
-    transform: translateY(0);
-  }
+  border-top:2rpx solid #dedede;
+  border-bottom:2rpx solid #dedede;
 }
 
 .loading {
@@ -354,20 +255,7 @@ page {
     color: #000000;
   }
 }
-
-
-.offline {
-  border: 6rpx solid red;
-  box-sizing: border-box;
-  animation: offline 1s infinite ease;
-}
-
-@keyframes offline {
-  from {
-    border: 6rpx solid red;
-  }
-
-  to {
-    border: 0rpx solid red;
-  }
+.send-button-inner {
+  width: 52rpx;
+  height: 52rpx;
 }
