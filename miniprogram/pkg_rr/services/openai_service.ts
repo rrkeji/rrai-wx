@@ -1,13 +1,30 @@
-export const openaiImagesGenerations = async (prompt: string) => {
+export const openaiImagesGenerations = (prompt: string, success: (res: any) => void, fail: (err: any) => void) => {
   //
-  let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
-    "path": "/openai/images/generations",
+  // let res = await wx.cloud.callContainer({
+  //   "config": {
+  //     "env": "prod-5gwfszum5fc2702e"
+  //   },
+  //   "path": "/openai/images/generations",
+  //   "header": {
+  //     "X-WX-SERVICE": "rrai",
+  //     "content-type": "application/json"
+  //   },
+  //   "method": "POST",
+  //   "data": {
+  //     prompt: prompt,
+  //     size: '512x512',
+  //     n: 2,
+  //     response_format: 'url'
+  //   }
+  // });
+  const app = getApp<IAppOption>();
+
+  wx.request({
+    url: 'https://www.idns.link/rrai/chatGPT/openai/images/generations',
     "header": {
       "X-WX-SERVICE": "rrai",
-      "content-type": "application/json"
+      "content-type": "application/json",
+      "x-wx-openid": app.globalData.userId,
     },
     "method": "POST",
     "data": {
@@ -15,8 +32,8 @@ export const openaiImagesGenerations = async (prompt: string) => {
       size: '512x512',
       n: 2,
       response_format: 'url'
-    }
+    },
+    success: success,
+    fail: fail
   });
-  console.log(res.data);
-  return res.data;
 }

@@ -1,7 +1,7 @@
 // 获取应用实例
 import { getPromptsCategories, PromptsCategory, searchPrompts, searchUserPrompts } from '../../../services/prompts_service';
 import { setHeight } from '../../../utils/scroller-util';
-const PAGE_SIZE: number = 5;
+const PAGE_SIZE: number = 10;
 Page({
   data: {
     modules: [{

@@ -102,30 +102,21 @@ export class ReconnectWebsocket {
     }
 
     if (this.websocket == null) {
-      const { socketTask } = await wx.cloud.connectContainer({
-        "config": {
-          "env": "prod-5gwfszum5fc2702e"
+      // const { socketTask } = await wx.cloud.connectContainer({
+      //   "config": {
+      //     "env": "prod-5gwfszum5fc2702e"
+      //   },
+      //   "service": "chat",
+      //   "path": "/"
+      // })
+      // this.websocket = socketTask;
+      this.websocket = wx.connectSocket({
+        url: 'wss://wsschat.idns.link',
+        // url: 'ws://127.0.0.1:3000',
+        header: {
+          "x-wx-openid": this.options!.userId,
         },
-        "service": "chat",
-        "path": "/"
-      })
-      this.websocket = socketTask;
-      // this.websocket = wx.connectSocket({
-      //   // url: 'wss://wsschat.idns.link',
-      //   url: 'ws://127.0.0.1:3000',
-      //   header: {
-      //     "x-wx-openid": this.options!.userId,
-      //   },
-      //   success: (res) => {
-      //     console.log('success', res);
-      //   },
-      //   fail: (res) => {
-      //     console.log('fail', res);
-      //   },
-      //   complete: (res) => {
-      //     console.log('complete', res);
-      //   },
-      // });
+      });
       this.websocket.onOpen((res: any) => {
         console.log('onOpen', res);
         this.options!.onOpen && this.options!.onOpen(res);

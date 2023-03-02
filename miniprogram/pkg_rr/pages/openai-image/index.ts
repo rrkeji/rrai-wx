@@ -25,8 +25,8 @@ Page({
     const app = getApp<IAppOption>();
     let message = '';
     if (options && options.prompt && options.prompt.length > 0) {
-      let arr =  JSON.parse(decodeURIComponent(options.prompt));
-      if(arr && arr.length > 0){
+      let arr = JSON.parse(decodeURIComponent(options.prompt));
+      if (arr && arr.length > 0) {
         message = arr[0]
       }
     }
@@ -110,7 +110,7 @@ Page({
   //
   bindConfirm(event: any) {
     this.setData({
-      messageValue: e.detail.messageValue
+      messageValue: event.detail.messageValue
     }, () => {
       this.send();
     });
@@ -200,13 +200,13 @@ Page({
     }, () => {
       flag.bottom();
     });
-
+    console.log('------');
     //进行发送
-    openaiImagesGenerations(msg).then((res) => {
+    openaiImagesGenerations(msg, (res) => {
       console.log(res);
       let list = flag.addMessageAndSync({
         "sender": "response",
-        "data": res.data,
+        "data": res.data.data,
         "type": "ChatGPTImage"
       });
       flag.setData({
@@ -217,7 +217,7 @@ Page({
         flag.bottom();
         flag.refreshTimes();
       });
-    }).catch((err) => {
+    }, (err) => {
       console.log(err);
       let list = flag.addMessageAndSync({
         "sender": "response",

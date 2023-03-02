@@ -35,7 +35,7 @@
   </view>
   <view class='button-container {{sendLoading? "offline":""}}'>
     <view class='button1'  bindtap="onBindSettings">
-      <image class="button-inner send-button" src="../../images/settings.svg"></image>
+      <!-- <image class="button-inner send-button" src="../../images/settings.svg"></image> -->
     </view>
     <view class='button {{sendLoading? "offline":""}}' bindtap="onBindSend">
       <image class="button-inner send-button" src="../../images/send.svg"></image>

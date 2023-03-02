@@ -1,9 +1,9 @@
 <!--pkg_mine/components/reward-point/index.wxml-->
 <view class="container">
   <view class="reward-logs-header">
-    <view>最近100条</view>
-    <!-- <view>今天</view>
-    <view>昨天</view> -->
+    <view>最近30条</view>
+    <view class="refresh-link" bindtap="onRefresh">刷新</view>
+    <!-- <view>昨天</view> -->
   </view>
   <scroll-view scroll-y="true" class="reward-logs-container">
     <block wx:for="{{rewardLogs}}" wx:for-item="item" wx:key="item" wx:for-index="itemIndex">

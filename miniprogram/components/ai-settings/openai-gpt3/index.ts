@@ -11,7 +11,9 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    temperature: 0.8,
+    topp: 0,
+    stop: ''
   },
 
   /**

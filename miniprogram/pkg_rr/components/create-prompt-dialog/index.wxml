@@ -22,7 +22,7 @@
     <view class="form-item">
       <view class="form-item-label">标签</view>
       <checkbox-group class="item form-item-checkbox" bindchange="checkboxChange">
-        <label class="tag-item" wx:for="{{tagsInCategory}}" wx:key="{{item.tag}}">
+        <label class="tag-item" wx:for="{{tagsInCategory}}" wx:key="item">
           <checkbox class="tag-item-checkbox" value="{{item.tag}}" />
           <view class="tag-item-name">{{item.tag}}</view>
         </label>

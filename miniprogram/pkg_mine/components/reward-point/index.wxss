@@ -13,6 +13,7 @@
   width: 100%;
   height: 90rpx;
   line-height: 90rpx;
+  padding: 0 20rpx;
   border-bottom: 2rpx solid #777777;
   display: flex;
   justify-content: space-between;
@@ -59,4 +60,9 @@
 
 .list-item.isreward .amount {
   background-color: #ff4d4f;
+}
+
+.refresh-link{
+  text-decoration: underline;
+  color: #0062DB;
 }
