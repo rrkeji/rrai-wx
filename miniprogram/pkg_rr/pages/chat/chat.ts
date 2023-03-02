@@ -17,6 +17,7 @@ Page({
     timeoutHandle: 0,
     times: 0,
     showCreateDialog: false,
+    showSettingsDialog: false,
     publishItem: <{ prompt: string, examples: string } | null>null,
     avatarUrl: '/images/logo.png',
   },
@@ -27,8 +28,8 @@ Page({
     const app = getApp<IAppOption>();
     let message = '';
     if (options && options.prompt && options.prompt.length > 0) {
-      let arr =  JSON.parse(decodeURIComponent(options.prompt));
-      if(arr && arr.length > 0){
+      let arr = JSON.parse(decodeURIComponent(options.prompt));
+      if (arr && arr.length > 0) {
         message = arr[0]
       }
     }
@@ -370,6 +371,11 @@ Page({
     this.setData({
       showCreateDialog: true,
       publishItem
+    });
+  },
+  onBindSettings: function (event: any) {
+    this.setData({
+      showSettingsDialog: true
     });
   }
 })

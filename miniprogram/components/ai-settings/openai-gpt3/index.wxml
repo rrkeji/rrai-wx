@@ -1,0 +1,21 @@
+<!--components/ai-settings/openai-gpt3/index.wxml-->
+<view>
+  <view class="form-item">
+    <view class="form-item-label">
+      temperature<text class="use-prompt" bindtap="onUsePrompt"></text>
+    </view>
+    <input class="item form-item-input" placeholder-class="input-placeholder" type="text" placeholder='temperature' value="{{title}}" bindinput='onTitleChange'></input>
+  </view>
+  <view class="form-item">
+    <view class="form-item-label">
+      top_p<text class="use-prompt" bindtap="onUsePrompt"></text>
+    </view>
+    <input class="item form-item-input" placeholder-class="input-placeholder" type="text" placeholder='top_p' value="{{title}}" bindinput='onTitleChange'></input>
+  </view>
+  <view class="form-item">
+    <view class="form-item-label">
+      stop<text class="use-prompt" bindtap="onUsePrompt"></text>
+    </view>
+    <input class="item form-item-input" placeholder-class="input-placeholder" type="text" placeholder='top_p' value="{{title}}" bindinput='onTitleChange'></input>
+  </view>
+</view>

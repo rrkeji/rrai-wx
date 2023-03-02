@@ -161,6 +161,11 @@ Component({
       this.setData({
         content: ""
       });
+    },
+    onBindSettings: function () {
+      //
+      this.triggerEvent('settings', {
+      });
     }
   }
 })

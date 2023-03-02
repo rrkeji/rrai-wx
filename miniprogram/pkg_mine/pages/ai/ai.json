@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "tab-bar": "/components/tab-bar/tab-bar",
+    "openai-gpt3-settings": "/components/ai-settings/openai-gpt3/index",
     "c-bar": "/components/c-bar/index"
   },
   "navigationBarTitleText": "AI大脑"

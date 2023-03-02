@@ -104,8 +104,11 @@
   </view>
   <!-- 聊天输入 -->
   <view class="message">
-    <prompt-input content="{{messageValue}}" sendLoading="{{sendLoading}}" bindsend="bindConfirm"></prompt-input>
+    <prompt-input content="{{messageValue}}" sendLoading="{{sendLoading}}" bindsend="bindConfirm"  bindsettings="onBindSettings"></prompt-input>
   </view>
 </view>
 <tab-bar id="f-bar" idx="1" aiType="ChatGPT_Text"></tab-bar>
 <create-prompt-dialog show="{{showCreateDialog}}" aiType="ChatGPT_Text" prompt="{{publishItem.prompt}}" examples="{{publishItem.examples}}"></create-prompt-dialog>
+<mp-dialog title="AI大脑设置" show="{{showSettingsDialog}}" bindbuttontap="tapDialogButton" buttons="{{buttons}}">
+  <openai-gpt3-settings></openai-gpt3-settings>
+</mp-dialog>
