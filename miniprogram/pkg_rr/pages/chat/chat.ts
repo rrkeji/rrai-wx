@@ -222,7 +222,7 @@ Page({
       console.log(currentAIType);
       let res = socket.sendCommand(currentAIType, {
         "prompt": msg,
-        "temperature": 0.8
+        "temperature": 0
       });
       let sendResult = res;
       if (res === 0) {

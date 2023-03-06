@@ -163,9 +163,6 @@ Page({
 
     //将本地资源上传到服务器
     wx.cloud.callContainer({
-      "config": {
-        "env": "prod-5gwfszum5fc2702e"
-      },
       "path": "/openai/images/edits",
       "header": {
         "X-WX-SERVICE": "rrai",
@@ -197,7 +194,6 @@ Page({
     //   // url: 'http://localhost/openai/images/edits',
     //   "method": "POST",
     //   header: {
-    //     "Env": "prod-5gwfszum5fc2702e",
     //     "X-WX-SERVICE": "rrai",
     //     "x-wx-openid": app.globalData.userId,
     //     'content-type': data.contentType

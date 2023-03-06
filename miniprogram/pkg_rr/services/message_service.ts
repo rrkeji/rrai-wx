@@ -2,9 +2,6 @@ export const messageSecCheck = async (msg: string) => {
   const app = getApp<IAppOption>();
   //进行安全检测
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/wx/msg/sec_check",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -33,9 +30,6 @@ export const createPromptToServer = async (args: {
   examples?: string,
 }) => {
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/prompts/create",
     "header": {
       "X-WX-SERVICE": "rrai",

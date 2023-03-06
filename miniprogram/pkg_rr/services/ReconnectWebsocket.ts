@@ -103,9 +103,6 @@ export class ReconnectWebsocket {
 
     if (this.websocket == null) {
       // const { socketTask } = await wx.cloud.connectContainer({
-      //   "config": {
-      //     "env": "prod-5gwfszum5fc2702e"
-      //   },
       //   "service": "chat",
       //   "path": "/"
       // })

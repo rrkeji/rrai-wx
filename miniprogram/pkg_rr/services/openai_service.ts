@@ -1,9 +1,6 @@
 export const openaiImagesGenerations = (prompt: string, success: (res: any) => void, fail: (err: any) => void) => {
   //
   // let res = await wx.cloud.callContainer({
-  //   "config": {
-  //     "env": "prod-5gwfszum5fc2702e"
-  //   },
   //   "path": "/openai/images/generations",
   //   "header": {
   //     "X-WX-SERVICE": "rrai",

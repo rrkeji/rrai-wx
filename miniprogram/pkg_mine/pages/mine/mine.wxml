@@ -35,6 +35,7 @@
         </view>
         <view class="reward-points-increased">
           <view style="color:#ff4d4f">今日新增:{{isReward1}}</view>
+          <view style="color:#95EC69" bindtap="onBuyButtonTap">购买</view>
           <view style="color:#95EC69">今日消费:{{isReward0}}</view>
         </view>
         <view class="reward-points-ad" bindtap="onRewardedVideoAdTap">

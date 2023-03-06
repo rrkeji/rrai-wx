@@ -1,6 +1,7 @@
 // mine.ts
 import { getShareAppMessage, getUserConfig } from "../../../services/share_service";
 import { updateUserConfig, rewardAdOrderCreate, rewardAdOrderCash, rewardUserSummaryToday } from '../../services/reward-service';
+import { createOrderByProduct } from '../../../services/mall_service';
 
 let rewardedVideoAd: WechatMiniprogram.RewardedVideoAd | null = null;
 let adOrderNo: string | null = null;
@@ -123,9 +124,6 @@ Page({
     wx.cloud.uploadFile({
       cloudPath: `avatars/${app.globalData.userId}/avatar.png`, // 对象存储路径，根路径直接填文件名，文件夹例子 test/文件名，不要 / 开头
       filePath: avatarUrl, // 微信本地文件，通过选择图片，聊天文件等接口获取
-      config: {
-        env: 'prod-5gwfszum5fc2702e' // 需要替换成自己的微信云托管环境ID
-      },
       success: res => {
         console.log(res.fileID)
         updateUserConfig({
@@ -190,6 +188,28 @@ Page({
         .catch(err => {
           console.log('激励视频 广告显示失败')
         });
+    });
+  },
+  onBuyButtonTap(e) {
+    console.log('sss');
+    createOrderByProduct(1, 1).then((res) => {
+      const { orderNo, payment } = res;
+      wx.requestPayment({
+        timeStamp: payment.timeStamp,
+        nonceStr: payment.nonceStr,
+        package: payment.package,
+        signType: payment.signType,
+        paySign: payment.paySign,
+        success(res) {
+          console.log(orderNo);
+          console.log('pay success', res)
+        },
+        fail(err) {
+          console.error('pay fail', err)
+        }
+      })
+    }).catch((err) => {
+      console.error(err);
     });
   }
 })

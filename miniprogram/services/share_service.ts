@@ -1,9 +1,6 @@
 export const getUserConfig = async (): Promise<{ times: number, user_id: string, avatar: string, nickname: string }> => {
   //请求剩余次数等
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/user/config",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -21,9 +18,6 @@ export const getShareAppMessage = () => {
   const promise = new Promise(resolve => {
     //
     wx.cloud.callContainer({
-      "config": {
-        "env": "prod-5gwfszum5fc2702e"
-      },
       "path": "/wx/share/msgid",
       "header": {
         "X-WX-SERVICE": "rrai",

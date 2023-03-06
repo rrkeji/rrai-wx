@@ -25,9 +25,6 @@ const convertRewardLogEntity = (item: any): any => {
 export const searchRewardLogs = async (page: number, pageSize: number, keywords?: string, startDate?: string, endDate?: string): Promise<any> => {
 
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/reward/logs",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -53,9 +50,6 @@ export const searchRewardLogs = async (page: number, pageSize: number, keywords?
 export const updateUserConfig = async (config: { avatar?: string, nickname?: string }): Promise<any> => {
   //请求剩余次数等
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/user/config",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -77,9 +71,6 @@ export const updateUserConfig = async (config: { avatar?: string, nickname?: str
 export const rewardAdOrderCreate = async (): Promise<string | null> => {
   //请求剩余次数等
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/reward/ad_order/create",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -96,9 +87,6 @@ export const rewardAdOrderCreate = async (): Promise<string | null> => {
 export const rewardAdOrderCash = async (orderNo: string): Promise<any> => {
   //请求剩余次数等
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/reward/ad_order/cash",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -116,9 +104,6 @@ export const rewardAdOrderCash = async (orderNo: string): Promise<any> => {
 export const rewardUserSummaryToday = async (): Promise<any> => {
   //请求剩余次数等
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/reward/user_summary/today",
     "header": {
       "X-WX-SERVICE": "rrai",

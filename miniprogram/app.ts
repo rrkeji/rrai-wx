@@ -10,7 +10,9 @@ App<IAppOption>({
   async onLaunch(options) {
     console.log('onLaunch', options);
     //初始化云
-    wx.cloud.init();
+    wx.cloud.init({
+      "env": "prod-5gwfszum5fc2702e",
+    });
     //
     await this.refreshUserConfig();
   },
@@ -21,9 +23,6 @@ App<IAppOption>({
       // 分享数据统计
       // 发送请求，后台解析出分享信息
       let res = await wx.cloud.callContainer({
-        "config": {
-          "env": "prod-5gwfszum5fc2702e"
-        },
         "path": "/wx/share/confirm",
         "header": {
           "X-WX-SERVICE": "rrai",

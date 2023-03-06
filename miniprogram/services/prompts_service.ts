@@ -54,9 +54,6 @@ const convertPromptEntity = (item: any): any => {
 
 export const getPromptsCategories = async (): Promise<Array<PromptsCategory>> => {
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/prompts_category/categories",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -80,9 +77,6 @@ export const getPromptsCategories = async (): Promise<Array<PromptsCategory>> =>
 
 export const getTagsByCategory = async (category: string): Promise<Array<any>> => {
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/prompts_category/search_by_category",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -106,9 +100,6 @@ export const getTagsByCategory = async (category: string): Promise<Array<any>> =
 export const addPromptTag = async (tag: string, category: string) => {
 
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/prompts_category/tag/create",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -130,9 +121,6 @@ export const addPromptTag = async (tag: string, category: string) => {
 export const searchPrompts = async (page: number, pageSize: number, keywords?: string, category?: string): Promise<any> => {
 
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/prompts/prompts",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -159,9 +147,6 @@ export const searchPrompts = async (page: number, pageSize: number, keywords?: s
 export const getPromptById = async (promptId: number): Promise<any> => {
 
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/prompts/byid/" + promptId,
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -183,9 +168,6 @@ export const getPromptById = async (promptId: number): Promise<any> => {
 export const searchUserPrompts = async (page: number, pageSize: number, keywords?: string, category?: string): Promise<any> => {
 
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/prompts/user_prompts",
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -213,9 +195,6 @@ export const searchUserPrompts = async (page: number, pageSize: number, keywords
 export const promptsInteractionByUserid = async (promptId: number) => {
 
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/prompts_user/interaction/byuserid/" + promptId,
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -231,9 +210,6 @@ export const promptsInteractionByUserid = async (promptId: number) => {
 export const promptsInteractionById = async (promptId: number) => {
 
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/prompts_user/interaction/byid/" + promptId,
     "header": {
       "X-WX-SERVICE": "rrai",
@@ -249,9 +225,6 @@ export const promptsInteractionById = async (promptId: number) => {
 export const userPromptsInteracte = async (promptId: number, field: InteracteField, value: boolean) => {
 
   let res = await wx.cloud.callContainer({
-    "config": {
-      "env": "prod-5gwfszum5fc2702e"
-    },
     "path": "/prompts_user/interacte/" + promptId,
     "header": {
       "X-WX-SERVICE": "rrai",
