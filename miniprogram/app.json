@@ -28,6 +28,14 @@
         "pages/prompts/prompts",
         "pages/prompt-detail/index"
       ]
+    },
+    {
+      "root": "pkg_painter",
+      "pages": [
+        "pages/diffusion/index",
+        "pages/scribble/index",
+        "pages/home/index"
+      ]
     }
   ],
   "window": {

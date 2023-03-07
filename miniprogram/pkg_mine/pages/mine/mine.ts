@@ -42,16 +42,16 @@ Page({
     //
     this.refreshReward();
     //参数判断 {stype:'',userid:'',msgid:''}
-    if (wx.createRewardedVideoAd) {
+    if (wx.createRewardedVideoAd && rewardedVideoAd == null) {
       rewardedVideoAd = wx.createRewardedVideoAd({
         adUnitId: 'adunit-43d6b8c12ab78ce7'
       });
       rewardedVideoAd.onLoad(() => {
         console.log('onLoad event emit');
         //请求后端获取到一个UUID
-        rewardAdOrderCreate().then((res) => {
-          adOrderNo = res;
-        })
+        // rewardAdOrderCreate().then((res) => {
+        //   adOrderNo = res;
+        // })
       })
       rewardedVideoAd.onError((err) => {
         console.log('onError event emit', err)

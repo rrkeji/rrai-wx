@@ -1,0 +1,31 @@
+<!--pkg_painter/pages/home/index.wxml-->
+<view class="container">
+  <scroll-view scroll-y="true" class="card-view">
+    <view class="cards">
+      <view class="card-item" data-productId="1">
+        <view>生成图片</view>
+        <view>(mdjrny-v4 style)</view>
+      </view>
+      <view class="card-item">
+        <view>智能涂鸦</view>
+        <view>(mdjrny-v4 style)</view>
+      </view>
+      <view class="card-item">
+        <view>生成图片</view>
+        <view>(mdjrny-v4 style)</view>
+      </view>
+      <view class="card-item">
+        <view>转换线图</view>
+        <view>(mdjrny-v4 style)</view>
+      </view>
+      <view class="card-item">
+        <view>转换线图</view>
+        <view>(mdjrny-v4 style)</view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="detail">
+  </view>
+</view>
+
+<tab-bar id="f-bar" idx="3" aiType="ChatGPT_Text"></tab-bar>

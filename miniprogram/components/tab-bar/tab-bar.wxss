@@ -9,10 +9,12 @@
 .tabBar {
   position: fixed;
   width: 100%;
+  height: 140rpx;
   bottom: 0;
   font-size: 20rpx;
   color: #8A8A8A;
   z-index: 99;
+  border-top: 2rpx solid #dedede
 }
 
 .shadow {
@@ -129,9 +131,7 @@
 }
 
 
-.cu-bar {
-  margin-top: 20rpx;
-}
+.cu-bar {}
 
 .cu-bar .action:first-child {
   margin-left: 30rpx;
@@ -242,8 +242,10 @@
 .icon-homefill,
 .icon-skinfill,
 .icon-search,
+.icon-skin,
 .icon-discover,
 .icon-question,
+.icon-message,
 .icon-selection,
 .icon-close,
 .icon-my {
@@ -284,10 +286,21 @@
   content: "\e7cc";
 }
 
+.icon-skin:before {
+  content: "\e7cd";
+}
+
 .icon-selection:before {
   content: "\e6ce";
 }
 
+.icon-message:before {
+  content: "\e6bc";
+}
+
+/* .text-current button{
+  background-color: #499CFB;
+} */
 
 .text-current {
   color: #499CFB;
@@ -298,11 +311,21 @@
 }
 
 .text-current .bg-rr {
-  background-color: #499CFB;
+  /* background-color: #499CFB;
   color: #fff;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0;
+  border-radius: 50%; */
 }
 
 .text-normal .bg-rr {
-  background-color: #A7E8BB;
+  /* background-color: #A7E8BB;
   color: #fff;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0;
+  border-radius: 50%; */
 }
