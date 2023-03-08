@@ -12,18 +12,18 @@ page {
   height: calc(100vh - 140rpx);
   position: relative;
   overflow: hidden;
-  padding-top: 30rpx;
   text-align: center;
   box-sizing: border-box;
 }
 
 .card-view {
-  height: 440rpx;
-  border-bottom: 2rpx solid #DEDEDE;
+  height: 100%;
+  background-color: #F7F6FC;
 }
 
 .cards {
   display: flex;
+  padding-top: 10rpx;
   width: 100%;
   flex-wrap: wrap;
   justify-content: center;
@@ -34,10 +34,53 @@ page {
   display: flex;
   flex-direction: column;
   width: 340rpx;
-  height: 170rpx;
-  background-color: #A7E8BB;
-  color: #FFFFFF;
+  height: 340rpx;
+  background-color: #FFFFFF;
+  color: #444444;
   margin: 10rpx 10rpx;
+  border-radius: 10rpx;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-item .item-icon {
+  width: 140rpx;
+  height: 140rpx;
+  background-color: #444444;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-item .item-icon image {
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.card-item .item-title {
+  font-size: 36rpx;
+  line-height: 60rpx;
+}
+
+.card-item .item-sub-title {
+  font-size: 26rpx;
+}
+
+.card-item .icon1 {
+  background-color: #FFBD01;
+}
+
+.card-item .icon2 {
+  background-color: #6CD3CB;
+}
+
+.card-item .icon3 {
+  background-color: #7096F0;
+}
+
+.card-item .icon4 {
+  background-color: #FD6261;
 }
 
 .detail {}

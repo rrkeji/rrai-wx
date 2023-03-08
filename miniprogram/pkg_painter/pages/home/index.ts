@@ -62,5 +62,13 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+  onCardTap(e: any) {
+
+    let { page } = e.currentTarget.dataset;
+
+    wx.navigateTo({
+      url: page
+    });
   }
 })
