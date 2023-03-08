@@ -1,0 +1,41 @@
+<!--pkg_prompts/components/prompt-list-item/index.wxml-->
+<view class="item">
+  <!-- 推荐 -->
+  <block wx:if="{{recommend}}">
+    <view class="recommend-item">
+      <image class='item-image' lazy-load="{{true}}" src="{{images[0]}}"></image>
+      <view class="item-content" bindtap="onItemTap">
+      </view>
+    </view>
+  </block>
+  <!-- 非推荐 -->
+  <block wx:else="{{recommend}}">
+    <view class="normal-item">
+      <block wx:if="{{images.length}}">
+        <image class='item-image' lazy-load="{{true}}" src="{{images[0]}}"></image>
+      </block>
+      <block wx:else="{{images.length}}">
+        <bot-avatar size="120" background="#499CFB" rounded="{{false}}"></bot-avatar>
+      </block>
+      <view class="item-content" bindtap="onItemTap">
+        <block wx:if="{{title.length}}">
+          <view class="item-title">{{title}}</view>
+        </block>
+        <block wx:if="{{prompts.length}}">
+          <view class="item-prompts">{{prompts[0]}}</view>
+        </block>
+        <block wx:if="{{tags.length}}">
+          <view class="item-tags">
+            <view wx:for="{{ tags }}" wx:for-index="tagIndex" wx:for-item="tagItem" wx:key="index" class="item-tag">
+              <image src="/images/tag.svg"></image>
+              <text>{{tagItem}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class="item-right">
+        <view class="item-button" bindtap="onTry">试</view>
+      </view>
+    </view>
+  </block>
+</view>

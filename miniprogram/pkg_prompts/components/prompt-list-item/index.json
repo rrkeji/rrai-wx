@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "bot-avatar": "/components/avatars/bot-avatar/index"
+  }
+}

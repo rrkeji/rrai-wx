@@ -1,5 +1,16 @@
 {
   "usingComponents": {
-    "tab-bar": "/components/tab-bar/index"
+    "tab-bar": "/components/tab-bar/index",
+    "prompt-list-item": "../../components/prompt-list-item/index",
+    "prompt-view": "../../components/prompt-view/index",
+    "scroller": "/components/scroller/index",
+    "scroller-page": "/components/scroll-page/index",
+    "item": "/components/item/index",
+    "loadmore": "/components/loadmore/index",
+    "empty": "/components/empty/index",
+    "handtip": "/components/handtip/index",
+    "nav": "/components/nav/index",
+    "refresh": "/components/refresh/index",
+    "search": "/components/search/index"
   }
 }
