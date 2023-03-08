@@ -1,5 +1,10 @@
 <!--pkg_painter/pages/index/index.wxml-->
 <view class="page-with-tabbar container">
-  <text>pkg_painter/pages/index/index.wxml</text>
+  <view class="message-stack">
+    <message-stack></message-stack>
+  </view>
+  <view class="prompts-input">
+    <prompts-input></prompts-input>
+  </view>
 </view>
 <tab-bar idx="1"></tab-bar>

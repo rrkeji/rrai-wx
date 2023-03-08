@@ -13,6 +13,7 @@
   bottom: 0;
   font-size: 20rpx;
   color: #8A8A8A;
+  background-color: #FFFFFF;
   z-index: 99;
   border-top: 2rpx solid #dedede
 }

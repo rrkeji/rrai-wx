@@ -1,12 +1,12 @@
 <!--pkg_mine/components/settings/index.wxml-->
 <view class="mine-list">
-  <view class="mine-item">
+  <!-- <view class="mine-item">
     <view class="mine-item-icon">
       <view class="icon iconf icon-facerenlianshibie"></view>
     </view>
     <view class="mine-item-title">AI大脑切换</view>
     <view class="mine-item-button" bindtap="onAIChange">切换</view>
-  </view>
+  </view> -->
 
   <view class="mine-item">
     <view class="mine-item-icon">
