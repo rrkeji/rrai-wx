@@ -19,7 +19,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    inputFocus: false,
+    inputFocus: true,
     translateContent: '',
     content: '少时诵诗书少时诵诗书是撒是撒是撒是撒少时诵诗书少时诵诗书飒飒飒事实上事实上少时诵诗书事实上事实上少时诵诗书是撒是撒是撒是撒是撒是撒',
     translateEnable: false,
