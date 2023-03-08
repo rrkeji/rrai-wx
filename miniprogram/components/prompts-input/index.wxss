@@ -1,0 +1,131 @@
+/* components/prompts-input/index.wxss */
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+ 
+.container {
+  width: 100%;
+  display: flex;
+}
+
+.input-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 6rpx 0rpx;
+}
+
+.button-container,
+.left-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8rpx 8rpx;
+}
+
+.zh-text,
+.en-text {
+  width: 100%;
+  height: 90rpx;
+  text-align: left;
+  background-color: #ECECEC;
+  color: #474747;
+  border-radius: 16rpx;
+  padding: 6rpx 8rpx;
+}
+
+.input-placeholder {
+  font-size: 24rpx;
+  color: #999999;
+  margin-left: 15rpx;
+}
+
+.button {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  background-color: #499CFB;
+  border-radius: 50%;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-button {
+  width: 100rpx;
+  height: 60rpx;
+  display: flex;
+  background-color: #A7E9BB;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6rpx;
+}
+
+.button-inner {}
+
+.trans-button {
+  color: #FFFFFF;
+  font-size: 26rpx;
+}
+
+.speech-button-start {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.speech-button-end {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+
+.send-button {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+
+.offline {
+  border: 6rpx solid red;
+  box-sizing: border-box;
+  animation: offline 1s infinite ease;
+}
+
+@keyframes offline {
+  from {
+    border: 6rpx solid red;
+  }
+
+  to {
+    border: 0rpx solid red;
+  }
+}
+
+.startYuyinImage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -170rpx;
+  margin-left: -120rpx;
+  width: 240rpx;
+  height: 240rpx;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 20rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.startYuyinImage cover-image {
+  margin: 30rpx auto;
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.startYuyinImage cover-view {
+  margin-top: 25rpx;
+}

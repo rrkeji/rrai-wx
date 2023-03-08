@@ -1,0 +1,24 @@
+<view class="tabBar">
+  <view class="cu-bar tabbar bg-white shadow">
+    <!-- AI问答 -->
+    <view class="action {{idx == 0?'text-current':'text-normal'}}" catchtap='{{idx != 0?"goToTab":""}}' data-url="/pages/chat/index" data-index="0">
+      <botton class='iconf icon-jiqiren bg-rr'></botton>
+      AI问答
+    </view>
+    <!-- AI绘画 -->
+    <view class="action {{idx == 1?'text-current':'text-normal'}}" catchtap='{{idx != 1?"goToTab":""}}' data-url="/pkg_painter/pages/index/index" data-index="1">
+      <botton class='iconf icon-huihua bg-rr'></botton>
+      AI绘画
+    </view>
+    <!-- 趣问菜单 -->
+    <view class="action {{idx == 2?'text-current':'text-normal'}}" catchtap='{{idx != 2?"goToTab":""}}' data-url="/pkg_prompts/pages/index/index" data-index="2">
+      <botton class='iconf icon-faxian bg-rr'></botton>
+      发现
+    </view>
+    <!-- 我的菜单 -->
+    <view class="action {{idx == 3?'text-current':'text-normal'}}" catchtap='{{idx != 3?"goToTab":""}}' data-url="/pkg_mine/pages/index/index" data-index="3">
+      <botton class='iconf icon-Mewode bg-rr'></botton>
+      我的
+    </view>
+  </view>
+</view>

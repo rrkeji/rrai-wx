@@ -5,9 +5,6 @@ interface IAppOption {
     userId?: string,
     avatar?: string,
     nickname?: string,
-    systemInfo: any,
-    statusBarHeight: number,
-    customBarHeight: number,
   }
   refreshUserConfig: () => Promise<any>,
   getRecordAuth: () => void,

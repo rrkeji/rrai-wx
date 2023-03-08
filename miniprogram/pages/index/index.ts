@@ -1,6 +1,6 @@
 // index.ts
-import { getShareAppMessage } from '../../services/share_service';
-import { FormData } from '../../utils/form-data';
+import { getShareAppMessage } from '../../services/index';
+
 
 // 获取应用实例
 Page({
@@ -12,10 +12,8 @@ Page({
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline']
     });
-    // this.init();
   },
   onShow: function () {
-    // this.play();
   },
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
@@ -28,13 +26,7 @@ Page({
   bindViewTap() {
     //查看是否微信登录成功，查看是否有token
     wx.redirectTo({
-      url: '../../pkg_rr/pages/rr/rr',
+      url: '../chat/index',
     });
-    // wx.switchTab({
-    //   url: '../rr/index',
-    // });
-    // wx.navigateTo({
-    //   url: '../docs/docs?stype=wxuser&userid=oZ3cl4xEzpiKYmL1-t-2DSGC-2j0&msgid=31',
-    // });
   },
 })

@@ -1,0 +1,5 @@
+<!--pkg_painter/pages/index/index.wxml-->
+<view class="page-with-tabbar container">
+  <text>pkg_painter/pages/index/index.wxml</text>
+</view>
+<tab-bar idx="1"></tab-bar>

@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "tab-bar": "/components/tab-bar/tab-bar",
-    "c-bar": "/components/c-bar/index"
-  },
-  "navigationBarTitleText": "软软"
-}

@@ -1,3 +1,0 @@
-<!-- wxml -->
-<!-- 指向微信公众平台首页的web-view -->
-<web-view src="{{url}}"></web-view>

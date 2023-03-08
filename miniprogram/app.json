@@ -1,40 +1,25 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/webview/webview",
-    "pages/product/index"
+    "pages/chat/index"
   ],
   "subpackages": [
     {
-      "root": "pkg_rr",
-      "pages": [
-        "pages/chat/chat",
-        "pages/rr/rr",
-        "pages/openai-image/index",
-        "pages/image-edit/image-edit"
-      ]
-    },
-    {
       "root": "pkg_mine",
       "pages": [
-        "pages/mine/mine",
-        "pages/settings/index",
-        "pages/ai/ai"
+        "pages/index/index"
       ]
     },
     {
       "root": "pkg_prompts",
       "pages": [
-        "pages/prompts/prompts",
-        "pages/prompt-detail/index"
+        "pages/index/index"
       ]
     },
     {
       "root": "pkg_painter",
       "pages": [
-        "pages/diffusion/index",
-        "pages/scribble/index",
-        "pages/home/index"
+        "pages/index/index"
       ]
     }
   ],

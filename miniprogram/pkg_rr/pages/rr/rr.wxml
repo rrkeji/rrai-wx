@@ -1,4 +1,0 @@
-<!-- <c-bar id="c-bar" title="{{title}}" showBack="true" showHome="true"></c-bar> -->
-<view class="container" style="{{mainHeight}}">
-</view>
-<tab-bar id="f-bar" idx="0"></tab-bar>

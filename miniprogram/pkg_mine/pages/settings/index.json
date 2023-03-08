@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "tab-bar": "/components/tab-bar/tab-bar",
-    "c-bar": "/components/c-bar/index",
-    "nav": "/components/nav/index"
-  },
-  "navigationBarTitleText": "我的"
-}

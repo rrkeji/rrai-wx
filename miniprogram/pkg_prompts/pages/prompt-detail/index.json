@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "empty": "/components/empty/index",
-    "ai-type-avatar":"/components/ai-type-avatar/index"
-  }
-}

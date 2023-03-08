@@ -1,0 +1,5 @@
+<!--pkg_mine/pages/index/index.wxml-->
+<view class="page-with-tabbar container">
+  <text>pkg_mine/pages/index/index.wxml</text>
+</view>
+<tab-bar idx="3"></tab-bar>

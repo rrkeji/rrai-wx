@@ -1,11 +1,11 @@
 // app.ts
-import { getUserConfig } from './services/share_service';
+import { getUserConfig } from './services/index';
 
 App<IAppOption>({
   globalData: {
-    systemInfo: wx.getSystemInfoSync() || {},
-    statusBarHeight: 0,
-    customBarHeight: 0,
+    userId: '',
+    avatar: undefined,
+    nickname: undefined,
   },
   async onLaunch(options) {
     console.log('onLaunch', options);

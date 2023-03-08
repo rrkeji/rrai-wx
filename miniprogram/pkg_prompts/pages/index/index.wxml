@@ -1,0 +1,5 @@
+<!--pkg_prompts/pages/index/index.wxml-->
+<view class="page-with-tabbar container">
+  <text>pkg_prompts/pages/index/index.wxml</text>
+</view>
+<tab-bar idx="2"></tab-bar>

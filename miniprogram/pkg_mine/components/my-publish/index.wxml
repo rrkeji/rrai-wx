@@ -1,9 +1,0 @@
-<!--pkg_mine/components/my-publish/index.wxml-->
-<view class="container">
-  <scroll-view enable-flex scroll-y="true" class="my-prompts-container">
-    <block wx:for="{{prompts}}" wx:for-item="item" wx:key="item" wx:for-index="itemIndex">
-      <view>{{item.prompt}}</view>
-      <view>{{item.create_time_str}}</view>
-    </block>
-  </scroll-view>
-</view>

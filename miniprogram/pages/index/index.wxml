@@ -1,6 +1,5 @@
 <!--index.wxml-->
 <view class="container">
-  <!-- <canvas id="lottie_demo" type="2d" class="rr-avatar" bindtap="bindViewTap" /> -->
   <view class="logo-ring">
     <image bindtap="bindViewTap" class="rr-avatar" src="../../images/logo.png" mode="cover"></image>
   </view>

@@ -19,7 +19,7 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "compileHotReLoad": true,
+    "compileHotReLoad": false,
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
@@ -45,8 +45,7 @@
     "useCompilerPlugins": [
       "typescript"
     ],
-    "ignoreUploadUnusedFiles": true,
-    "condition": true
+    "ignoreUploadUnusedFiles": true
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
@@ -60,5 +59,7 @@
     "include": []
   },
   "appid": "wxdebf9bfe7a033f29",
+  "libVersion": "2.30.2",
+  "projectname": "软软 AI",
   "condition": {}
 }

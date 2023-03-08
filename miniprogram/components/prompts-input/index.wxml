@@ -1,0 +1,43 @@
+<!--components/prompts-input/index.wxml-->
+<view class="container">
+  <view class="left-button-container">
+    <view class='left-button'>
+      <view wx:if="{{!translateEnable}}" class="button-inner trans-button" bindtap="onTranslate">
+        翻译
+      </view>
+      <view wx:if="{{translateEnable}}" class="button-inner trans-button" bindtap="onTranslateBack">
+        中文
+      </view>
+    </view>
+    <view class='left-button {{sendLoading? "offline":""}}' bindtouchstart="touchStart" bindtouchend="touchEnd">
+      <view wx:if="{{recordState == false}}" class="button-inner speech-button-start iconf icon-speech"></view>
+      <view wx:else class="button-inner speech-button-end  iconf icon-speech"></view>
+    </view>
+  </view>
+  <view class="input-container">
+    <block wx:if="{{recordStatus == true}}">
+      <!-- 开始语音 弹出语音图标表示正在录音 -->
+      <cover-view class="startYuyinImage" wx:if="{{recordStatus == true}}">
+        <cover-view class="icon-speech"></cover-view>
+        <cover-view>开始语音</cover-view>
+      </cover-view>
+    </block>
+    <block wx:else>
+      <block wx:if="{{translateEnable}}">
+        <textarea class="en-text" value="{{translateContent}}" placeholder-class="input-placeholder" maxlength="4000">
+      </textarea>
+      </block>
+      <block wx:else="{{translateEnable}}">
+        <textarea class="zh-text" value='{{content}}' bindinput="conInput" placeholder-class="input-placeholder" maxlength="2000" placeholder='随便和软软聊点什么吧~'>
+      </textarea>
+      </block>
+    </block>
+  </view>
+  <view class='button-container {{sendLoading? "offline":""}}'>
+    <view class='button1'  bindtap="onBindSettings">
+    </view>
+    <view class='button {{sendLoading? "offline":""}}' bindtap="onBindSend">
+      <view class="button-inner send-button iconf icon-send"></view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "message-stack": "/components/message-stack/index",
+    "prompts-input": "/components/prompts-input/index",
+    "tab-bar": "/components/tab-bar/index"
+  }
+}

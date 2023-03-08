@@ -1,0 +1,10 @@
+<!--pages/chat/index.wxml-->
+<view class="page-with-tabbar container">
+  <view class="message-stack">
+    <message-stack></message-stack>
+  </view>
+  <view class="prompts-input">
+    <prompts-input></prompts-input>
+  </view>
+</view>
+<tab-bar idx="0"></tab-bar>

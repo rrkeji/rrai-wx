@@ -1,0 +1,137 @@
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
+.tabBar {
+  position: fixed;
+  width: 100%;
+  height: calc(100rpx + env(safe-area-inset-bottom) / 2);
+  bottom: 0;
+  font-size: 20rpx;
+  color: #8A8A8A;
+  z-index: 99;
+  border-top: 2rpx solid #dedede
+}
+
+.shadow {
+  box-shadow: 0 1rpx 6rpx rgba(0, 0, 0, 0.1);
+}
+
+.cu-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  height: 64rpx;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  overflow: visible;
+  margin-left: initial;
+  transform: translate(0rpx, 0rpx);
+  margin-right: initial;
+}
+
+.cu-btn::after {
+  display: none;
+}
+
+.cu-bar {
+  display: flex;
+  position: relative;
+  align-items: center;
+  min-height: 100rpx;
+  justify-content: space-between;
+}
+
+.cu-bar .action {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.cu-bar.tabbar .action .icon-add {
+  width: 100rpx;
+  position: relative;
+  display: block;
+  height: auto;
+  margin: 0 auto 10rpx;
+  text-align: center;
+  font-size: 40rpx;
+}
+
+.cu-bar.tabbar {
+  padding: 0;
+  z-index: 0;
+  height: calc(100rpx + env(safe-area-inset-bottom) / 2);
+  padding-bottom: calc(env(safe-area-inset-bottom) / 2);
+}
+
+.cu-bar .action:first-child {
+  margin-left: 30rpx;
+  font-size: 30rpx;
+}
+
+.cu-bar.tabbar .action {
+  font-size: 22rpx;
+  position: relative;
+  flex: 1;
+  text-align: center;
+  padding: 0;
+  display: block;
+  height: auto;
+  line-height: 1;
+  margin: 0;
+  background-color: inherit;
+  overflow: initial;
+}
+
+.icon-jiqiren,
+.icon-huihua,
+.icon-Mewode,
+.icon-faxian {
+  width: 100rpx;
+  position: relative;
+  display: block;
+  height: auto;
+  margin: 0 auto 10rpx;
+  text-align: center;
+  font-size: 40rpx;
+}
+
+.text-current {
+  color: #499CFB;
+}
+
+.text-normal {
+  color: #A7E8BB;
+}
+
+.text-current .bg-rr {
+  /* background-color: #499CFB;
+  color: #fff;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0;
+  border-radius: 50%; */
+}
+
+.text-normal .bg-rr {
+  /* background-color: #A7E8BB;
+  color: #fff;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0;
+  border-radius: 50%; */
+}
