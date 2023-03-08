@@ -4,3 +4,4 @@ export * from './message_service';
 export * from './openai_service';
 export * from './ReconnectWebsocket';
 export * from './reward-service';
+export * from './mall_service';

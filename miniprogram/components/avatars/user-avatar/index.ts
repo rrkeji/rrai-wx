@@ -1,4 +1,4 @@
-// components/message-stack/index.ts
+// components/avatars/user-avatar/index.ts
 Component({
   /**
    * 组件的属性列表

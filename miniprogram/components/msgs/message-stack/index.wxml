@@ -1,0 +1,6 @@
+<!--components/message-stack/index.wxml-->
+<view>
+  <scroll-view enable-flex scroll-y="true" class="history" scroll-top="{{scrollTop}}">
+    <message-box></message-box>
+  </scroll-view>
+</view>
