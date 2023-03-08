@@ -19,8 +19,9 @@ Component({
    * 组件的初始数据
    */
   data: {
+    inputFocus: false,
     translateContent: '',
-    content: '',
+    content: '少时诵诗书少时诵诗书是撒是撒是撒是撒少时诵诗书少时诵诗书飒飒飒事实上事实上少时诵诗书事实上事实上少时诵诗书是撒是撒是撒是撒是撒是撒',
     translateEnable: false,
     recording: false,  // 正在录音
     recordStatus: false,
@@ -49,6 +50,16 @@ Component({
     conInput: function (e) {
       this.setData({
         content: e.detail.value,
+      })
+    },
+    onBindFocus: function (e: any) {
+      this.setData({
+        inputFocus: true
+      })
+    },
+    onBindBlur: function (e: any) {
+      this.setData({
+        inputFocus: false,
       })
     },
     //识别语音 -- 初始化

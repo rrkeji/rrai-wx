@@ -6,7 +6,7 @@
   font-size: inherit;
   font-style: normal;
 }
- 
+
 .container {
   width: 100%;
   display: flex;
@@ -19,51 +19,43 @@
   padding: 6rpx 0rpx;
 }
 
-.button-container,
-.left-button-container {
+.button-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   padding: 8rpx 8rpx;
-}
-
-.zh-text,
-.en-text {
-  width: 100%;
-  height: 90rpx;
-  text-align: left;
-  background-color: #ECECEC;
-  color: #474747;
-  border-radius: 16rpx;
-  padding: 6rpx 8rpx;
-}
-
-.input-placeholder {
-  font-size: 24rpx;
-  color: #999999;
-  margin-left: 15rpx;
 }
 
 .button {
   width: 80rpx;
   height: 80rpx;
   display: flex;
-  background-color: #499CFB;
-  border-radius: 50%;
   overflow: hidden;
+  color: #7B7B7B;
+  font-size: 60rpx;
   justify-content: center;
   align-items: center;
 }
 
-.left-button {
-  width: 100rpx;
-  height: 60rpx;
-  display: flex;
-  background-color: #A7E9BB;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6rpx;
+.text-button {
+  width: 180rpx;
+  font-size: 30rpx;
+}
+
+.textarea {
+  width: 100%;
+  height: 90rpx;
+  text-align: left;
+  background-color: #ECECEC;
+  color: #474747;
+  border-radius: 16rpx;
+  padding: 20rpx 8rpx;
+}
+
+.input-placeholder {
+  font-size: 24rpx;
+  color: #999999;
+  margin-left: 15rpx;
 }
 
 .button-inner {}
@@ -73,22 +65,14 @@
   font-size: 26rpx;
 }
 
-.speech-button-start {
-  width: 40rpx;
-  height: 40rpx;
-}
+.speech-button-start {}
 
-.speech-button-end {
-  width: 50rpx;
-  height: 50rpx;
-}
-
+.speech-button-end {}
 
 .send-button {
   width: 48rpx;
   height: 48rpx;
 }
-
 
 .offline {
   border: 6rpx solid red;
