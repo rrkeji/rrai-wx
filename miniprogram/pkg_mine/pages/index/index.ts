@@ -7,20 +7,10 @@ let adOrderNo: string | null = null;
 // 获取应用实例
 Page({
   data: {
-    modules: [{
-      id: 1,
-      title: '我的积分'
-    }, {
-      id: 3,
-      title: '我的设置'
-    }],
     isEdit: false,
     activeModule: 0,
-    points: 0,
-    isReward0: 0,
-    isReward1: 0,
     avatarUrl: "/images/logo.png",
-    nickname: "昵称",
+    nickname: "匿名用户",
   },
   request: function (userid: string, msgid: string) {
     //获取消息的内容
@@ -84,15 +74,7 @@ Page({
     }).catch((err) => {
       console.log(err);
     });
-    rewardUserSummaryToday().then((res: {
-      "is_reward_0": number,
-      "is_reward_1": number
-    }) => {
-      this.setData({
-        isReward0: res.is_reward_0,
-        isReward1: res.is_reward_1,
-      });
-    })
+
   },
   onUnload: function () {
     // rewardedVideoAd?.destroy();
@@ -109,9 +91,17 @@ Page({
     return getShareAppMessage();
   },
   // 事件处理函数
+  onMineBarChange(e: any) {
+    const { detail } = e;
+    this.setData({
+      activeModule: detail.index
+    });
+  },
   bindViewTap() {
   },
-
+  onCheckinTap(e: any) {
+    console.log(e);
+  },
   bindchooseavatar(e: any) {
     console.log("avatarUrl", e.detail.avatarUrl)
   },
@@ -188,26 +178,5 @@ Page({
         });
     });
   },
-  onBuyButtonTap(e) {
-    console.log('sss');
-    createOrderByProduct(1, 1).then((res) => {
-      const { orderNo, payment } = res;
-      wx.requestPayment({
-        timeStamp: payment.timeStamp,
-        nonceStr: payment.nonceStr,
-        package: payment.package,
-        signType: payment.signType,
-        paySign: payment.paySign,
-        success(res) {
-          console.log(orderNo);
-          console.log('pay success', res)
-        },
-        fail(err) {
-          console.error('pay fail', err)
-        }
-      })
-    }).catch((err) => {
-      console.error(err);
-    });
-  }
+  
 })

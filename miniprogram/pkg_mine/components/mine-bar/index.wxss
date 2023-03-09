@@ -1,1 +1,29 @@
 /* pkg_mine/components/mine-bar/index.wxss */
+.mine-bar {
+  width: 100%;
+  height: 116rpx;
+  display: flex;
+
+}
+
+.tab {
+  height: 100%;
+  background-color: #FFFFFF;
+  color: #7E7E7E;
+  font-size: 26rpx;
+  flex: 1;
+  line-height: 116rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.tab.active {
+  background-color: #4A9DFA;
+  color: #FFFFFF;
+}
+
+.tab.active .tab-text {
+  display: inline-block;
+  height: 116rpx;
+  border-bottom: 4rpx solid #FFFFFF;
+}

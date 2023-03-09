@@ -1,2 +1,24 @@
 <!--pkg_mine/components/points-card/index.wxml-->
-<text>pkg_mine/components/points-card/index.wxml</text>
+<view class="reward-summary">
+  <view class="reward-points-increased">
+    <view>当前积分:{{points}}</view>
+    <view>今日新增:{{isReward1}}</view>
+    <view>今日使用:{{isReward0}}</view>
+  </view>
+  <view class="reward-buttons-container">
+    <view class="reward-buttons-tip">
+      <view class="iconf icon-bangzhu"></view>增加次数
+    </view>
+    <view class="reward-buttons">
+      <view class="reward-button ad-view-button" bindtap="onRewardedVideoAdTap">
+        <view class="iconf icon-yunhang"></view>
+      </view>
+      <button class="reward-button ad-share-button" style="width: 80rpx;padding:0" 	open-type="share">
+        <view class="iconf icon-fenxiang"></view>
+      </button>
+      <view class="reward-button ad-buy-button" bindtap="onBuyButtonTap">
+        <view class="iconf icon-zhifu"></view>
+      </view>
+    </view>
+  </view>
+</view>

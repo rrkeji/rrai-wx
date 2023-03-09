@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "text-button": "../buttons/text-button/index"
+  }
 }

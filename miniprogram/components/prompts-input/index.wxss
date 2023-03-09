@@ -38,10 +38,10 @@
 }
 
 .text-button {
-  background-color: #008FFB;
+  /* background-color: #008FFB;
   color: #FFFFFF;
+  font-size: 26rpx; */
   width: 120rpx;
-  font-size: 26rpx;
 }
 
 .textarea {

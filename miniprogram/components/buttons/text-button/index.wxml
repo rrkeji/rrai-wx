@@ -1,0 +1,4 @@
+<!--components/buttons/text-button/index.wxml-->
+<view class="text-button" style="height:{{height}}rpx;line-height: {{height}}rpx; background-color: {{bgcolor}};border-radius: {{height/4}}rpx;">
+  <view style="font-size:{{height*0.8}}rpx">{{text}}</view>
+</view>

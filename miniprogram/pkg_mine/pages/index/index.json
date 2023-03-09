@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "tab-bar": "/components/tab-bar/index",
+    "text-button": "/components/buttons/text-button/index",
     "mine-bar": "../../components/mine-bar/index",
     "points-card": "../../components/points-card/index",
     "reward-logs": "../../components/reward-logs/index",

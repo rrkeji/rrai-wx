@@ -114,7 +114,7 @@
 }
 
 .text-normal {
-  color: #A7E8BB;
+  color: #A7E9BB;
 }
 
 .text-current .bg-rr {

@@ -1,0 +1,7 @@
+/* components/buttons/text-button/index.wxss */
+.text-button {
+  color: #FFFFFF;
+  margin: 0;
+  padding: 10rpx 20rpx;
+  border-radius: 8rpx;
+}

@@ -1,2 +1,9 @@
 <!--pkg_mine/components/mine-bar/index.wxml-->
-<text>pkg_mine/components/mine-bar/index.wxml</text>
+<view class="mine-bar">
+  <view class="tab {{active == 0?'active':''}}" bindtap="onTabTap" data-index="0">
+    <view class="tab-text">我的积分</view>
+  </view>
+  <view class="tab {{active == 1?'active':''}}" bindtap="onTabTap" data-index="1">
+    <view class="tab-text">我的设置</view>
+  </view>
+</view>

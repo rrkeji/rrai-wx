@@ -1,6 +1,10 @@
 /* pkg_mine/pages/index/index.wxss */
 @import '/iconfont.wxss';
 
+.container {
+  background-color: #E4E4E4;
+}
+
 .iconf {
   font-family: "iconfont" !important;
   font-size: inherit;
@@ -9,8 +13,9 @@
 
 .mine-user-card {
   width: 100%;
-  height: 300rpx;
+  height: 234rpx;
   display: flex;
+  flex: 1;
   justify-content: space-between;
   background-color: #FFFFFF;
   border-bottom: 2px solid #EBEBEB;
@@ -19,18 +24,18 @@
 
 .user-card {
   display: flex;
-  flex-direction: column;
-  width: 200rpx;
+  flex-direction: row;
   height: 100%;
   justify-content: center;
   align-items: center;
+  padding-left: 20rpx;
   background-color: #FFFFFF;
 }
 
 .avatar-wrapper {
   padding: 0;
-  width: 180rpx !important;
-  height: 180rpx !important;
+  width: 168rpx !important;
+  height: 168rpx !important;
   border-radius: 50%;
   border: 4rpx solid #95dfab;
   box-sizing: border-box;
@@ -46,6 +51,7 @@
   position: relative;
   display: flex;
   height: 60rpx;
+  margin-left: 14rpx;
 }
 
 .nickname {
@@ -81,4 +87,16 @@
   padding: 0;
   text-align: left;
   background-color: #FFFFFF;
+}
+
+.user-card-buttons {
+  display: flex;
+  width: 160rpx;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  margin: 14rpx 0;
 }

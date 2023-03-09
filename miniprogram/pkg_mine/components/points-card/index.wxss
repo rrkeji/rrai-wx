@@ -1,1 +1,108 @@
 /* pkg_mine/components/points-card/index.wxss */
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
+.reward-summary {
+  background-color: #FFFFFF;
+  width: 96vw;
+  border-radius: 12rpx;
+  padding: 20rpx 20rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.reward-logs {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.title {
+  line-height: 60rpx;
+  color: #444444;
+}
+
+.reward-points .text {
+  font-size: 26rpx;
+}
+
+.reward-points-increased {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: #7E7E7E;
+  font-size: 26rpx;
+  line-height: 50rpx;
+}
+
+.reward-buttons-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: #7E7E7E;
+  font-size: 26rpx;
+  line-height: 50rpx;
+}
+
+.reward-buttons {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+}
+
+
+.reward-button {
+  width: 80rpx;
+  height: 80rpx;
+  margin: 10rpx 15rpx;
+  border-radius: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ad-view-button,
+.ad-share-button,
+.ad-buy-button {
+  background-color: #4A9DFA;
+  color: #FFFFFF;
+  font-size: 50rpx;
+}
+
+.ad-view-button {
+  background-color: #FCAE38;
+}
+
+.ad-share-button {
+  background-color: #4A9DFA;
+}
+
+
+.ad-buy-button {
+  background-color: #FF5858;
+}
+
+.reward-buttons-tip {
+  font-size: 20rpx;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+}
+
+.icon-bangzhu {
+  /* background-color: #4A9DFA; */
+  color: #4A9DFA;
+  margin-right: 10rpx;
+}

@@ -16,29 +16,30 @@
             <view class="nickname">{{nickname == ''?'未填写昵称':nickname}}</view>
             <view class="nickname-button edit-button" bindtap="onEditButton">编辑</view>
           </block>
+          <view>VP1</view>
         </view>
       </form>
     </view>
     <view class="user-card-buttons">
-      <view>签到</view>
+      <text-button class="checkin" text="签到" bgcolor="#FCAE38" bindtap="onCheckinTap"></text-button>
     </view>
   </view>
   <view class="header">
-    <mine-bar></mine-bar>
+    <mine-bar bind:change="onMineBarChange"></mine-bar>
   </view>
 
   <view class="content">
     <block wx:if="{{activeModule == 0}}">
       <!-- 我的积分 -->
       <points-card></points-card>
-      <reward-logs class="reward-logs"></reward-logs>
-      <settings></settings>
+      <!-- <reward-logs class="reward-logs"></reward-logs> -->
     </block>
     <block wx:if="{{activeModule == 6}}">
       <!-- 我的发布 -->
     </block>
     <block wx:if="{{activeModule == 1}}">
       <!-- 我的设置 -->
+      <settings></settings>
     </block>
   </view>
 </view>
