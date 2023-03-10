@@ -28,10 +28,10 @@
     </block>
   </view>
   <view class='button-container'>
-    <view wx:if="{{inputFocus}}" class='button text-button' bindtap="onBindSettings">
+    <view wx:if="{{inputFocus}}" class='button text-button' bindtap="onBindSend">
       <text-button text="发送"></text-button>
     </view>
-    <view wx:else="{{inputFocus}}" class='button' bindtap="onBindSend">
+    <view wx:else="{{inputFocus}}" class='button' bindtap="onBindSettings">
       <view class="button-inner iconf icon-a-205shezhi"></view>
     </view>
   </view>

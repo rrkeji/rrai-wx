@@ -1,0 +1,7 @@
+<!--components/msgs/message-response/index.wxml-->
+<block wx:if="{{response.type=='text'}}">
+  <message-text text="{{response.text}}"></message-text>
+</block>
+<block wx:if="{{response.type=='ChatGPTImage'}}">
+  <message-chatgpt-image images="{{response.text.data}}" type="{{response.type}}"></message-chatgpt-image>
+</block>

@@ -1,0 +1,22 @@
+<!--components/msgs/message-actions-bar/index.wxml-->
+<view class='actions-bar'>
+  <view class='actions-bar-button' wx:if="{{itemIndex > 0}}">
+    <button plain="true" bindtap="onPublish" data-prompt="{{newslist[itemIndex-1].text}}" data-examples="{{item.text}}">
+      发布
+    </button>
+  </view>
+  <block wx:if="{{item.type=='text'}}">
+    <view class='actions-bar-button'>
+      <button plain="true" bindtap="onNewsCopyText" data-text="{{item.text}}">
+        复制
+      </button>
+    </view>
+  </block>
+  <block wx:if="{{item.msg_id > 0}}">
+    <view class='actions-bar-button'>
+      <button plain="true" open-type="share" bindtap="onNewsShareImage" data-msgId="{{item.msg_id}}">
+        分享
+      </button>
+    </view>
+  </block>
+</view>

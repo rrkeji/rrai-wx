@@ -1,16 +1,17 @@
 /* pages/chat/index.wxss */
-.container{
-  width:100%;
+.container {
+  width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.message-stack{
+.message-stack {
   flex: 1;
+  padding: 10rpx 10rpx;
 }
 
-.prompts-input{
+.prompts-input {
   width: 100%;
 }

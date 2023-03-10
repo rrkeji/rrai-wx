@@ -1,5 +1,5 @@
 // pkg_mine/components/points-card/index.ts
-import { rewardUserSummaryToday, createOrderByProduct } from "../../../services/index";
+import { rewardUserSummaryToday, createOrderByProduct, getUserConfig } from "../../../services/index";
 
 Component({
   /**
@@ -38,6 +38,14 @@ Component({
    */
   methods: {
     onRefresh() {
+      // 
+      getUserConfig().then((userConfig) => {
+        this.setData({
+          points: userConfig.times
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
       rewardUserSummaryToday().then((res: {
         "is_reward_0": number,
         "is_reward_1": number

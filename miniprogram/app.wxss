@@ -8,4 +8,5 @@ page {
   width: 100%;
   height: calc(100% - 100rpx - env(safe-area-inset-bottom) / 2);
   box-sizing: border-box;
+  background-color: #E4E4E4;
 }

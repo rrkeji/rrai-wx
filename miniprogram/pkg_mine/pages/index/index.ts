@@ -1,5 +1,5 @@
 // mine.ts
-import { updateUserConfig, rewardAdOrderCreate, rewardAdOrderCash, rewardUserSummaryToday, getShareAppMessage, getUserConfig, createOrderByProduct } from "../../../services/index";
+import { updateUserConfig, rewardAdOrderCreate, rewardAdOrderCash, getShareAppMessage, getUserConfig, createOrderByProduct } from "../../../services/index";
 
 let rewardedVideoAd: WechatMiniprogram.RewardedVideoAd | null = null;
 let adOrderNo: string | null = null;
@@ -66,14 +66,6 @@ Page({
     }
   },
   refreshReward() {
-    // 
-    getUserConfig().then((userConfig) => {
-      this.setData({
-        points: userConfig.times
-      });
-    }).catch((err) => {
-      console.log(err);
-    });
 
   },
   onUnload: function () {

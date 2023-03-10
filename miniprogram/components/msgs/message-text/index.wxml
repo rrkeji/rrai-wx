@@ -1,0 +1,2 @@
+<!--components/message-text/index.wxml-->
+<view class='new_txt' style="white-space: pre-wrap">{{text}}</view>

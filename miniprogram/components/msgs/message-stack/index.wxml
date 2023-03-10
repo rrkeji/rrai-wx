@@ -1,6 +1,60 @@
 <!--components/message-stack/index.wxml-->
-<view>
+<view class="container">
   <scroll-view enable-flex scroll-y="true" class="history" scroll-top="{{scrollTop}}">
-    <message-box></message-box>
+    <block wx:for="{{data}}" wx:for-item="item" wx:key="item" wx:for-index="itemIndex">
+      <!--send  -->
+      <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
+        <view class='news-content request-content'>
+          <message-request result="{{item.result == 0 ? true:false}}" type="{{item.type}}" text="{{item.text}}"></message-request>
+          <view class='actions-bar'>
+            <block wx:if="{{item.result > 0}}">
+              <view class='actions-bar-button'>
+                <button style="width:200rpx" plain="true" bindtap="onNewsResend" data-text="{{item.text}}">
+                  发送失败!重发
+                </button>
+              </view>
+            </block>
+          </view>
+        </view>
+        <user-avatar></user-avatar>
+      </view>
+      <!-- AI  -->
+      <view class="chat-news response" wx:else>
+        <bot-avatar></bot-avatar>
+        <view class='news-content response-content'>
+          <message-response response="{{item}}"></message-response>
+          <message-actions-bar></message-actions-bar>
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{sendLoading}}">
+      <view class="chat-news response">
+        <bot-avatar></bot-avatar>
+        <block wx:if="{{currentMessage == ''}}">
+          <view class='news-content'>
+            <view class='response-content new_txt loading1'>软软正在努力的思考中<image class="send-button-inner" src="/images/bars.svg"></image>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{currentMessage != ''}}">
+          <view class='news-content'>
+            <view class='response-content new_txt' style="white-space: pre-wrap">
+              <message-text text='{{currentMessage}}'></message-text>
+              <i class="loading-blink">🖋</i>
+            </view>
+          </view>
+        </block>
+      </view>
+    </block>
+    <block wx:if="{{data.length <= 0}}">
+      <view class="chat-news response">
+        <bot-avatar></bot-avatar>
+        <view class='news-content'>
+          <view class='response-content new_txt' style="white-space: pre-wrap">
+            <message-text text='{{guideMessage}}'></message-text>
+          </view>
+        </view>
+      </view>
+    </block>
   </scroll-view>
 </view>

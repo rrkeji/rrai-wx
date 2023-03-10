@@ -1,2 +1,4 @@
 <!--components/avatars/user-avatar/index.wxml-->
-<text>components/avatars/user-avatar/index.wxml</text>
+<view class="news-avatar {{rounded? 'rounded':'square'}}" style="height: {{size}}rpx;background-color: {{background}};">
+  <image class='avatar' src="{{avatarUrl}}" style="width: {{size}}rpx;height: {{size}}rpx;"></image>
+</view>

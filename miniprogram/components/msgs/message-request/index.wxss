@@ -1,0 +1,10 @@
+/* components/message-request/index.wxss */
+
+.new_txt {
+  display: inline;
+  border-radius: 10rpx;
+}
+
+.request-text {
+  text-align: right;
+}

@@ -1,0 +1,9 @@
+<!--components/msgs/message-link/index.wxml-->
+<view class='new_link' bindtap='linkGoTo' data-url="{{url}}">
+  <view>
+    <image class='new-link-pic' src="{{thumbPicUrl}}" data-src="{{thumbPicUrl}}">
+    </image>
+    <view class='new-link-title'>{{title}}</view>
+  </view>
+  <view class='new-link-description'>{{description}}</view>
+</view>

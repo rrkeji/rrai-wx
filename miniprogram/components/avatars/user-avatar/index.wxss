@@ -1,1 +1,12 @@
 /* components/avatars/user-avatar/index.wxss */
+.news-avatar {
+  width: 96rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.rounded image{
+  border-radius: 50%;
+}

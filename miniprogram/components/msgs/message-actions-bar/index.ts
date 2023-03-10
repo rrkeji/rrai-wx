@@ -1,4 +1,4 @@
-// components/message-box/index.ts
+// components/msgs/message-actions-bar/index.ts
 Component({
   /**
    * 组件的属性列表

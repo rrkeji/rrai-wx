@@ -1,6 +1,12 @@
 {
   "component": true,
   "usingComponents": {
-    "message-box": "../message-box/index"
+    "bot-avatar": "/components/avatars/bot-avatar/index",
+    "user-avatar": "/components/avatars/user-avatar/index",
+    "message-text": "../message-text/index",
+    "message-request": "../message-request/index",
+    "message-response": "../message-response/index",
+    "message-actions-bar": "../message-actions-bar/index",
+    "message-chatgpt-image": "../message-chatgpt-image/index"
   }
 }
