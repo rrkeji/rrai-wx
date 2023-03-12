@@ -1,4 +1,4 @@
-export const replicateProxyPredictions = async (replicate_api_id: string, original_message: any, data: any) => {
+export const replicateProxyPredictions = async (replicate_api_id: number, original_message: any, data: any) => {
   console.log(replicate_api_id, original_message, data);
   let res = await wx.cloud.callContainer({
     "path": "/replicate/proxy/predictions",

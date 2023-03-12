@@ -37,7 +37,6 @@
 
 .request-content {
   background-color: #D4E6FB;
-  text-align: right;
   border-radius: 10rpx;
   max-width: calc(100vw - 200rpx);
   line-height: 48rpx;

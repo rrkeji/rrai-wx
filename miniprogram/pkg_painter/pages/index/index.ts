@@ -257,7 +257,7 @@ Page({
     this.setData({
       loading: true
     });
-    replicateProxyPredictions('' + this.data.replicateApi, originMsg, data).then((res) => {
+    replicateProxyPredictions(this.data.replicateApi, originMsg, data).then((res) => {
       //请求完成
       console.log(res);
       if (res && res.prediction_id) {
