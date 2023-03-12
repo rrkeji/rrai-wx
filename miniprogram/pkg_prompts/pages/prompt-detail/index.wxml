@@ -1,0 +1,79 @@
+<!--pkg_prompts/pages/prompt-detail/index.wxml-->
+<view class="prompt-detail-container">
+  <block wx:if="{{prompt == null}}">
+    <empty img-class="empty-img" text-class="empty-text" emptyText="{{emptySetting.text}}" emptyImg="{{emptySetting.img}}" style="background-color: #fff;" />
+  </block>
+  <block wx:else="{{prompt == null}}">
+    <!-- 标题 -->
+    <view class="detail-title">{{prompt.title}}</view>
+    <view class="detail-subtitle">
+      <!-- AI TYPE -->
+      <view class="detail-ai-type">
+        <ai-type-avatar size="60" ai_type="{{prompt.ai_type}}" withTitle="{{true}}" titleSize="{{26}}" titleColor="#444444"></ai-type-avatar>
+      </view>
+      <!-- 标签 -->
+      <view class="detail-tags" wx:if="{{prompt.tags.length}}">
+        <view wx:for="{{ prompt.tags }}" wx:for-index="tagIndex" wx:for-item="tagItem" wx:key="index" class="detail-tag">
+          <image src="/images/tag.svg"></image>
+          <text>{{tagItem}}</text>
+        </view>
+      </view>
+    </view>
+    <!-- 目标 -->
+    <block wx:if="{{prompt.purpose.length > 0}}">
+      <view class="detail-purpose">{{prompt.purpose}}</view>
+    </block>
+    <!-- 图片 -->
+    <view class="detail-images" wx:if="{{prompt.images.length}}">
+      <image mode="widthFix" wx:for="{{ prompt.tags }}" wx:for-index="imageIndex" wx:for-item="imageSrc" wx:key="index" src="{{imageSrc}}"></image>
+    </view>
+    <!-- 按钮 -->
+    <view class="detail-buttons">
+      <view class="interaction-buttons">
+        <view class="interaction-button {{userInteraction.thumbs_down?'active':''}}" bindtap="onThumbsDownTap">
+          <image class="icon" src="/images/thumbs-down.svg"></image>
+          <view class="number">{{summary.thumbs_down}}</view>
+        </view>
+        <view class="interaction-button {{userInteraction.thumbs_up?'active':''}}" bindtap="onThumbsUpTap">
+          <image class="icon" src="/images/thumbs-up.svg"></image>
+          <view class="number">{{summary.thumbs_up}}</view>
+        </view>
+        <view class="interaction-button {{userInteraction.favorite?'active':''}}" bindtap="onHeartTap">
+          <image class="icon" src="/images/heart.svg"></image>
+          <view class="number">{{summary.favorite}}</view>
+        </view>
+      </view>
+      <view class="action-buttons">
+        <view class="action-button" bindtap="onTry">试试</view>
+      </view>
+    </view>
+    <!-- 提示 -->
+    <view class="detail-prompts">
+      <view class="detail-prompts-item">
+        <view class="item-content">
+          <text wx:for="{{ prompt.prompts }}" wx:for-index="promptIndex" wx:for-item="promptItem" wx:key="index">{{promptItem}}
+          </text>
+        </view>
+        <ai-type-avatar class="item-avatar" size="90" ai_type="{{prompt.ai_type}}"></ai-type-avatar>
+      </view>
+    </view>
+    <!-- 示例 -->
+    <view class="detail-examples">
+      <view class="detail-examples-item">
+        <ai-type-avatar class="item-avatar" size="90" ai_type="{{prompt.ai_type}}"></ai-type-avatar>
+        <view class="item-content">
+          <block wx:if="{{prompt.examples.length}}">
+            <text user-select="true">{{prompt.examples}}</text>
+          </block>
+          <block wx:else="{{prompt.examples.length}}">
+            <text>没有提供回答示例~</text>
+          </block>
+        </view>
+      </view>
+    </view>
+    <!-- 时间 -->
+    <view class="detail-time">{{prompt.create_time_str}}</view>
+    <view class="hr"></view>
+  </block>
+  <ad unit-id="adunit-9c64e457097d841f"></ad>
+</view>

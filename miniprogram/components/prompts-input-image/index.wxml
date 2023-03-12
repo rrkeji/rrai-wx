@@ -12,11 +12,12 @@
     </view>
   </view>
   <view class="item-input">
-    <view wx:for="{{imageList}}" wx:key="index" class="choose_upload_item">
+    <view wx:for="{{imageList}}" wx:for-item="item" wx:for-index="index" wx:key="index" class="choose_upload_item {{item.uploaded}}">
       <!-- 图片上传展示 -->
-      <image src="{{item}}" class="choose_upload_img" data-index="{{index}}" bindtap="previewBigImage"></image>
+      <image src="{{item.localPath}}" class="choose_upload_img" data-index="{{index}}" bindtap="previewBigImage"></image>
       <!-- 删除按钮 -->
       <view class="icon iconf icon-shanchu remove_img_icon" data-index="{{index}}" catchtap="removeChooseImage"></view>
+      <view class="choose_upload_item_bg {{item.uploaded == 'error'?'iconf icon-guanbi':''}}"></view>
     </view>
   </view>
 </view>

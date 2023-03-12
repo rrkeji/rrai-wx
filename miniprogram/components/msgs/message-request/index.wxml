@@ -1,2 +1,7 @@
 <!-- 这是自定义组件的内部WXML结构 -->
-<view class='new_txt request-text' style="white-space: pre-wrap">{{text}}</view>
+<view wx:if="{{request.type=='replicate'}}">
+  <view class='new_txt request-text' style="white-space: pre-wrap">{{request.text}}</view>
+</view>
+<view wx:if="{{request.type=='text'}}">
+  <view class='new_txt request-text' style="white-space: pre-wrap">{{request.text}}</view>
+</view>

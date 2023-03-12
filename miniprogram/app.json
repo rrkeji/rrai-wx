@@ -14,7 +14,8 @@
     {
       "root": "pkg_prompts",
       "pages": [
-        "pages/index/index"
+        "pages/index/index",
+        "pages/prompt-detail/index"
       ]
     },
     {

@@ -27,7 +27,7 @@ export const searchRewardLogs = async (page: number, pageSize: number, keywords?
   let res = await wx.cloud.callContainer({
     "path": "/reward/logs",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",
@@ -52,7 +52,7 @@ export const updateUserConfig = async (config: { avatar?: string, nickname?: str
   let res = await wx.cloud.callContainer({
     "path": "/user/config",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",
@@ -71,7 +71,7 @@ export const rewardAdOrderCreate = async (): Promise<string | null> => {
   let res = await wx.cloud.callContainer({
     "path": "/reward/ad_order/create",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",
@@ -87,7 +87,7 @@ export const rewardAdOrderCash = async (orderNo: string): Promise<any> => {
   let res = await wx.cloud.callContainer({
     "path": "/reward/ad_order/cash",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",
@@ -104,7 +104,7 @@ export const rewardUserSummaryToday = async (): Promise<any> => {
   let res = await wx.cloud.callContainer({
     "path": "/reward/user_summary/today",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "GET",

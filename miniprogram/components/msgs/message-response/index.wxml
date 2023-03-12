@@ -5,3 +5,6 @@
 <block wx:if="{{response.type=='ChatGPTImage'}}">
   <message-chatgpt-image images="{{response.text.data}}" type="{{response.type}}"></message-chatgpt-image>
 </block>
+<block wx:if="{{response.type=='replicate'}}">
+  <message-replicate response="{{response}}" bind:imagestoragesync="onImageStorageSync"></message-replicate>
+</block>

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "empty": "/components/empty/index",
+    "ai-type-avatar":"/components/avatars/bot-avatar/index"
+  }
+}

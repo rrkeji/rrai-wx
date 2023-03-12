@@ -11,6 +11,7 @@ Page({
     newslist: <any>[],
     messageValue: "",
     currentMessage: "",
+    loading: false,
     sendLoading: false,
     showCreateDialog: false,
     showSettingsDialog: false,
@@ -19,6 +20,8 @@ Page({
     inputImageSize: 0,
     activeModule: 0,
     replicateApi: 1,
+    stackHeight: 210,
+    inputImages: <Array<{ localPath: string, fileId: string | null, tempUrl: string | null, uploaded: 'uploading' | 'success' | 'error' }>>[]
   },
 
   /**
@@ -35,7 +38,7 @@ Page({
       }
     }
     //从本地读取存储的数据
-    const messages = wx.getStorageSync('image_messages_' + this.data.replicateApi) || []
+    const messages = wx.getStorageSync('image_messages') || []
     this.setData({
       newslist: messages,
       messageValue: message,
@@ -51,6 +54,15 @@ Page({
     this.refreshByReplicateApi();
   },
 
+  onImageStorageSync() {
+    //从本地读取存储的数据
+    const messages = wx.getStorageSync('image_messages') || []
+    this.setData({
+      newslist: messages,
+    }, () => {
+      this.bottom();
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -102,15 +114,18 @@ Page({
     //
     if (this.data.replicateApi == 1) {
       this.setData({
-        inputImageSize: 0
+        inputImageSize: 0,
+        stackHeight: 210,
       });
     } else if (this.data.replicateApi == 2) {
       this.setData({
-        inputImageSize: 1
+        inputImageSize: 1,
+        stackHeight: 362,
       });
     } else if (this.data.replicateApi == 3) {
       this.setData({
-        inputImageSize: 0
+        inputImageSize: 0,
+        stackHeight: 210,
       });
     } else {
       this.setData({
@@ -148,7 +163,7 @@ Page({
           console.log("开始翻译");
           this.translate(msg, (newMsg) => {
             console.log('结束翻译');
-            this._send(newMsg);
+            this._send(newMsg, msg);
           });
         } else {
           //
@@ -186,7 +201,7 @@ Page({
       this.send();
     });
   },
-  _send(msg) {
+  _send(msg, originMsg) {
     //调用后端的接口
     let data: any = {};
     //准备参数
@@ -200,9 +215,18 @@ Page({
         "num_inference_steps": 50,
       };
     } else if (this.data.replicateApi == 2) {
+      let inputImages = this.data.inputImages;
+      if (!inputImages || inputImages.length <= 0) {
+        wx.showToast({
+          title: '没有上传图片~',
+          icon: "none",
+          duration: 2000
+        });
+        return;
+      }
       //获取到图片信息和文本
       data = {
-        "image": "https://replicate.delivery/pbxt/IJE6zP4jtdwxe7SffC7te9DPHWHW99dMXED5AWamlBNcvxn0/user_1.png",
+        "image": inputImages[0].tempUrl,
         "prompt": msg,
         "num_samples": "1",
         "image_resolution": "512",
@@ -223,17 +247,75 @@ Page({
         "num_inference_steps": 50,
       };
     } else {
-
+      wx.showToast({
+        title: '系统错误,请重试~',
+        icon: "none",
+        duration: 2000
+      });
+      return;
     }
-    replicateProxyPredictions('' + this.data.replicateApi, data).then((res) => {
-      console.log();
-    }).catch((err) => { });
+    this.setData({
+      loading: true
+    });
+    replicateProxyPredictions('' + this.data.replicateApi, originMsg, data).then((res) => {
+      //请求完成
+      console.log(res);
+      if (res && res.prediction_id) {
+        let list = this.addMessagesAndSync([{
+          "sender": "client",
+          "text": originMsg,
+          "type": "replicate",
+          "replicate_api_id": this.data.replicateApi,
+          "prediction_id": res.prediction_id,
+          "input": data,
+          "result": 0
+        }, {
+          "sender": "response",
+          "type": "replicate",
+          "replicate_api_id": this.data.replicateApi,
+          "prediction_id": res.prediction_id,
+          "result": 1
+        }]);
+        this.setData({
+          newslist: list,
+          loading: false
+        });
+      } else {
+        //错误处理
+        let list = this.addMessageAndSync({
+          "sender": "client",
+          "text": originMsg,
+          "type": "replicate",
+          "replicate_api_id": this.data.replicateApi,
+          "input": data,
+          "result": 3
+        });
+        this.setData({
+          newslist: list,
+          loading: false
+        });
+      }
+    }).catch((err) => {
+      //错误处理
+      let list = this.addMessageAndSync({
+        "sender": "client",
+        "text": originMsg,
+        "type": "replicate",
+        "replicate_api_id": this.data.replicateApi,
+        "input": data,
+        "result": 3
+      });
+      this.setData({
+        newslist: list,
+        loading: false
+      });
+    });
   },
   //监听input值的改变
   bindChange(res: any) {
-    if (res.detail.value && res.detail.value.length > 1000) {
+    if (res.detail.value && res.detail.value.length > 2000) {
       wx.showToast({
-        title: '您的提问不能超过1000，太长软软理解不了的~',
+        title: '您的提问不能超过2000，太长软软理解不了的~',
         icon: "none",
         duration: 2000
       })
@@ -264,5 +346,30 @@ Page({
         callback(msg);
       }
     });
-  }
+  },
+  onImageInputChange(e: any) {
+    this.setData({
+      inputImages: e.detail.images
+    });
+  },
+  addMessageAndSync: function (item: any) {
+    //判断list是否已经最大值
+    let list = this.data.newslist;
+    if (list.length > 200) {
+      list.shift();
+    }
+    list.push(item);
+    wx.setStorageSync('image_messages', list);
+    return list;
+  },
+  addMessagesAndSync: function (item: Array<any>) {
+    //判断list是否已经最大值
+    let list: Array<any> = this.data.newslist;
+    if (list.length > 200) {
+      list.shift();
+    }
+    list = list.concat(item);
+    wx.setStorageSync('image_messages', list);
+    return list;
+  },
 })

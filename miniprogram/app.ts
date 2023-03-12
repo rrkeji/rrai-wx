@@ -6,6 +6,9 @@ App<IAppOption>({
     userId: '',
     avatar: undefined,
     nickname: undefined,
+    COMMON_HEADERS: {
+      "X-WX-SERVICE": "chat2"
+    },
   },
   async onLaunch(options) {
     console.log('onLaunch', options);
@@ -25,7 +28,7 @@ App<IAppOption>({
       let res = await wx.cloud.callContainer({
         "path": "/wx/share/confirm",
         "header": {
-          "X-WX-SERVICE": "rrai",
+          ...this.globalData.COMMON_HEADERS,
           "content-type": "application/json"
         },
         "method": "POST",

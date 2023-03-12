@@ -1,15 +1,11 @@
 // components/prompts-input-image/index.ts
 import { uploadFileGetTempUrl } from '../../services/index';
-
+import { formatDate, wxuuid } from '../../utils/util';
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    imageList: {
-      type: Array,
-      value: []
-    },
     max: {
       type: Number,
       value: 3
@@ -20,7 +16,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    tempUrls: []
+    imageList: <Array<{ localPath: string, fileId: string | null, tempUrl: string | null, uploaded: 'uploading' | 'success' | 'error' }>>[]
   },
 
   /**
@@ -69,7 +65,7 @@ Component({
             return wx.showToast({
               title: '最多可上传' + _this.data.max + '张图片!',
               icon: 'none'
-            })
+            });
           }
           //tempFilePath size
           _this.upload(res.tempFiles[0].tempFilePath);
@@ -78,11 +74,54 @@ Component({
     },
     //上传图片到服务器
     upload: function (path) {
+      const app = getApp<IAppOption>();
+
       let _this = this;
       console.log(path);
+      let item = {
+        localPath: <string>path,
+        fileId: <string | null>null,
+        tempUrl: <string | null>null,
+        uploaded: <'uploading' | 'success' | 'error'>'uploading'
+      };
+      let index = this.data.imageList.length;
+      let new_list = this.data.imageList.concat([item]);
+      let dateStr = formatDate(new Date());
+      let cloudPath = `uploads/${app.globalData.userId}/${dateStr}${path.substring(path.lastIndexOf("/"))}`;
+      console.log(cloudPath);
+      //
       _this.setData({
-        imageList: this.data.imageList.concat([path])
-      })
+        imageList: new_list
+      }, () => {
+        setTimeout(() => {
+          uploadFileGetTempUrl(path, cloudPath).then((res) => {
+            console.log(res);
+            if (res) {
+              this.data.imageList[index].fileId = res?.fileId;
+              this.data.imageList[index].tempUrl = res?.fileTempUrl;
+              this.data.imageList[index].uploaded = "success";
+              this.setData({
+                imageList: this.data.imageList.concat([])
+              }, () => {
+                this.triggerEvent('change', {
+                  images: this.data.imageList
+                });
+              });
+            } else {
+              this.data.imageList[index].uploaded = "error";
+              this.setData({
+                imageList: this.data.imageList.concat([])
+              });
+            }
+          }).catch((err) => {
+            console.log(err);
+            this.data.imageList[index].uploaded = "error";
+            this.setData({
+              imageList: this.data.imageList.concat([])
+            });
+          });
+        }, 10);
+      });
       return;
     },
     // 删除图片
@@ -100,9 +139,9 @@ Component({
       let { index } = e.currentTarget.dataset;
       wx.previewImage({
         //当前显示图片
-        current: imgs[index],
+        current: imgs[index].localPath,
         //所有图片
-        urls: imgs
+        urls: imgs.map((item) => item.localPath)
       })
     },
   }

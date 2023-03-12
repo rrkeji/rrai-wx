@@ -2,6 +2,7 @@
   "component": true,
   "usingComponents": {
     "message-text": "../message-text/index",
+    "message-replicate": "../message-replicate/index",
     "message-chatgpt-image": "../message-chatgpt-image/index"
   }
 }

@@ -81,5 +81,8 @@ Component({
           });
         });
     },
+    onImageStorageSync(e: any) {
+      this.triggerEvent('imagestoragesync', e.detail);
+    }
   }
 })

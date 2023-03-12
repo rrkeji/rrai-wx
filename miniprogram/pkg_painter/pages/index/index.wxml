@@ -1,8 +1,12 @@
 <!--pkg_painter/pages/index/index.wxml-->
 <view class="page-with-tabbar container">
-  <painter-header active="{{activeModule}}" bind:change="onModuleChange"></painter-header>
-  <message-stack class="message-stack" data="{{newslist}}" sendLoading="{{sendLoading}}" currentMessage="{{currentMessage}}" guideMessage="{{guideMessage}}"></message-stack>
-  <prompts-input class="prompts-input" inputImageSize="{{inputImageSize}}" content="{{messageValue}}" sendLoading="{{sendLoading}}" bindsend="onSendTap" bindsettings="onSettingsTap">
+  <painter-header class="painter-header" active="{{activeModule}}" bind:change="onModuleChange"></painter-header>
+  <message-stack class="message-stack" style="max-height: calc(100% - {{stackHeight}}rpx);"  bind:imagestoragesync="onImageStorageSync" data="{{newslist}}" sendLoading="{{sendLoading}}" currentMessage="{{currentMessage}}" guideMessage="{{guideMessage}}"></message-stack>
+  <prompts-input class="prompts-input" inputImageSize="{{inputImageSize}}" bind:imagechange="onImageInputChange" content="{{messageValue}}" sendLoading="{{sendLoading}}" bindsend="onSendTap" bindsettings="onSettingsTap">
   </prompts-input>
 </view>
 <tab-bar idx="1"></tab-bar>
+<view wx:if="{{loading}}" class="loading-container">
+  <view class="loading-icon iconf icon-shiwu-huabi"></view>
+  <view class="loading-title">发送请求</view>
+</view>

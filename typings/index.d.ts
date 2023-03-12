@@ -5,6 +5,7 @@ interface IAppOption {
     userId?: string,
     avatar?: string,
     nickname?: string,
+    COMMON_HEADERS: { [key: string]: string },
   }
   refreshUserConfig: () => Promise<any>,
   getRecordAuth: () => void,

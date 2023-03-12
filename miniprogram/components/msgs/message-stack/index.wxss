@@ -48,6 +48,7 @@
   background-color: #FFFFFF;
   text-align: left;
   border-radius: 10rpx;
+  width: calc(100vw - 200rpx);
   max-width: calc(100vw - 200rpx);
   line-height: 48rpx;
   padding: 10rpx;
@@ -66,12 +67,10 @@
   flex-direction: row;
   justify-content: flex-end;
   border-top: 2rpx solid #dedede;
-  background-color: #ECECEC;
 }
 
 .request-content .actions-bar {
-  border-top: 2rpx solid #dedede;
-  background-color: #95EC69;
+  border-top: 2rpx solid #FFFFFF;
 }
 
 

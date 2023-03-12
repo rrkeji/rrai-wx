@@ -4,7 +4,7 @@ export const messageSecCheck = async (msg: string) => {
   let res = await wx.cloud.callContainer({
     "path": "/wx/msg/sec_check",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",
@@ -32,7 +32,7 @@ export const createPromptToServer = async (args: {
   let res = await wx.cloud.callContainer({
     "path": "/prompts/create",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",

@@ -19,7 +19,7 @@ export const openaiImagesGenerations = (prompt: string, success: (res: any) => v
   wx.request({
     url: 'https://www.idns.link/rrai/chatGPT/openai/images/generations',
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json",
       "x-wx-openid": app.globalData.userId,
     },

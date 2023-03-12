@@ -1,5 +1,14 @@
 /* pkg_painter/pages/index/index.wxss */
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
 .container {
+  position: relative;
   width: 100%;
   overflow: hidden;
   display: flex;
@@ -7,13 +16,48 @@
   justify-content: space-between;
 }
 
+.painter-header {
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+}
+
 .message-stack {
   width: 100%;
-  flex: 1;
+  flex-grow: 1;
   padding: 10rpx 10rpx;
-  max-height: calc(100% - 120rpx);
+  padding-top: 100rpx;
 }
 
 .prompts-input {
   width: 100%;
+  flex: 1;
+}
+
+.loading-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #787878;
+  opacity: 0.8;
+  z-index: 10;
+}
+
+.loading-container .loading-icon {
+  font-size: 260rpx;
+  color: #FFFFFF;
+  margin-top: -200rpx;
+}
+
+.loading-container .loading-title {
+  margin-top: -100rpx;
+  color: #FFFFFF;
 }

@@ -56,7 +56,7 @@ export const getPromptsCategories = async (): Promise<Array<PromptsCategory>> =>
   let res = await wx.cloud.callContainer({
     "path": "/prompts_category/categories",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",
@@ -79,7 +79,7 @@ export const getTagsByCategory = async (category: string): Promise<Array<any>> =
   let res = await wx.cloud.callContainer({
     "path": "/prompts_category/search_by_category",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",
@@ -102,7 +102,7 @@ export const addPromptTag = async (tag: string, category: string) => {
   let res = await wx.cloud.callContainer({
     "path": "/prompts_category/tag/create",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",
@@ -123,7 +123,7 @@ export const searchPrompts = async (page: number, pageSize: number, keywords?: s
   let res = await wx.cloud.callContainer({
     "path": "/prompts/prompts",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",
@@ -149,7 +149,7 @@ export const getPromptById = async (promptId: number): Promise<any> => {
   let res = await wx.cloud.callContainer({
     "path": "/prompts/byid/" + promptId,
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "GET",
@@ -170,7 +170,7 @@ export const searchUserPrompts = async (page: number, pageSize: number, keywords
   let res = await wx.cloud.callContainer({
     "path": "/prompts/user_prompts",
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",
@@ -197,7 +197,7 @@ export const promptsInteractionByUserid = async (promptId: number) => {
   let res = await wx.cloud.callContainer({
     "path": "/prompts_user/interaction/byuserid/" + promptId,
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
     },
     "method": "GET",
   });
@@ -212,7 +212,7 @@ export const promptsInteractionById = async (promptId: number) => {
   let res = await wx.cloud.callContainer({
     "path": "/prompts_user/interaction/byid/" + promptId,
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
     },
     "method": "GET",
   });
@@ -227,7 +227,7 @@ export const userPromptsInteracte = async (promptId: number, field: InteracteFie
   let res = await wx.cloud.callContainer({
     "path": "/prompts_user/interacte/" + promptId,
     "header": {
-      "X-WX-SERVICE": "rrai",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",

@@ -4,7 +4,7 @@ export const createOrderByProduct = async (productId: number, referId: number) =
   let res = await wx.cloud.callContainer({
     "path": "/mall/order/create_by_product",
     "header": {
-      "X-WX-SERVICE": "chat2",
+      ...getApp<IAppOption>().globalData.COMMON_HEADERS,
       "content-type": "application/json"
     },
     "method": "POST",

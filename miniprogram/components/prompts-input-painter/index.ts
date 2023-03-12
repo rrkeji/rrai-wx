@@ -149,6 +149,9 @@ Component({
       //
       this.triggerEvent('settings', {
       });
+    },
+    onImageChange: function (e: any) {
+      this.triggerEvent('imagechange', e.detail);
     }
   }
 })

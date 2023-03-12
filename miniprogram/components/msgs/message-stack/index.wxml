@@ -5,9 +5,9 @@
       <!--send  -->
       <view class="chat-news request" wx:if="{{item.sender == 'client'}}">
         <view class='news-content request-content'>
-          <message-request result="{{item.result == 0 ? true:false}}" type="{{item.type}}" text="{{item.text}}"></message-request>
+          <message-request request="{{item}}"></message-request>
           <view class='actions-bar'>
-            <block wx:if="{{item.result > 0}}">
+            <block wx:if="{{item.type=='text' && item.result > 0}}">
               <view class='actions-bar-button'>
                 <button style="width:200rpx" plain="true" bindtap="onNewsResend" data-text="{{item.text}}">
                   发送失败!重发
@@ -22,7 +22,7 @@
       <view class="chat-news response" wx:else>
         <bot-avatar></bot-avatar>
         <view class='news-content response-content'>
-          <message-response response="{{item}}"></message-response>
+          <message-response response="{{item}}" bind:imagestoragesync="onImageStorageSync"></message-response>
           <message-actions-bar></message-actions-bar>
         </view>
       </view>

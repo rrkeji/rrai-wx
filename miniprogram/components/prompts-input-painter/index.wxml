@@ -14,5 +14,5 @@
       </view>
     </view>
   </view>
-  <prompts-input-image wx:if="{{inputImageSize > 0}}" class="prompts-input-image" max="{{inputImageSize}}"></prompts-input-image>
+  <prompts-input-image wx:if="{{inputImageSize > 0}}" class="prompts-input-image" max="{{inputImageSize}}" bind:change="onImageChange"></prompts-input-image>
 </view>
