@@ -1,10 +1,8 @@
 <!--pkg_painter/pages/index/index.wxml-->
 <view class="page-with-tabbar container">
-  <view class="message-stack">
-    <message-stack></message-stack>
-  </view>
-  <view class="prompts-input">
-    <prompts-input></prompts-input>
-  </view>
+  <painter-header active="{{activeModule}}" bind:change="onModuleChange"></painter-header>
+  <message-stack class="message-stack" data="{{newslist}}" sendLoading="{{sendLoading}}" currentMessage="{{currentMessage}}" guideMessage="{{guideMessage}}"></message-stack>
+  <prompts-input class="prompts-input" inputImageSize="{{inputImageSize}}" content="{{messageValue}}" sendLoading="{{sendLoading}}" bindsend="onSendTap" bindsettings="onSettingsTap">
+  </prompts-input>
 </view>
 <tab-bar idx="1"></tab-bar>

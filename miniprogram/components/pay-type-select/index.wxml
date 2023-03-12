@@ -1,0 +1,13 @@
+<!--components/pay-type-select/index.wxml-->
+<radio-group bindchange="radioChange" class="container">
+  <view class="item">
+    <radio value="{{item.value}}" checked="true" />
+    <view class="item-icon iconf icon-zhifu"></view>
+    <view class="item-title">{{pointAmount}}</view>
+  </view>
+  <view class="item">
+    <radio value="{{item.value}}" />
+    <view class="item-icon iconf icon-zhifu"></view>
+    <view class="item-title">{{rmbAmount/100}}</view>
+  </view>
+</radio-group>

@@ -77,6 +77,9 @@ Component({
       }).catch((err) => {
         console.error(err);
       });
+    },
+    onRewardedVideoAdTap() {
+      this.triggerEvent('adtap', {});
     }
   }
 })

@@ -10,6 +10,13 @@
 .container {
   width: 100%;
   display: flex;
+  flex-direction: column;
+}
+
+.text-input-container {
+  width: 100%;
+  display: flex;
+  background-color: #FFFFFF;
 }
 
 .input-container {
@@ -52,7 +59,7 @@
   min-height: 60rpx;
   text-align: left;
   background-color: #ECECEC;
-  color: #474747;
+  color: #090909;
   border-radius: 16rpx;
   padding: 8rpx 8rpx;
 }
@@ -85,6 +92,8 @@
   height: 48rpx;
 }
 
+.prompts-input-image {}
+
 .offline {
   border: 6rpx solid red;
   box-sizing: border-box;
@@ -99,28 +108,4 @@
   to {
     border: 0rpx solid red;
   }
-}
-
-.startYuyinImage {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -170rpx;
-  margin-left: -120rpx;
-  width: 240rpx;
-  height: 240rpx;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 20rpx;
-  color: #fff;
-  text-align: center;
-}
-
-.startYuyinImage cover-image {
-  margin: 30rpx auto;
-  width: 100rpx;
-  height: 100rpx;
-}
-
-.startYuyinImage cover-view {
-  margin-top: 25rpx;
 }

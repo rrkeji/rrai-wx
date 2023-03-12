@@ -13,9 +13,9 @@ Component({
       type: String,
       value: ''
     },
-    point: {
-      type: Number,
-      value: 1,
+    placeholder: {
+      type: String,
+      value: '',
     }
   },
 
@@ -23,7 +23,9 @@ Component({
    * 组件的初始数据
    */
   data: {
-    inputFocus: false,
+    inputFocus: true,
+    translateContent: '',
+    translateEnable: false,
     recording: false,  // 正在录音
     recordStatus: false,
   },
@@ -52,16 +54,21 @@ Component({
       this.setData({
         content: e.detail.value,
       })
+      this.triggerEvent('input', {
+        value: e.detail.value
+      });
     },
     onBindFocus: function (e: any) {
       this.setData({
         inputFocus: true
       })
+      this.triggerEvent('focus', {});
     },
     onBindBlur: function (e: any) {
       this.setData({
         inputFocus: false,
       })
+      this.triggerEvent('blur', {});
     },
     //识别语音 -- 初始化
     initRecord: function () {
@@ -132,10 +139,46 @@ Component({
         translateEnable: false,
       });
     },
+    onTranslate: function () {
+      this.setData({
+        translateEnable: true,
+      });
+
+      plugin.translate({
+        lfrom: "zh_CN",
+        lto: "en_US",
+        content: this.data.content,
+        success: (res) => {
+          if (res.retcode == 0) {
+            console.log("result", res.result)
+            this.setData({
+              translateContent: res.result
+            });
+          } else {
+            console.warn("翻译失败", res)
+          }
+        },
+        fail: (res) => {
+          console.log(res);
+          this.setData({
+            translateContent: '网络失败'
+          });
+        }
+      });
+    },
     onBindSend: function () {
       //
-      this.triggerEvent('send', {
-        messageValue: this.data.content
+      if (this.data.translateEnable) {
+        this.triggerEvent('send', {
+          messageValue: this.data.translateContent
+        });
+      } else {
+        this.triggerEvent('send', {
+          messageValue: this.data.content
+        });
+      }
+      this.setData({
+        content: ""
       });
     },
     onBindSettings: function () {

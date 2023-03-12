@@ -9,12 +9,22 @@ Component({
       value: false
     },
     currentMessage: {
-      type: Boolean,
-      value: false
+      type: String,
+      value: '',
+      observer: function (newVal, oldVal) {
+        setTimeout(() => {
+          this.bottom();
+        }, 200);
+      }
     },
     data: {
       type: Array,
-      value: []
+      value: [],
+      observer: function (newVal, oldVal) {
+        setTimeout(() => {
+          this.bottom();
+        }, 200);
+      }
     },
     respAvatarUrl: {
       type: String,
@@ -30,8 +40,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    scrollTop: 0,
     avatarUrl: "",
+    scrollTop: 0,
   },
   lifetimes: {
     attached: function () {
@@ -41,6 +51,9 @@ Component({
         avatarUrl: app.globalData.avatar && app.globalData.avatar != '' ? app.globalData.avatar : '/images/logo.png'
       });
     },
+    ready: function () {
+      this.bottom();
+    },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
     },
@@ -49,12 +62,24 @@ Component({
     // 组件所在页面的生命周期函数
     show: function () {
 
+    },
+    resize: function () {
+      this.bottom();
     }
   },
   /**
    * 组件的方法列表
    */
   methods: {
-
+    //聊天消息始终显示最底端
+    bottom: function () {
+      let that = this;
+      this.createSelectorQuery()
+        .select('.history').scrollOffset().exec(function (res) {
+          that.setData({
+            scrollTop: res[0] && res[0].scrollHeight
+          });
+        });
+    },
   }
 })

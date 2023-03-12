@@ -1,16 +1,19 @@
 /* pkg_painter/pages/index/index.wxss */
-.container{
-  width:100%;
+.container {
+  width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.message-stack{
+.message-stack {
+  width: 100%;
   flex: 1;
+  padding: 10rpx 10rpx;
+  max-height: calc(100% - 120rpx);
 }
 
-.prompts-input{
+.prompts-input {
   width: 100%;
 }

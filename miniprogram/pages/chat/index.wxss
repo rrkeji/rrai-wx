@@ -1,5 +1,6 @@
 /* pages/chat/index.wxss */
 .container {
+  position: relative;
   width: 100%;
   overflow: hidden;
   display: flex;
@@ -8,10 +9,14 @@
 }
 
 .message-stack {
+  width: 100%;
   flex: 1;
   padding: 10rpx 10rpx;
+  max-height: calc(100% - 120rpx);
 }
 
 .prompts-input {
   width: 100%;
+  padding: 10rpx 0;
+  background-color: #FFFFFF;
 }

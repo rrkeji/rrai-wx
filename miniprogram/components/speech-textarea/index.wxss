@@ -13,6 +13,7 @@
 }
 
 .input-container {
+  position: relative;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -20,12 +21,15 @@
 }
 
 .button-container {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  right: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   padding: 8rpx 8rpx;
+  z-index: 9;
 }
 
 .button {
@@ -44,7 +48,7 @@
   /* background-color: #008FFB;
   color: #FFFFFF;
   font-size: 26rpx; */
-  width: 160rpx;
+  width: 120rpx;
 }
 
 .textarea {
@@ -68,12 +72,6 @@
 .trans-button {
   color: #FFFFFF;
   font-size: 26rpx;
-}
-
-.pay-type-select {
-  position: absolute;
-  right: 0;
-  top: -72rpx;
 }
 
 .speech-button-start {}

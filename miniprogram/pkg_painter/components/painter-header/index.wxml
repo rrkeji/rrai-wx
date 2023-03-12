@@ -1,0 +1,9 @@
+<!--pkg_painter/components/painter-header/index.wxml-->
+<scroll-view enable-flex scroll-x="true" class="scroll-view">
+  <view wx:for="{{items}}" wx:key="item" wx:for-item="item" wx:for-index="itemIndex" class="tab-item-container" bindtap="onItemTap" data-productid="{{item.product_id}}" data-idx="{{itemIndex}}">
+    <view class="tab-item {{itemIndex == active?'active':''}}">
+      <view class="iconf {{item.icon}} "></view>
+      <view class="title">{{item.title}}</view>
+    </view>
+  </view>
+</scroll-view>

@@ -2,6 +2,8 @@
   "component": true,
   "usingComponents": {
     "pay-type-select": "/components/pay-type-select/index",
+    "prompts-input-image": "/components/prompts-input-image/index",
+    "speech-textarea": "/components/speech-textarea/index",
     "text-button": "../buttons/text-button/index"
   }
 }

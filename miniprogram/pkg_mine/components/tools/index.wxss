@@ -1,0 +1,62 @@
+/* pkg_mine/components/tools/index.wxss */
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
+.tools-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.tools-item {
+  width: 220rpx;
+  height: 220rpx;
+  margin: 10rpx 10rpx;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  background-color: #EB7D54;
+}
+
+.tools-item .tools-item-icon {
+  font-size: 90rpx;
+}
+
+.tools-item .tools-item-title {
+  font-size: 30rpx;
+  margin-top: -20rpx;
+  line-height: 60rpx;
+}
+
+.bg1 {
+  background-color: #02A88D;
+}
+
+.bg2 {
+  background-color: #66B7EF;
+}
+
+.bg3 {
+  background-color: #E06C95;
+}
+
+.bg4 {
+  background-color: #EB7D54;
+}
+
+.bg5 {
+  background-color: #ECA554;
+}
+
+.bg6 {
+  background-color: #A173C7;
+}

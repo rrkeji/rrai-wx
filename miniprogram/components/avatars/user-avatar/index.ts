@@ -6,7 +6,7 @@ Component({
   properties: {
     size: {
       type: Number,
-      value: 100
+      value: 90
     },
     rounded: {
       type: Boolean,
@@ -24,13 +24,21 @@ Component({
   data: {
     avatarUrl: ''
   },
-  pageLifetimes: {
-    // 组件所在页面的生命周期函数
-    show: function () {
+  lifetimes: {
+    attached: function () {
       let app = getApp<IAppOption>();
+      // 在组件实例进入页面节点树时执行
       this.setData({
         avatarUrl: app.globalData.avatar && app.globalData.avatar != '' ? app.globalData.avatar : '/images/logo.png'
       });
+    },
+    detached: function () {
+      // 在组件实例被从页面节点树移除时执行
+    },
+  },
+  pageLifetimes: {
+    // 组件所在页面的生命周期函数
+    show: function () {
     }
   },
   /**

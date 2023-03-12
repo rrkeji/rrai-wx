@@ -1,0 +1,21 @@
+/* components/pay-type-select/index.wxss */
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
+.container {
+  display: flex;
+  background-color: #FFFFFF;
+}
+
+.item {
+  display: flex;
+  width: 160rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  justify-content: flex-start;
+}

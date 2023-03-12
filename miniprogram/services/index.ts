@@ -5,3 +5,5 @@ export * from './openai_service';
 export * from './ReconnectWebsocket';
 export * from './reward-service';
 export * from './mall_service';
+export * from './replicate-service';
+export * from './file-service';

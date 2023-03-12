@@ -4,7 +4,9 @@
 }
 
 .ai-type-avatar.rounded {
+  box-sizing: border-box;
   border-radius: 50%;
+  border: 2rpx solid #A7E9BB;
 }
 
 .ai-type-avatar.square {

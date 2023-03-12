@@ -1,0 +1,19 @@
+<!--pkg_mine/components/tools/index.wxml-->
+<view class="tools-container">
+  <view class="tools-item bg1">
+    <view class="tools-item-icon iconf icon-xinfeng"></view>
+    <view class="tools-item-title">证件照</view>
+  </view>
+  <view class="tools-item bg2">
+    <view class="tools-item-icon iconf icon-xinfeng"></view>
+    <view class="tools-item-title">小画布</view>
+  </view>
+  <view class="tools-item bg3">
+    <view class="tools-item-icon iconf icon-xinfeng"></view>
+    <view class="tools-item-title">图片裁剪</view>
+  </view>
+  <view class="tools-item bg4">
+    <view class="tools-item-icon iconf icon-xinfeng"></view>
+    <view class="tools-item-title">黄历</view>
+  </view>
+</view>

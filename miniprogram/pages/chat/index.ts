@@ -1,6 +1,7 @@
 // pages/chat/index.ts
 import { ReconnectWebsocket, messageSecCheck, createPromptToServer, getShareAppMessage, getUserConfig } from '../../services/index'
 
+
 Page({
 
   /**
@@ -15,6 +16,7 @@ Page({
     showCreateDialog: false,
     showSettingsDialog: false,
     publishItem: <{ prompt: string, examples: string } | null>null,
+    guideMessage: "您好，我是软软，我可以在以下帮助你：\n1. 写代码中的一些问题。\n2.写故事的大纲。\n3.写论文的思路。\n4.以及您能想到的都可以试着问我。"
   },
 
   /**
@@ -34,14 +36,21 @@ Page({
     const messages = wx.getStorageSync('messages') || []
     this.setData({
       reWebSocket: new ReconnectWebsocket({
-        onMessage: this.onMessage,
-        onError: this.onError,
-        onClose: this.onClose,
+        onMessage: (cmd, data, code) => {
+          this.onMessage(cmd, data, code);
+        },
+        onError: (res) => {
+          this.onError(res);
+        },
+        onClose: (res) => {
+          this.onClose(res);
+        },
         userId: app.globalData.userId!,
       }),
       newslist: messages,
       messageValue: message,
     }, () => {
+      this.bottom();
     });
     //   
     wx.showShareMenu({
@@ -105,6 +114,7 @@ Page({
       flag.setData({
         currentMessage: flag.data.currentMessage + data
       }, () => {
+        this.bottom();
       });
     } else if (cmd === 'ChatGPT_Text') {
       let message = "";
@@ -126,6 +136,7 @@ Page({
         sendLoading: false,
         currentMessage: "",
       }, () => {
+        flag.bottom();
       });
     } else {
       //完成
@@ -248,7 +259,6 @@ Page({
         sendLoading: sendResult === 0 ? true : false,
         messageValue: ''
       }, () => {
-        flag.cleanInput();
         flag.bottom();
       });
     } else {
@@ -293,7 +303,7 @@ Page({
         sendLoading: false,
         currentMessage: "",
       }, () => {
-        // flag.bottom();
+        flag.bottom();
         // flag.refreshTimes();
       });
     } else {
@@ -308,7 +318,7 @@ Page({
           newslist: list,
           sendLoading: false,
         }, () => {
-          // flag.bottom();
+          flag.bottom();
         });
       } else {
         flag.setData({
@@ -319,6 +329,9 @@ Page({
     }
   },
   onSettingsTap() {
+
+  },
+  bottom() {
 
   }
 })

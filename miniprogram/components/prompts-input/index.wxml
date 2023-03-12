@@ -28,8 +28,9 @@
     </block>
   </view>
   <view class='button-container'>
+    <!-- <pay-type-select class="pay-type-select"></pay-type-select> -->
     <view wx:if="{{inputFocus}}" class='button text-button' bindtap="onBindSend">
-      <text-button text="发送"></text-button>
+      <text-button text="发送(-{{point}})"></text-button>
     </view>
     <view wx:else="{{inputFocus}}" class='button' bindtap="onBindSettings">
       <view class="button-inner iconf icon-a-205shezhi"></view>

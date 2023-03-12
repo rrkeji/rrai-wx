@@ -39,7 +39,7 @@
   background-color: #D4E6FB;
   text-align: right;
   border-radius: 10rpx;
-  min-width: calc(100vw - 200rpx);
+  max-width: calc(100vw - 200rpx);
   line-height: 48rpx;
   padding: 10rpx;
 }
@@ -48,18 +48,17 @@
   background-color: #FFFFFF;
   text-align: left;
   border-radius: 10rpx;
-  min-width: 76%;
+  max-width: calc(100vw - 200rpx);
   line-height: 48rpx;
   padding: 10rpx;
 }
 
 .news-content {
   padding: 5rpx 10rpx;
-  flex-grow: 1;
-  min-width: 60%;
-  max-width: 86%;
   display: flex;
+  flex-direction: column;
   border-radius: 6rpx;
+  overflow-x: auto;
 }
 
 .actions-bar {

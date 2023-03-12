@@ -1,12 +1,13 @@
 /* components/avatars/user-avatar/index.wxss */
 .news-avatar {
-  width: 96rpx;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
 }
 
-.rounded image{
+.rounded image {
+  box-sizing: border-box;
   border-radius: 50%;
+  border: 2rpx solid #A7E9BB;
 }

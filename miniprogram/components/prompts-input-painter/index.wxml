@@ -1,0 +1,18 @@
+<!--components/prompts-input/index.wxml-->
+<view class="container">
+  <view class="text-input-container">
+    <view class="input-container">
+      <speech-textarea content="{{content}}" bindinput="conInput" bindfocus="onBindFocus" bindblur="onBindBlur" placeholder="{{placeholder}}"></speech-textarea>
+    </view>
+    <view class='button-container'>
+      <!-- <pay-type-select class="pay-type-select" pointAmount="10" rmbAmount="100"></pay-type-select> -->
+      <view wx:if="{{inputFocus}}" class='button text-button' bindtap="onBindSend">
+        <text-button text="发送(-{{point}})"></text-button>
+      </view>
+      <view wx:else="{{inputFocus}}" class='button' bindtap="onBindSettings">
+        <view class="button-inner iconf icon-a-205shezhi"></view>
+      </view>
+    </view>
+  </view>
+  <prompts-input-image wx:if="{{inputImageSize > 0}}" class="prompts-input-image" max="{{inputImageSize}}"></prompts-input-image>
+</view>

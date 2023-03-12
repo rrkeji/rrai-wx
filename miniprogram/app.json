@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/chat/index",
+    "pages/webview/index",
     "pages/index/index"
   ],
   "subpackages": [

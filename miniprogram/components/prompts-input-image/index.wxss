@@ -1,0 +1,94 @@
+/* components/prompts-input-image/index.wxss */
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+
+.item-label {
+  color: #707070;
+  font-size: 24rpx;
+}
+
+.item-input {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+  border-radius: 10rpx;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+
+.choose_upload_item {
+  margin-left: 20rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.choose_upload_item .choose_upload_img {
+  width: 140rpx;
+  height: 140rpx;
+  z-index: 1;
+}
+
+.choose_upload_item .remove_img_icon {
+  padding: 4rpx;
+  position: absolute;
+  top: -10rpx;
+  right: -20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 9;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.item-right {
+  width: 220rpx;
+  height: 160rpx;
+  display: flex;
+  border-right: 2rpx solid #FFFFFF;
+}
+
+.choose-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 22rpx 10rpx 10rpx 10rpx;
+}
+
+.choose-button .icon {
+  width: 90rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60rpx;
+  background-color: #FFFFFF;
+  border-radius: 16rpx;
+}
+
+.choose-button .item-label {
+  text-align: center;
+  color: #787878;
+  line-height: 38rpx;
+  margin-top: 10rpx;
+}

@@ -1,0 +1,48 @@
+/* pkg_painter/components/painter-header/index.wxss */
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
+.scroll-view {
+  width: 100%;
+  height: 100rpx;
+  overflow-x: auto;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tab-item-container {
+  min-width: 220rpx;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-item {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #D6D6D6;
+  box-sizing: border-box;
+}
+
+.tab-item .iconf {
+  margin: 0 6rpx;
+  font-size: 50rpx;
+}
+
+.tab-item .title {
+  font-size: 30rpx;
+}
+
+.tab-item.active {
+  color: #499CFB;
+  border-bottom: 4rpx solid #499CFB;
+}

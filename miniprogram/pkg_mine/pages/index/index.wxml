@@ -24,15 +24,15 @@
       <text-button class="checkin" text="签到" bgcolor="#FCAE38" bindtap="onCheckinTap"></text-button>
     </view>
   </view>
+  <points-card bind:adtap="onRewardedVideoAdTap"></points-card>
   <view class="header">
     <mine-bar bind:change="onMineBarChange"></mine-bar>
   </view>
-
   <view class="content">
     <block wx:if="{{activeModule == 0}}">
-      <!-- 我的积分 -->
-      <points-card></points-card>
+      <!-- 工具箱 -->
       <!-- <reward-logs class="reward-logs"></reward-logs> -->
+      <tools></tools>
     </block>
     <block wx:if="{{activeModule == 6}}">
       <!-- 我的发布 -->

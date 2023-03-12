@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "message-stack": "/components/msgs/message-stack/index",
-    "prompts-input": "/components/prompts-input/index",
+    "painter-header": "../../components/painter-header/index",
+    "prompts-input": "/components/prompts-input-painter/index",
     "tab-bar": "/components/tab-bar/index"
   }
 }

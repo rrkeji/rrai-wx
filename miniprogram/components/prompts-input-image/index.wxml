@@ -1,0 +1,22 @@
+<!--components/prompts-input-image/index.wxml-->
+<view class="container">
+  <!-- 上传按钮 -->
+  <view class="item-right">
+    <view class="choose-button" bindtap="chooseImageFromAlbumTap">
+      <view class="icon iconf icon-xiangce"></view>
+      <view class="item-label">相册</view>
+    </view>
+    <view class="choose-button" bindtap="chooseImageFromCameraTap">
+      <view class="icon iconf icon-paishe"></view>
+      <view class="item-label">拍摄</view>
+    </view>
+  </view>
+  <view class="item-input">
+    <view wx:for="{{imageList}}" wx:key="index" class="choose_upload_item">
+      <!-- 图片上传展示 -->
+      <image src="{{item}}" class="choose_upload_img" data-index="{{index}}" bindtap="previewBigImage"></image>
+      <!-- 删除按钮 -->
+      <view class="icon iconf icon-shanchu remove_img_icon" data-index="{{index}}" catchtap="removeChooseImage"></view>
+    </view>
+  </view>
+</view>

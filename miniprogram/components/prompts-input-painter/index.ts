@@ -9,13 +9,21 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    placeholder: {
+      type: String,
+      value: ''
+    },
     content: {
       type: String,
       value: ''
     },
     point: {
       type: Number,
-      value: 1,
+      value: 10,
+    },
+    inputImageSize: {
+      type: Number,
+      value: 1
     }
   },
 
@@ -26,6 +34,7 @@ Component({
     inputFocus: false,
     recording: false,  // 正在录音
     recordStatus: false,
+    placeholder: "输入描述",
   },
   lifetimes: {
     attached: function () {
@@ -127,15 +136,13 @@ Component({
       // 语音结束识别
       manager.stop();
     },
-    onTranslateBack: function () {
-      this.setData({
-        translateEnable: false,
-      });
-    },
     onBindSend: function () {
       //
       this.triggerEvent('send', {
         messageValue: this.data.content
+      });
+      this.setData({
+        content: ""
       });
     },
     onBindSettings: function () {

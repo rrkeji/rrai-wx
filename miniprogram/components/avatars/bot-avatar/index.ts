@@ -10,7 +10,7 @@ Component({
     },
     size: {
       type: Number,
-      value: 100
+      value: 90
     },
     rounded: {
       type: Boolean,
