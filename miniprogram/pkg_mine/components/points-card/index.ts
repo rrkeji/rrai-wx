@@ -38,14 +38,8 @@ Component({
    */
   methods: {
     onRefresh() {
+      const app = getApp<IAppOption>();
       // 
-      getUserConfig().then((userConfig) => {
-        this.setData({
-          points: userConfig.times
-        });
-      }).catch((err) => {
-        console.log(err);
-      });
       rewardUserSummaryToday().then((res: {
         "is_reward_0": number,
         "is_reward_1": number
@@ -53,6 +47,7 @@ Component({
         this.setData({
           isReward0: res.is_reward_0,
           isReward1: res.is_reward_1,
+          points: app.globalData.times,
         });
       })
     },

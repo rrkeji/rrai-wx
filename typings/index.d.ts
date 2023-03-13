@@ -6,7 +6,7 @@ interface IAppOption {
     avatar?: string,
     nickname?: string,
     checkin: string,
-    times: 0,
+    times: number,
     COMMON_HEADERS: { [key: string]: string },
   }
   refreshUserConfig: () => Promise<any>,

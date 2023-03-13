@@ -1,6 +1,8 @@
 // mine.ts
 import { updateUserConfig, checkin, rewardAdOrderCash, getShareAppMessage, getUserConfig, createOrderByProduct } from "../../../services/index";
 
+import { formatDate } from '../../../utils/util';
+
 let rewardedVideoAd: WechatMiniprogram.RewardedVideoAd | null = null;
 let adOrderNo: string | null = null;
 
@@ -12,6 +14,8 @@ Page({
     avatarUrl: "/images/logo.png",
     nickname: "匿名用户",
     vip: 0,
+    showReward: false,
+    checkin: true,
   },
   request: function (userid: string, msgid: string) {
     //获取消息的内容
@@ -74,6 +78,17 @@ Page({
     // rewardedVideoAd?.destroy();
   },
   onShow: function () {
+    const app = getApp<IAppOption>();
+    let today = formatDate(new Date());
+    if (app.globalData.checkin == today) {
+      this.setData({
+        checkin: true,
+      });
+    } else {
+      this.setData({
+        checkin: false
+      });
+    }
   },
   onShareAppMessage: function (res) {
     const app = getApp<IAppOption>();
@@ -98,10 +113,27 @@ Page({
     checkin().then((res) => {
       console.log(res);
       if (res && res.code == 0) {
+
+        const app = getApp<IAppOption>();
+        app.refreshUserConfig();
         //amount
+        this.setData({
+          checkin: true,
+          showReward: true,
+        });
+      } else {
+        wx.showToast({
+          title: '已经签到~',
+          icon: "none",
+          duration: 2000
+        });
       }
     }).catch((err) => {
-
+      wx.showToast({
+        title: '系统出错，稍后重试~',
+        icon: "none",
+        duration: 2000
+      });
     });
   },
   bindchooseavatar(e: any) {
@@ -180,4 +212,9 @@ Page({
         });
     });
   },
+  onHideRewardTap() {
+    this.setData({
+      showReward: false
+    });
+  }
 })

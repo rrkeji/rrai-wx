@@ -72,6 +72,7 @@ App<IAppOption>({
       this.globalData.userId = res.user_id;
       this.globalData.nickname = res.nickname;
       this.globalData.checkin = res.checkin;
+      this.globalData.times = res.times;
       //通过 fileID 获取到临时的 URL
       if (res.avatar && res.avatar != '') {
         wx.cloud.getTempFileURL({
