@@ -1,5 +1,5 @@
 // mine.ts
-import { updateUserConfig, rewardAdOrderCreate, rewardAdOrderCash, getShareAppMessage, getUserConfig, createOrderByProduct } from "../../../services/index";
+import { updateUserConfig, checkin, rewardAdOrderCash, getShareAppMessage, getUserConfig, createOrderByProduct } from "../../../services/index";
 
 let rewardedVideoAd: WechatMiniprogram.RewardedVideoAd | null = null;
 let adOrderNo: string | null = null;
@@ -11,9 +11,11 @@ Page({
     activeModule: 0,
     avatarUrl: "/images/logo.png",
     nickname: "匿名用户",
+    vip: 0,
   },
   request: function (userid: string, msgid: string) {
     //获取消息的内容
+
     //获取评论的内容
   },
   onLoad: function (query) {
@@ -93,6 +95,14 @@ Page({
   },
   onCheckinTap(e: any) {
     console.log(e);
+    checkin().then((res) => {
+      console.log(res);
+      if (res && res.code == 0) {
+        //amount
+      }
+    }).catch((err) => {
+
+    });
   },
   bindchooseavatar(e: any) {
     console.log("avatarUrl", e.detail.avatarUrl)
@@ -170,5 +180,4 @@ Page({
         });
     });
   },
-  
 })

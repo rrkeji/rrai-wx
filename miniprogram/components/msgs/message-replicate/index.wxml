@@ -1,7 +1,10 @@
 <!--components/msgs/message-replicate/index.wxml-->
 <view wx:if="{{response.result == 1}}" class="replicate-loading">
   <!-- 正在生成中 -->
-  <view></view>
+  <view class='replicate-loading-content'>
+    软软正在努力绘画中
+    <image class="loading-svg" src="/images/bars.svg"></image>
+  </view>
 </view>
 <view wx:if="{{response.result == 2}}" class="images-list">
   <!-- 完成 -->
@@ -9,5 +12,5 @@
 </view>
 <view wx:if="{{response.result != 1 && response.result != 2}}">
   <!-- 失败 -->
-
+  软软这次创作失败了
 </view>

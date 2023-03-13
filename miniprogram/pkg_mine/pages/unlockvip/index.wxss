@@ -1,0 +1,163 @@
+/* pkg_vip/pages/unlockvip/index.wxss */
+@import '/iconfont.wxss';
+
+page {
+  background-color: #E4E4E4;
+}
+
+.container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
+.recharge-list {
+  width: 100vw;
+  margin-top: 10rpx;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.recharge-item {
+  margin: 10rpx 20rpx;
+  width: 320rpx;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  color: #444444;
+  border-radius: 10rpx;
+}
+
+.recharge-item-icon {
+  font-size: 60rpx;
+}
+
+.recharge-item .point-amount {
+  font-size: 30rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #FFFFFF;
+  border-bottom: 1rpx solid #E4E4E4;
+  color: #a4a4a4;
+}
+
+.recharge-item .rmb-amount {
+  display: flex;
+  height: 70rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recharge-item .rmb-amount .amount-value {
+  font-size: 32rpx;
+  color: #df0021;
+}
+
+.recharge-item .rmb-amount .pay-button {
+  background-color: #df0021;
+  color: #FFFFFF;
+  width: 100rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  text-align: center;
+  font-size: 26rpx;
+  border-radius: 16rpx;
+}
+
+.detail {
+  margin: 10rpx 0;
+  width: calc(100% - 60rpx);
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  padding: 2rpx 16rpx;
+  background-color: #61AAFF;
+  color: #FFFFFF;
+}
+
+.vip-list-card {
+  width: 100vw;
+  background-color: #FFFFFF;
+}
+
+.vip-list {
+  width: 100%;
+  margin-top: 10rpx;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.vip-item {
+  background-color: #D9EEFF;
+  width: 94%;
+  height: 120rpx;
+  margin: 10rpx 0rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 120rpx;
+}
+
+.vip-item .vip-item-detail {
+  color: #000000;
+  flex-grow: 1;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  margin-left: 20rpx;
+}
+
+.vip-item .vip-item-icon {
+  background-color: #499CFB;
+  width: 90rpx;
+  height: 90rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-left: 30rpx;
+}
+
+.vip-item .vip-item-button {
+  color: #7E7E7E;
+  width: 120rpx;
+  height: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 24rpx;
+  margin-right: 30rpx;
+  font-weight: 500;
+  font-size: 24rpx;
+  padding: 0;
+}
+
+.vip-item .vip-item-icon image {
+  width: 46rpx;
+  height: 46rpx;
+}
+
+.vip-item-icon .icon {
+  color: #FFFFFF;
+  font-size: 46rpx;
+}
+
+.upgrade-icon {
+  font-size: 100rpx;
+  color: #FCAE38;
+}

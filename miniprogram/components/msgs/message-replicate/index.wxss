@@ -1,4 +1,12 @@
 /* components/msgs/message-replicate/index.wxss */
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
 .replicate-loading {
   width: 100%;
   display: flex;
@@ -25,4 +33,19 @@
 .images-list .images-list-item.error {
   width: 100rpx;
   height: 100rpx;
+}
+
+
+.replicate-loading-content {
+  background-color: coral;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  line-height: 60rpx;
+  padding: 0rpx 10rpx;
+}
+
+.replicate-loading-content .loading-svg {
+  width: 90rpx;
+  height: 60rpx;
 }

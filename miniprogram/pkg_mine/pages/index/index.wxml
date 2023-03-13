@@ -6,19 +6,21 @@
       <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
         <image class="avatar" src="{{avatarUrl == '' ? '/images/logo.png':avatarUrl}}"></image>
       </button>
-      <form bindsubmit="formSubmit">
-        <view class="nickname-form">
-          <block wx:if="{{isEdit}}">
-            <input type="nickname" name="nickname" class="nickname" value="{{nicknamme}}" placeholder="请输入昵称" />
-            <button class="nickname-button save-button" type="plain" formType="submit">保存</button>
-          </block>
-          <block wx:else="{{isEdit}}">
-            <view class="nickname">{{nickname == ''?'未填写昵称':nickname}}</view>
-            <view class="nickname-button edit-button" bindtap="onEditButton">编辑</view>
-          </block>
-          <view>VP1</view>
-        </view>
-      </form>
+      <view>
+        <form bindsubmit="formSubmit" style="display:none">
+          <view class="nickname-form">
+            <block wx:if="{{isEdit}}">
+              <input type="nickname" name="nickname" class="nickname" value="{{nicknamme}}" placeholder="请输入昵称" />
+              <button class="nickname-button save-button" type="plain" formType="submit">保存</button>
+            </block>
+            <block wx:else="{{isEdit}}">
+              <view class="nickname">{{nickname == ''?'未填写昵称':nickname}}</view>
+              <view class="nickname-button edit-button" bindtap="onEditButton">编辑</view>
+            </block>
+          </view>
+        </form>
+        <vip-label class="vip-label" vip="{{vip}}"></vip-label>
+      </view>
     </view>
     <view class="user-card-buttons">
       <text-button class="checkin" text="签到" bgcolor="#FCAE38" bindtap="onCheckinTap"></text-button>

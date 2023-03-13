@@ -1,0 +1,45 @@
+<!--pkg_vip/pages/unlockvip/index.wxml-->
+<view class="container">
+  <view class="recharge-list">
+    <view class="recharge-item" wx:for="{{rechargeItems}}" wx:for-item="item" wx:key="item" wx:for-index="index" bindtap="onRechargeTap" data-productid="{{item.productId}}" data-productid="{{item.productId}}">
+      <view class="point-amount">
+        <!-- <view class="recharge-item-icon iconf icon-jifen"></view> -->
+        购买{{item.point}}积分
+      </view>
+      <view class="rmb-amount">
+        <view class="amount-value iconf icon-renminbi">{{item.fee}}</view>
+        <view class="pay-button">购买</view>
+      </view>
+    </view>
+  </view>
+  <view class="detail">
+    VIP成长,通过充值获取积分外,可以获得等额的成长值,成长值达到一定额度解锁高级VIP等级
+  </view>
+  <view class="vip-list-card">
+    <view class="vip-list">
+      <view class="vip-item">
+        <view class="vip-item-icon" style="background-color: #FCAE38;">
+          <view class="icon">1</view>
+        </view>
+        <view class="vip-item-detail">
+          <view>1. 每日签到奖励10</view>
+          <view>1. 每日签到奖励10</view>
+        </view>
+        <view class="vip-item-button" style="color: #FCAE38;">待解锁</view>
+      </view>
+      <view class="upgrade-icon">
+        <view class="iconf icon-shengji"></view>
+      </view>
+      <view class="vip-item">
+        <view class="vip-item-icon">
+          <view class="icon">{{vip}}</view>
+        </view>
+        <view class="vip-item-detail">
+          <view>1. 每日签到奖励10</view>
+          <view>1. 每日签到奖励10</view>
+        </view>
+        <view class="vip-item-button">已解锁</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -17,7 +17,7 @@
       <image src="{{item.localPath}}" class="choose_upload_img" data-index="{{index}}" bindtap="previewBigImage"></image>
       <!-- 删除按钮 -->
       <view class="icon iconf icon-shanchu remove_img_icon" data-index="{{index}}" catchtap="removeChooseImage"></view>
-      <view class="choose_upload_item_bg {{item.uploaded == 'error'?'iconf icon-guanbi':''}}"></view>
+      <view class="choose_upload_item_bg {{item.uploaded == 'error'?'iconf icon-Shapex':''}}"></view>
     </view>
   </view>
 </view>

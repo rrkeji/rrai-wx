@@ -1,7 +1,7 @@
 <!--pkg_mine/components/mine-bar/index.wxml-->
 <view class="mine-bar">
   <view class="tab {{active == 0?'active':''}}" bindtap="onTabTap" data-index="0">
-    <view class="tab-text">AI小能手</view>
+    <view class="tab-text">我的工具</view>
   </view>
   <view class="tab {{active == 1?'active':''}}" bindtap="onTabTap" data-index="1">
     <view class="tab-text">我的设置</view>

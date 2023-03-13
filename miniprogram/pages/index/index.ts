@@ -25,6 +25,16 @@ Page({
   // 事件处理函数
   bindViewTap() {
     //查看是否微信登录成功，查看是否有token
+    const app = getApp<IAppOption>();
+    if (!app.globalData.userId || app.globalData.userId == '') {
+      //
+      wx.showToast({
+        title: '网络或者服务存在问题，查看是否连接网络如还有问题联系客服~',
+        icon: "none",
+        duration: 2000
+      });
+      return;
+    }
     wx.redirectTo({
       url: '../chat/index',
     });

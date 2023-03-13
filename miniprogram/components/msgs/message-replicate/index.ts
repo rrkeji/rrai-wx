@@ -88,7 +88,10 @@ Component({
               this.findIndexAndUpdate(this.data.response.prediction_id, output, res.status);
             } else if (res.status == 1) {
               //未完成
-              setTimeout(this.refreshResult, 1000, this);
+              const call = () => {
+                this.refreshResult();
+              };
+              setTimeout(call, 1000);
               return;
             } else {
               //失败

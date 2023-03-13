@@ -1,0 +1,27 @@
+/* pkg_mine/components/vip-label/index.wxss */
+.vip-label-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 6rpx;
+}
+
+.vip-label {
+  font-size: 32rpx;
+  color: #FCAE38;
+}
+
+.vip-label.vip0-label {
+  font-size: 32rpx;
+  color: #AAAAAA;
+}
+
+.more-link {
+  font-size: 22rpx;
+  line-height: 40rpx;
+  text-decoration: underline;
+  color: #FF5858;
+}
+
+.more-link.vip0-link {}

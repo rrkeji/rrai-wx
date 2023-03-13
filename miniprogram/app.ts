@@ -6,6 +6,8 @@ App<IAppOption>({
     userId: '',
     avatar: undefined,
     nickname: undefined,
+    checkin: '',
+    times: 0,
     COMMON_HEADERS: {
       "X-WX-SERVICE": "chat2"
     },
@@ -69,6 +71,7 @@ App<IAppOption>({
     if (res && res.user_id) {
       this.globalData.userId = res.user_id;
       this.globalData.nickname = res.nickname;
+      this.globalData.checkin = res.checkin;
       //通过 fileID 获取到临时的 URL
       if (res.avatar && res.avatar != '') {
         wx.cloud.getTempFileURL({
@@ -85,6 +88,12 @@ App<IAppOption>({
           }
         });
       }
+    } else {
+      //再次调用
+      const callback = () => {
+        this.refreshUserConfig();
+      };
+      setTimeout(callback, 2000);
     }
   }
 });

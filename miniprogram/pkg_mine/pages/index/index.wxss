@@ -100,3 +100,5 @@
   width: 100%;
   margin: 14rpx 0;
 }
+
+.vip-label {}

@@ -7,3 +7,4 @@ export * from './reward-service';
 export * from './mall_service';
 export * from './replicate-service';
 export * from './file-service';
+export * from './vip-service';

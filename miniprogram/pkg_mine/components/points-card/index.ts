@@ -57,25 +57,8 @@ Component({
       })
     },
     onBuyButtonTap(e) {
-      console.log('sss');
-      createOrderByProduct(1, 1).then((res) => {
-        const { orderNo, payment } = res;
-        wx.requestPayment({
-          timeStamp: payment.timeStamp,
-          nonceStr: payment.nonceStr,
-          package: payment.package,
-          signType: payment.signType,
-          paySign: payment.paySign,
-          success(res) {
-            console.log(orderNo);
-            console.log('pay success', res)
-          },
-          fail(err) {
-            console.error('pay fail', err)
-          }
-        })
-      }).catch((err) => {
-        console.error(err);
+      wx.navigateTo({
+        url: '../../pages/unlockvip/index'
       });
     },
     onRewardedVideoAdTap() {

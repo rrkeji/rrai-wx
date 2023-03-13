@@ -16,7 +16,7 @@ Component({
   data: {
     items: [{
       "product_id": 1,
-      "icon": "icon-huihua",
+      "icon": "icon-w_huaban",
       "title": "AI创作"
     }, {
       "product_id": 2,

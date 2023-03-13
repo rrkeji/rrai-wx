@@ -1,14 +1,15 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/chat/index",
-    "pages/webview/index",
-    "pages/index/index"
+    "pages/webview/index"
   ],
   "subpackages": [
     {
       "root": "pkg_mine",
       "pages": [
-        "pages/index/index"
+        "pages/index/index",
+        "pages/unlockvip/index"
       ]
     },
     {

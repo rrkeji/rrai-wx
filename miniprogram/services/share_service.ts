@@ -1,4 +1,4 @@
-export const getUserConfig = async (): Promise<{ times: number, user_id: string, avatar: string, nickname: string }> => {
+export const getUserConfig = async (): Promise<{ times: number, user_id: string, avatar: string, nickname: string, checkin: string } | null> => {
   //请求剩余次数等
   let res = await wx.cloud.callContainer({
     "path": "/user/config",
@@ -10,7 +10,11 @@ export const getUserConfig = async (): Promise<{ times: number, user_id: string,
     "data": ""
   });
   console.log(res.data);
-  return res.data;
+  if (res && res.statusCode == 200) {
+    return res.data;
+  } else {
+    return null;
+  }
 }
 
 export const getShareAppMessage = () => {
