@@ -1,0 +1,16 @@
+<!--pkg_prompts/components/prompt-list-item/index.wxml-->
+<view class="item">
+  <view class="normal-item">
+    <view class="item-content" bindtap="onItemTap">
+      <message-replicate class="message-replicate" response="{{response}}"></message-replicate>
+      <block wx:if="{{tags.length}}">
+        <view class="item-tags">
+          <view wx:for="{{ tags }}" wx:for-index="tagIndex" wx:for-item="tagItem" wx:key="index" class="item-tag" wx:if="{{tagIndex < 3}}">
+            <view class="iconf icon-shuqian"></view>
+            <text>{{tagItem}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

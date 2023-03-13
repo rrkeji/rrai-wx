@@ -23,7 +23,7 @@
         <bot-avatar></bot-avatar>
         <view class='news-content response-content'>
           <message-response response="{{item}}" bind:imagestoragesync="onImageStorageSync"></message-response>
-          <message-actions-bar></message-actions-bar>
+          <message-actions-bar requestitem="{{data[itemIndex-1]}}" responseitem="{{item}}"></message-actions-bar>
         </view>
       </view>
     </block>

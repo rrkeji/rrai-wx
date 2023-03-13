@@ -157,3 +157,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
+
+.message-replicate{
+  width: 100%;
+}

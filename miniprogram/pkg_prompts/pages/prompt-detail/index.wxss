@@ -1,8 +1,14 @@
 /* pkg_prompts/pages/prompt-detail/index.wxss */
 @import '/iconfont.wxss';
 
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
 page {
-  background-color: #F5F5F5;
+  background-color: #E4E4E4;
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
@@ -13,11 +19,17 @@ page {
 }
 
 .prompt-detail-container {
-  background-color: #FFFFFF;
-  padding: 20rpx 20rpx;
-  width: 90%;
+  width: 100%;
   min-height: 100vh;
   overflow: hidden;
+}
+
+.top {
+  padding: 20rpx 10rpx;
+  background-color: #FFFFFF;
+}
+.bottom{
+  min-height: 500rpx;
 }
 
 .prompt-detail-container .block {
@@ -120,7 +132,7 @@ page {
   line-height: 90rpx;
   text-align: center;
   border-radius: 50%;
-  background-color: #499CFB;
+  background-color: #FCAE38;
   font-size: 26rpx;
   color: #FFFFFF;
   /* animation: action-button 1s linear infinite; */
@@ -170,17 +182,27 @@ page {
 .detail-prompts-item .item-content,
 .detail-examples-item .item-content {
   flex: 1;
+  max-width: calc(100vw - 180rpx);
   border-radius: 10rpx;
   font-size: 26rpx;
   padding: 10rpx 10rpx;
+  border-radius: 30rpx;
+}
+
+.detail-prompts .detail-prompts-item {
+  justify-content: flex-end;
+}
+.detail-examples .detail-prompts-item {
+  justify-content: flex-start;
 }
 
 .detail-prompts-item .item-content {
-  background-color: #95EC69;
+  background-color: #D4E6FB;
+
 }
 
 .detail-examples-item .item-content {
-  background-color: #ECECEC;
+  background-color: #FFFFFF;
 }
 
 .detail-prompts-item .item-avatar,

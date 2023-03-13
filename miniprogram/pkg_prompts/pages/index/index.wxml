@@ -1,9 +1,9 @@
 <!--pkg_prompts/pages/index/index.wxml-->
 <view class="page-with-tabbar container">
   <view class="container-prompts" bind:touchstart="TouchStart" bind:touchend="TouchEnd">
-    <!-- <view class="header">
-    <nav list="{{modules}}" bind:change="onModuleChange" model:active="{{activeModule}}" active-color="#d13435"></nav>
-  </view> -->
+    <view class="header">
+      <nav list="{{modules}}" bind:change="onModuleChange" model:active="{{activeModule}}" active-color="#d13435"></nav>
+    </view>
     <scroller class="{{(loadMoreSetting.status == 'loading' && list.length == 0) ? 'isloading' : ''}}" id="scroller" bind:loadmore="getList" bind:refresh="refresh" isEmpty="{{isEmpty}}" isBackBtn="{{true}}" background="#f2f2f2">
       <!-- 下拉刷新组件 -->
       <refresh slot="refresh" type="base" config="{{baseConfig}}" />
@@ -11,10 +11,10 @@
       <!-- 头部区域 -->
       <view slot="header">
         <view class="header">
-          <view class="search">
+          <view class="search" wx:if="{{activeModule!=0}}">
             <search search-btn="search-btn" model:key="{{key}}" bind:confirm="confirm" clearable bind:btnClick="onBtnClick"></search>
           </view>
-          <nav wx:if="{{activeModule == 0}}" list="{{nav}}" bind:change="onChange" model:active="{{active}}" active-color="#d13435"></nav>
+          <!-- <nav wx:if="{{activeModule == 0}}" list="{{nav}}" bind:change="onChange" model:active="{{active}}" active-color="#d13435"></nav> -->
         </view>
       </view>
       <!-- 头部区域 -->
@@ -23,7 +23,8 @@
       <scroller-page wx:for="{{ list }}" id="wrp_{{pageIndex}}" wx:for-index="pageIndex" wx:for-item="listSingleItem" wx:key="index" pageList="{{ listSingleItem }}">
         <!-- item组件循环项 -->
         <item ripple wx:for="{{ listSingleItem }}" wx:for-index="index" wx:for-item="listItem" wx:key="index">
-          <prompt-list-item bind:itemtap="onListItemTap" prompt_id="{{listItem.id}}" user_id="{{listItem.user_id}}" ai_type="{{listItem.ai_type}}" prompts="{{listItem.prompts}}" recommend="{{listItem.recommend}}" title="{{listItem.title}}" images="{{listItem.images}}" purpose="{{listItem.purpose}}" tags="{{listItem.tags}}" examples="{{listItem.examples}}" create_time="{{listItem.create_time}}" update_time="{{listItem.update_time}}"></prompt-list-item>
+          <prompt-list-item wx:if="{{listItem.ai_type != 'replicate'}}" bind:itemtap="onListItemTap" prompt_id="{{listItem.id}}" user_id="{{listItem.user_id}}" ai_type="{{listItem.ai_type}}" prompts="{{listItem.prompts}}" recommend="{{listItem.recommend}}" title="{{listItem.title}}" images="{{listItem.images}}" purpose="{{listItem.purpose}}" tags="{{listItem.tags}}" examples="{{listItem.examples}}" create_time="{{listItem.create_time}}" update_time="{{listItem.update_time}}"></prompt-list-item>
+          <prompt-list-item-replicate wx:else="{{listItem.ai_type != 'replicate'}}" bind:itemtap="onListItemTap" prompt_id="{{listItem.id}}" user_id="{{listItem.user_id}}" ai_type="{{listItem.ai_type}}" prompts="{{listItem.prompts}}" recommend="{{listItem.recommend}}" title="{{listItem.title}}" images="{{listItem.images}}" purpose="{{listItem.purpose}}" tags="{{listItem.tags}}" examples="{{listItem.examples}}" create_time="{{listItem.create_time}}" update_time="{{listItem.update_time}}"></prompt-list-item-replicate>
         </item>
         <!-- item组件循环项 -->
       </scroller-page>

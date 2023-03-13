@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "message-replicate": "/components/msgs/message-replicate/index",
+    "bot-avatar": "/components/avatars/bot-avatar/index"
+  }
+}

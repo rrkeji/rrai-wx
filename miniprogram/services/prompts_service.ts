@@ -118,7 +118,7 @@ export const addPromptTag = async (tag: string, category: string) => {
   }
 }
 
-export const searchPrompts = async (page: number, pageSize: number, keywords?: string, category?: string): Promise<any> => {
+export const searchPrompts = async (page: number, pageSize: number, aiType: string, keywords?: string, category?: string): Promise<any> => {
 
   let res = await wx.cloud.callContainer({
     "path": "/prompts/prompts",
@@ -131,6 +131,7 @@ export const searchPrompts = async (page: number, pageSize: number, keywords?: s
       "page": page,
       "page_size": pageSize,
       "conditions": {
+        "ai_type": aiType,
         "keywords": (!keywords || keywords.trim() == '') ? undefined : keywords,
         "category": category
       }

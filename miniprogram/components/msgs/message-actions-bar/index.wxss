@@ -1,1 +1,30 @@
 /* components/msgs/message-actions-bar/index.wxss */
+
+.actions-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border-top: 2rpx solid #dedede;
+}
+
+.request-content .actions-bar {
+  border-top: 2rpx solid #FFFFFF;
+}
+
+
+.actions-bar-button {
+  height: 80rpx;
+}
+
+.actions-bar-button button {
+  width: 80rpx;
+  font-weight: 700;
+  border: 0;
+  height: 80rpx;
+  margin: 0rpx 10rpx;
+  line-height: 80rpx;
+  font-size: 24rpx;
+  color: #000000;
+  padding: 2rpx 10rpx;
+}
+

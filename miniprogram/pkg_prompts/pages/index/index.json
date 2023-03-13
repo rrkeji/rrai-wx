@@ -2,6 +2,7 @@
   "usingComponents": {
     "tab-bar": "/components/tab-bar/index",
     "prompt-list-item": "../../components/prompt-list-item/index",
+    "prompt-list-item-replicate": "../../components/prompt-list-item-replicate/index",
     "prompt-view": "../../components/prompt-view/index",
     "scroller": "/components/scroller/index",
     "scroller-page": "/components/scroll-page/index",

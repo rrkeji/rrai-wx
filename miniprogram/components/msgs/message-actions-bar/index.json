@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "create-prompt-dialog": "../../prompts/create-prompt-dialog/index"
+  }
 }

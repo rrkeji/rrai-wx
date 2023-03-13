@@ -1,1 +1,4 @@
 /* pkg_prompts/components/prompt-view/index.wxss */
+.container {
+  background-color: #E4E4E4;
+}
