@@ -31,10 +31,11 @@ Page({
     const app = getApp<IAppOption>();
     //接收初始值
     let message = '';
-    if (options && options.prompt && options.prompt.length > 0) {
-      let arr = JSON.parse(decodeURIComponent(options.prompt));
-      if (arr && arr.length > 0) {
-        message = arr[0]
+    if (options && options.prompts && options.prompts.length > 0) {
+      let arr = JSON.parse(decodeURIComponent(options.prompts));
+      console.log(arr);
+      if (arr && arr.prompts.length > 0) {
+        message = arr.prompts[0];
       }
     }
     //从本地读取存储的数据

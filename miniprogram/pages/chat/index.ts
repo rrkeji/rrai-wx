@@ -1,6 +1,7 @@
 // pages/chat/index.ts
-import { ReconnectWebsocket, messageSecCheck, createPromptToServer, getShareAppMessage, getUserConfig } from '../../services/index'
+import { ReconnectWebsocket, messageSecCheck } from '../../services/index'
 
+let reWebSocket: ReconnectWebsocket | null = null;
 
 Page({
 
@@ -12,7 +13,6 @@ Page({
     messageValue: "",
     currentMessage: "",
     sendLoading: false,
-    reWebSocket: <ReconnectWebsocket | null>null,
     showCreateDialog: false,
     showSettingsDialog: false,
     publishItem: <{ prompt: string, examples: string } | null>null,
@@ -26,16 +26,14 @@ Page({
     const app = getApp<IAppOption>();
     //接收初始值
     let message = '';
-    if (options && options.prompt && options.prompt.length > 0) {
-      let arr = JSON.parse(decodeURIComponent(options.prompt));
+    if (options && options.prompts && options.prompts.length > 0) {
+      let arr = JSON.parse(decodeURIComponent(options.prompts));
       if (arr && arr.length > 0) {
         message = arr[0]
       }
     }
-    //从本地读取存储的数据
-    const messages = wx.getStorageSync('messages') || []
-    this.setData({
-      reWebSocket: new ReconnectWebsocket({
+    if (reWebSocket == null) {
+      reWebSocket = new ReconnectWebsocket({
         onMessage: (cmd, data, code) => {
           this.onMessage(cmd, data, code);
         },
@@ -46,7 +44,12 @@ Page({
           this.onClose(res);
         },
         userId: app.globalData.userId!,
-      }),
+      });
+    }
+    // console.log('=====',options, message);
+    //从本地读取存储的数据
+    const messages = wx.getStorageSync('messages') || []
+    this.setData({
       newslist: messages,
       messageValue: message,
     }, () => {
@@ -229,9 +232,8 @@ Page({
   },
   _send: function (msg: string) {
     let flag = this;
-
     //进行发送
-    let socket = flag.data.reWebSocket;
+    let socket = reWebSocket;
     if (socket) {
       //进行发送
       const currentAIType = wx.getStorageSync('CurrentAIType') || "ChatGPT_Text";

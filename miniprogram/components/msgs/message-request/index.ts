@@ -5,7 +5,6 @@ Component({
       type: Object,
       value: {},
       observer: function (newVal, oldVal) {
-        console.log(newVal);
         this.setData({
           ...newVal
         });

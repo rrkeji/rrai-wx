@@ -6,11 +6,14 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    tapDisable: {
+      type: Boolean,
+      value: false,
+    },
     response: {
       type: Object,
       value: {},
       observer: function (newVal, oldVal) {
-        console.log(newVal);
         let fileIds = newVal.data;
         if (fileIds && fileIds.length > 0) {
           getTempFileURLByFileId(fileIds).then((res) => {
@@ -21,7 +24,6 @@ Component({
             }
           });
         }
-
       }
     }
   },
@@ -69,7 +71,6 @@ Component({
       }
     },
     onError: function (event: any) {
-      console.log(event);
       let errors = this.data.errors;
       errors[event.currentTarget.dataset.index] = true;
       this.setData({
@@ -80,7 +81,6 @@ Component({
       //请求后台获取到进度信息
       if (this.data.response.prediction_id) {
         replicateProxyQueryByPredictionId(this.data.response.prediction_id).then((res) => {
-          console.log(res);
           if (res) {
             if (res.status == 2) {
               //完成

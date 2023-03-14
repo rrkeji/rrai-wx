@@ -33,6 +33,6 @@ export const getTempFileURLByFileId = async (fileList: Array<string>): Promise<A
     fileList: fileList
   });
   //{tempFileURL}
-  console.log(fileTemp.fileList);
+  // console.log(fileTemp.fileList);
   return fileTemp.fileList;
 };

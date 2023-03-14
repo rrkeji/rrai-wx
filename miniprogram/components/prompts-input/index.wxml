@@ -17,18 +17,9 @@
     <block wx:else>
       <textarea class="textarea" auto-height="true" value='{{content}}' bindinput="conInput" bindfocus="onBindFocus" bindblur="onBindBlur" placeholder-class="input-placeholder" maxlength="2000" placeholder='随便和软软聊点什么吧~'>
       </textarea>
-      <!-- <view class='left-button'>
-      <view wx:if="{{!translateEnable}}" class="button-inner trans-button" bindtap="onTranslate">
-        翻译
-      </view>
-      <view wx:if="{{translateEnable}}" class="button-inner trans-button" bindtap="onTranslateBack">
-        中文
-      </view>
-    </view> -->
     </block>
   </view>
   <view class='button-container'>
-    <!-- <pay-type-select class="pay-type-select"></pay-type-select> -->
     <view wx:if="{{inputFocus}}" class='button text-button' bindtap="onBindSend">
       <text-button text="发送(-{{point}})"></text-button>
     </view>

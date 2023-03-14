@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "empty": "/components/empty/index",
+    "message-replicate": "/components/msgs/message-replicate/index",
     "ai-type-avatar":"/components/avatars/bot-avatar/index"
   }
 }

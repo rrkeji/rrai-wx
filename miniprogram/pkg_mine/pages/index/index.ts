@@ -26,7 +26,8 @@ Page({
     const app = getApp<IAppOption>();
     this.setData({
       nickname: app.globalData.nickname,
-      avatarUrl: app.globalData.avatar
+      avatarUrl: app.globalData.avatar,
+      vip: app.globalData.vip,
     });
     //设置分享
     wx.showShareMenu({
@@ -160,7 +161,7 @@ Page({
           fileList: [res.fileID],
           success: (fileTemp: any) => {
             //{tempFileURL}
-            console.log(fileTemp.fileList);
+            // console.log(fileTemp.fileList);
             if (fileTemp && fileTemp.fileList && fileTemp.fileList.length > 0) {
               app.globalData.avatar = fileTemp.fileList[0].tempFileURL;
               this.setData({

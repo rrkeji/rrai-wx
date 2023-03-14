@@ -1,4 +1,12 @@
 /* components/coolui-scroller-item/coolui-scroller-item.wxss */
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
 :host {
   display: block;
   height: 100%;

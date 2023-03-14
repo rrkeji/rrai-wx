@@ -2,7 +2,7 @@
 <view class="item">
   <view class="normal-item">
     <view class="item-content" bindtap="onItemTap">
-      <message-replicate class="message-replicate" response="{{response}}"></message-replicate>
+      <message-replicate class="message-replicate" response="{{response}}" tapDisable="true"></message-replicate>
       <block wx:if="{{tags.length}}">
         <view class="item-tags">
           <view wx:for="{{ tags }}" wx:for-index="tagIndex" wx:for-item="tagItem" wx:key="index" class="item-tag" wx:if="{{tagIndex < 3}}">

@@ -8,7 +8,7 @@
 </view>
 <view wx:if="{{response.result == 2}}" class="images-list">
   <!-- 完成 -->
-  <image wx:for="{{fileLists}}" wx:key="item" wx:for-index='index' mode="widthFix" class="images-list-item {{errors[index] === true ?'error':''}}" src="{{item}}" bindtap="onImageItemTap" data-index="{{index}}" data-url="{{item}}" binderror="onError"></image>
+  <image wx:for="{{fileLists}}" wx:key="item" wx:for-index='index' mode="widthFix" class="images-list-item {{errors[index] === true ?'error':''}}" src="{{item}}" bindtap="{{tapDisable?'':'onImageItemTap'}}" data-index="{{index}}" data-url="{{item}}" binderror="onError"></image>
 </view>
 <view wx:if="{{response.result != 1 && response.result != 2}}">
   <!-- 失败 -->

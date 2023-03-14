@@ -28,7 +28,8 @@ page {
   padding: 20rpx 10rpx;
   background-color: #FFFFFF;
 }
-.bottom{
+
+.bottom {
   min-height: 500rpx;
 }
 
@@ -37,10 +38,14 @@ page {
 }
 
 .detail-title {
+  max-width: calc(100vw - 180rpx);
   font-size: 30rpx;
   color: #444444;
   font-weight: 500;
   line-height: 60rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .detail-subtitle {
@@ -192,6 +197,7 @@ page {
 .detail-prompts .detail-prompts-item {
   justify-content: flex-end;
 }
+
 .detail-examples .detail-prompts-item {
   justify-content: flex-start;
 }

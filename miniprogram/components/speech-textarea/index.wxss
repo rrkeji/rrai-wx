@@ -113,10 +113,8 @@
   text-align: center;
 }
 
-.startYuyinImage cover-image {
-  margin: 30rpx auto;
-  width: 100rpx;
-  height: 100rpx;
+.startYuyinImage .icon-speech {
+  font-size: 100rpx;
 }
 
 .startYuyinImage cover-view {

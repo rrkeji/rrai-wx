@@ -1,6 +1,10 @@
 // components/prompts/create-prompt-dialog/index.ts
 import { createPromptToServer, getPromptsCategories, getTagsByCategory, addPromptTag } from '../../../services/index';
 
+const tagCache: { [key: string]: any } = {};
+
+let categoriesCache: { [key: string]: any } | null = null;
+
 Component({
   /**
    * 组件的属性列表
@@ -45,21 +49,39 @@ Component({
     // 组件所在页面的生命周期函数
     show: function () {
       //reward logs
-      getPromptsCategories().then((res) => {
-        //查询第一个分类下的标签
-        getTagsByCategory(res[0].category).then((tags) => {
+      if (categoriesCache == null) {
+        getPromptsCategories().then((res) => {
           //查询第一个分类下的标签
-          this.setData({
-            categorySelected: 0,
-            tagsInCategory: tags,
-            categories: res.map((item) => item.category),
-          });
+          categoriesCache = res.map((item) => item.category);
+          if (res[0].category in tagCache) {
+            this.setData({
+              categorySelected: 0,
+              tagsInCategory: tagCache[res[0].category],
+              categories: categoriesCache,
+            });
+          } else {
+            getTagsByCategory(res[0].category).then((tags) => {
+              //查询第一个分类下的标签
+              tagCache[res[0].category] = tags;
+              this.setData({
+                categorySelected: 0,
+                tagsInCategory: tags,
+                categories: categoriesCache,
+              });
+            }).catch((err) => {
+              console.log(err);
+            });
+          }
         }).catch((err) => {
           console.log(err);
         });
-      }).catch((err) => {
-        console.log(err);
-      });
+      } else {
+        this.setData({
+          categorySelected: 0,
+          tagsInCategory: tagCache[categoriesCache[0]],
+          categories: categoriesCache,
+        });
+      }
     }
   },
   /**
@@ -74,16 +96,27 @@ Component({
     bindPickerChange: function (e: any) {
       console.log('picker发送选择改变，携带值为', e.detail.value)
       //
-      getTagsByCategory(this.data.categories[e.detail.value]).then((tags) => {
-        //查询第一个分类下的标签
+      let category = this.data.categories[e.detail.value];
+
+      if (category in tagCache) {
         this.setData({
           categorySelected: e.detail.value,
-          tagsInCategory: tags,
+          tagsInCategory: tagCache[category],
           tags: ''
         });
-      }).catch((err) => {
-        console.log(err);
-      });
+      } else {
+        getTagsByCategory(category).then((tags) => {
+          //查询第一个分类下的标签
+          tagCache[category] = tags;
+          this.setData({
+            categorySelected: e.detail.value,
+            tagsInCategory: tags,
+            tags: ''
+          });
+        }).catch((err) => {
+          console.log(err);
+        });
+      }
     },
     onTitleChange(event: any) {
       if (event.detail.value.length > 512) {

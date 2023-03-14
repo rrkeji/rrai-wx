@@ -22,7 +22,6 @@ Page({
       background: {
         color: "#000000",
         height: 200,
-        img: "/images/list-top.jpg",
       },
     },
     loadMoreSetting: {
@@ -42,7 +41,6 @@ Page({
       color: "#999",
     },
     emptySetting: {
-      img: "/images/empty.png",
       text: "暂无内容",
     },
     nav: <Array<PromptsCategory>>[],
@@ -75,19 +73,19 @@ Page({
       page: 0,
     };
     //获取分类
-    getPromptsCategories().then((res: any) => {
-      this.setData({
-        nav: [{
-          id: 0,
-          title: '全部',
-          category: '全部',
-          icon: null,
-          ctype: null,
-        }].concat(res)
-      });
-    }).catch(() => {
+    // getPromptsCategories().then((res: any) => {
+    //   this.setData({
+    //     nav: [{
+    //       id: 0,
+    //       title: '全部',
+    //       category: '全部',
+    //       icon: null,
+    //       ctype: null,
+    //     }].concat(res)
+    //   });
+    // }).catch(() => {
 
-    });
+    // });
     this.getList();
   },
   /**

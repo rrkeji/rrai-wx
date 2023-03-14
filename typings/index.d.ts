@@ -7,6 +7,8 @@ interface IAppOption {
     nickname?: string,
     checkin: string,
     times: number,
+    vip: number,
+    recharge: number,
     COMMON_HEADERS: { [key: string]: string },
   }
   refreshUserConfig: () => Promise<any>,

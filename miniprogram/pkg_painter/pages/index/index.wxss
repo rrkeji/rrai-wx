@@ -27,7 +27,6 @@
 .message-stack {
   width: 100%;
   flex-grow: 1;
-  padding: 10rpx 10rpx;
   padding-top: 100rpx;
 }
 

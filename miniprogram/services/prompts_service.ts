@@ -133,7 +133,7 @@ export const searchPrompts = async (page: number, pageSize: number, aiType: stri
       "conditions": {
         "ai_type": aiType,
         "keywords": (!keywords || keywords.trim() == '') ? undefined : keywords,
-        "category": category
+        "category": '全部'
       }
     }
   });

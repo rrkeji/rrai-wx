@@ -8,6 +8,8 @@ App<IAppOption>({
     nickname: undefined,
     checkin: '',
     times: 0,
+    vip: 0,
+    recharge: 0,
     COMMON_HEADERS: {
       "X-WX-SERVICE": "chat2"
     },
@@ -73,13 +75,14 @@ App<IAppOption>({
       this.globalData.nickname = res.nickname;
       this.globalData.checkin = res.checkin;
       this.globalData.times = res.times;
+      this.globalData.vip = res.vip;
+      this.globalData.recharge = res.recharge;
       //通过 fileID 获取到临时的 URL
       if (res.avatar && res.avatar != '') {
         wx.cloud.getTempFileURL({
           fileList: [res.avatar],
           success: (fileTemp: any) => {
             //{tempFileURL}
-            console.log(fileTemp.fileList);
             if (fileTemp && fileTemp.fileList && fileTemp.fileList.length > 0) {
               this.globalData.avatar = fileTemp.fileList[0].tempFileURL;
             }

@@ -9,7 +9,6 @@ Page({
   data: {
     prompt: <PromptEntity | null>null,
     emptySetting: {
-      img: "/img/empty.png",
       text: "暂无文章",
     },
     summary: {
@@ -36,8 +35,13 @@ Page({
     //通过ID获取内容
     getPromptById(parseInt(options.prompt_id)).then((res) => {
       console.log(res);
+      let examplesObj = null;
+      if (res && res.ai_type == 'replicate' && res.examples && res.examples.length > 0) {
+        examplesObj = JSON.parse(res.examples);
+      }
       this.setData({
-        prompt: res
+        prompt: res,
+        examplesObj: examplesObj
       });
     }).catch((err) => {
       console.log(err);
@@ -112,8 +116,18 @@ Page({
       return;
     }
     //执行decodeURIComponent
-    wx.redirectTo({
-      url: '../../../pkg_rr/pages/rr/rr?src=try&ai_type=' + this.data.prompt.ai_type + '&prompts=' + encodeURIComponent(JSON.stringify(this.data.prompt.prompts))
-    });
+    if (this.data.prompt.ai_type == 'replicate') {
+      //AI绘画
+      wx.redirectTo({
+        url: '../../../pkg_painter/pages/index/index?src=try&ai_type=replicate&prompts=' + encodeURIComponent(JSON.stringify(this.data.prompt))
+      });
+    } else {
+      console.log('',this.data.prompt.prompts);
+      //AI问答
+      wx.redirectTo({
+        url: '../../../pages/chat/index?src=try&ai_type=text&prompts=' + encodeURIComponent(JSON.stringify(this.data.prompt.prompts))
+      });
+    }
+
   }
 })

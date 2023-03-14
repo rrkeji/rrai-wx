@@ -44,7 +44,6 @@ Component({
       type: String,
       value: '',
       observer: function (newVal, oldVal) {
-        console.log(newVal,'------');
         try {
           this.setData({
             response:JSON.parse(newVal)
