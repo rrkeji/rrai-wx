@@ -23,7 +23,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    inputFocus: false,
+    inputFocus: true,
     recording: false,  // 正在录音
     recordStatus: false,
   },
@@ -54,14 +54,14 @@ Component({
       })
     },
     onBindFocus: function (e: any) {
-      this.setData({
-        inputFocus: true
-      })
+      // this.setData({
+      //   inputFocus: true
+      // })
     },
     onBindBlur: function (e: any) {
-      this.setData({
-        inputFocus: false,
-      })
+      // this.setData({
+      //   inputFocus: false,
+      // })
     },
     //识别语音 -- 初始化
     initRecord: function () {

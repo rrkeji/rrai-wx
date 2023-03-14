@@ -63,33 +63,57 @@
 
 
 .reward-button {
-  width: 80rpx;
-  height: 80rpx;
+  width: 100rpx;
+  height: 100rpx;
   margin: 10rpx 15rpx;
-  border-radius: 20rpx;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
-.ad-view-button,
-.ad-share-button,
-.ad-buy-button {
+.reward-button .iconf {
   background-color: #4A9DFA;
   color: #FFFFFF;
   font-size: 50rpx;
+  width: 80rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 20rpx;
 }
 
-.ad-view-button {
+.reward-button .reward-button-title {
+  font-size: 24rpx;
+  line-height: 38rpx;
+}
+
+.ad-share-button button {
+  margin: 0;
+  width: 80rpx !important;
+  height: 80rpx !important;
+  padding: 0;
+}
+
+.ad-share-button button::after {
+  border: none;
+}
+
+.logs-button .iconf {
+  background-color: #02A88D;
+  font-size: 60rpx;
+}
+
+.ad-view-button .iconf {
   background-color: #FCAE38;
+  font-size: 60rpx;
 }
 
-.ad-share-button {
+.ad-share-button .iconf {
   background-color: #4A9DFA;
 }
 
 
-.ad-buy-button {
+.ad-buy-button .iconf {
   background-color: #FF5858;
 }
 

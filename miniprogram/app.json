@@ -9,7 +9,8 @@
       "root": "pkg_mine",
       "pages": [
         "pages/index/index",
-        "pages/unlockvip/index"
+        "pages/unlockvip/index",
+        "pages/logs/index"
       ]
     },
     {

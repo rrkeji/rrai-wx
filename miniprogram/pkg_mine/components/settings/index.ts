@@ -28,9 +28,8 @@ Component({
       });
     },
     onRewardLogsTap() {
-      //跳转到AI大脑切换页面
       wx.navigateTo({
-        url: '../ai/ai'
+        url: '../../pages/logs/index'
       });
     },
   }

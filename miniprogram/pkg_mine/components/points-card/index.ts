@@ -39,21 +39,29 @@ Component({
   methods: {
     onRefresh() {
       const app = getApp<IAppOption>();
+      this.setData({
+        points: app.globalData.times,
+      });
       // 
-      rewardUserSummaryToday().then((res: {
-        "is_reward_0": number,
-        "is_reward_1": number
-      }) => {
-        this.setData({
-          isReward0: res.is_reward_0,
-          isReward1: res.is_reward_1,
-          points: app.globalData.times,
-        });
-      })
+      // rewardUserSummaryToday().then((res: {
+      //   "is_reward_0": number,
+      //   "is_reward_1": number
+      // }) => {
+      //   this.setData({
+      //     isReward0: res.is_reward_0,
+      //     isReward1: res.is_reward_1,
+      //     points: app.globalData.times,
+      //   });
+      // })
     },
     onBuyButtonTap(e) {
       wx.navigateTo({
         url: '../../pages/unlockvip/index'
+      });
+    },
+    onRewardedLogsTap(e) {
+      wx.navigateTo({
+        url: '../../pages/logs/index'
       });
     },
     onRewardedVideoAdTap() {

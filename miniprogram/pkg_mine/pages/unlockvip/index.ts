@@ -1,5 +1,7 @@
 // pkg_mine/pages/unlockvip/index.ts
-import { rewardUserSummaryToday, createOrderByProduct, getUserConfig } from "../../../services/index";
+import { queryOrderStatusByOrderno, createOrderByProduct, getUserConfig, getVipDetail } from "../../../services/index";
+
+let vipDetailsCache: Array<{ level: number, upgrade: number, checkin_reward: number, slogan: string, scope: string, detail: string, options: string }> | null = null;
 
 Page({
 
@@ -8,40 +10,43 @@ Page({
    */
   data: {
     vip: 0,
+    recharge: 0,
+    loading: false,
     rechargeItems: [
       {
-        point: 999,
+        point: 100,
         fee: 9.99,
         productId: 1,
       }, {
-        point: 9999,
+        point: 1000,
         fee: 99.99,
         productId: 2,
       }, {
-        point: 29999,
+        point: 3000,
         fee: 299.99,
         productId: 3,
       }, {
-        point: 59999,
+        point: 6000,
         fee: 599.99,
         productId: 4,
       }, {
-        point: 99999,
+        point: 10000,
         fee: 999.99,
         productId: 5,
       }, {
-        point: 999999,
+        point: 100000,
         fee: 9999.99,
         productId: 6,
       }
-    ]
+    ],
+    vipDetails: <Array<{ level: number, upgrade: number, checkin_reward: number, slogan: string, scope: string, detail: string, options: string }> | null>null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-
+    this.refresh();
   },
 
   /**
@@ -50,12 +55,31 @@ Page({
   onReady() {
 
   },
-
+  refresh() {
+    const app = getApp<IAppOption>();
+    if (vipDetailsCache == null) {
+      getVipDetail().then((res) => {
+        vipDetailsCache = res;
+        this.setData({
+          vip: app.globalData.vip,
+          recharge: app.globalData.recharge,
+          vipDetails: vipDetailsCache
+        });
+      })
+    } else {
+      this.setData({
+        vip: app.globalData.vip,
+        recharge: app.globalData.recharge,
+        vipDetails: vipDetailsCache
+      });
+    }
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
 
+    this.refresh();
   },
 
   /**
@@ -97,8 +121,12 @@ Page({
     if (e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.productid) {
       let productId: number = e.currentTarget.dataset.productid;
 
+      this.setData({
+        loading: true
+      });
       createOrderByProduct(productId, productId).then((res) => {
         const { orderNo, payment } = res;
+        let that = this;
         wx.requestPayment({
           timeStamp: payment.timeStamp,
           nonceStr: payment.nonceStr,
@@ -106,16 +134,72 @@ Page({
           signType: payment.signType,
           paySign: payment.paySign,
           success(res) {
-            console.log(orderNo);
-            console.log('pay success', res)
+            //提示支付完成, loading状态
+            that.checkOrder(orderNo);
           },
           fail(err) {
-            console.error('pay fail', err)
+            console.error('pay fail', err);
+            that.setData({
+              loading: false
+            }, () => {
+              wx.showToast({
+                title: '支付失败!',
+                icon: 'error',
+                duration: 2000
+              });
+            });
           }
         })
       }).catch((err) => {
-        console.error(err);
+        this.setData({
+          loading: false
+        }, () => {
+          wx.showToast({
+            title: '支付失败!',
+            icon: 'error',
+            duration: 2000
+          });
+        });
       });
     }
+  },
+  checkOrder(orderNo: string) {
+    queryOrderStatusByOrderno(orderNo).then((res) => {
+      if (res && res.pay_status === 1) {
+        const app = getApp<IAppOption>();
+        app.refreshUserConfig().then(() => {
+          //支付成功
+          this.setData({
+            loading: false
+          }, () => {
+            wx.showToast({
+              title: '支付成功!',
+              icon: 'success',
+              duration: 2000
+            }).then(() => {
+              //
+              wx.redirectTo({
+                url: '../index/index'
+              });
+            });
+          });
+        });
+      } else if (res && res.pay_status === 0) {
+        setTimeout(() => {
+          this.checkOrder(orderNo);
+        }, 1000);
+      } else {
+        //
+        this.setData({
+          loading: false
+        }, () => {
+          wx.showToast({
+            title: '支付失败!',
+            icon: 'error',
+            duration: 2000
+          });
+        });
+      }
+    }).catch((err) => { console.log(err); });
   }
 })

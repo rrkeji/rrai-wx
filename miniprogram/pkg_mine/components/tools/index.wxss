@@ -60,3 +60,32 @@
 .bg6 {
   background-color: #A173C7;
 }
+
+.vip {
+  position: relative;
+  z-index: 5;
+}
+
+.vip-bg {
+  position: absolute;
+  right: -42rpx;
+  top: -70rpx;
+  transform: rotate(-45deg);
+  width: 30px;
+  height: 30px;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 30px solid #FF5858;
+}
+
+.vip11 {
+  position: absolute;
+  transform: rotate(45deg);
+  color: #fff;
+  width: 120rpx;
+  height: 60rpx;
+  line-height: 90rpx;
+  top: 20rpx;
+  right: -50rpx;
+  z-index: 1;
+}

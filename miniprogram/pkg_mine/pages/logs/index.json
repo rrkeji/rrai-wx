@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "reward-logs": "../../components/reward-logs/index"
+  }
+}

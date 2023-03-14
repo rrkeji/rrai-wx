@@ -1,6 +1,8 @@
 <!--pkg_mine/components/vip-label/index.wxml-->
 <view class="vip-label-container">
   <view class="vip-label {{vip==0?'vip0-label':''}}">VIP{{vip}}</view>
-  <view wx:if="{{vip==0}}" class="more-link vip0-link" bindtap="onUnlockVip">开通会员享有更多特权</view>
-  <view wx:else="{{vip==0}}" class="more-link" bindtap="onUnlockVip">开通会员享有更多特权</view>
+  <block wx:if="{{linkEnable}}">
+    <view wx:if="{{vip==0}}" class="more-link vip0-link" bindtap="onUnlockVip">开通会员享有更多特权</view>
+    <view wx:else="{{vip==0}}" class="more-link" bindtap="onUnlockVip">开通会员享有更多特权</view>
+  </block>
 </view>

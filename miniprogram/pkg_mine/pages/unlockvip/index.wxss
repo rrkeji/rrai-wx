@@ -19,6 +19,22 @@ page {
   font-style: normal;
 }
 
+.header {
+  background-color: #FFFFFF;
+  width: 100vw;
+  text-align: left;
+  padding: 20rpx 20rpx;
+}
+
+.header .header-recharge {
+  font-size: 30rpx;
+  margin-left: 20rpx;
+}
+
+.header .header-vip-label {
+  margin-left: 15rpx;
+}
+
 .recharge-list {
   width: 100vw;
   margin-top: 10rpx;
@@ -52,6 +68,8 @@ page {
   background-color: #FFFFFF;
   border-bottom: 1rpx solid #E4E4E4;
   color: #a4a4a4;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
 }
 
 .recharge-item .rmb-amount {
@@ -75,6 +93,7 @@ page {
   text-align: center;
   font-size: 26rpx;
   border-radius: 16rpx;
+  margin-right: 6rpx;
 }
 
 .detail {
@@ -160,4 +179,66 @@ page {
 .upgrade-icon {
   font-size: 100rpx;
   color: #FCAE38;
+}
+
+
+.loading-container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-container-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #787878;
+  opacity: 0.8;
+  z-index: 10;
+}
+
+.loading-container .center {
+  background-color: #FFFFFF;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 30rpx;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-container .loading-icon {
+  font-size: 120rpx;
+  color: #FCAE38;
+  font-weight: 600;
+  animation: round 1.5s infinite linear;
+}
+
+.loading-container .loading-title {
+  color: #000000;
+  line-height: 80rpx;
+}
+
+@keyframes round {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

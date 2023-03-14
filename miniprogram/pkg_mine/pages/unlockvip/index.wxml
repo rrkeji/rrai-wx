@@ -1,5 +1,11 @@
 <!--pkg_vip/pages/unlockvip/index.wxml-->
 <view class="container">
+  <view class="header">
+    <view class="header-vip-label">
+      <vip-label vip="{{vip}}" linkEnable="{{false}}"></vip-label>
+    </view>
+    <view class="header-recharge">VIP成长值:{{recharge}}</view>
+  </view>
   <view class="recharge-list">
     <view class="recharge-item" wx:for="{{rechargeItems}}" wx:for-item="item" wx:key="item" wx:for-index="index" bindtap="onRechargeTap" data-productid="{{item.productId}}" data-productid="{{item.productId}}">
       <view class="point-amount">
@@ -17,29 +23,41 @@
   </view>
   <view class="vip-list-card">
     <view class="vip-list">
-      <view class="vip-item">
-        <view class="vip-item-icon" style="background-color: #FCAE38;">
-          <view class="icon">1</view>
+      <block wx:for="{{vipDetails}}" wx:key="item" wx:for-index="index" wx:for-item="item">
+        <view class="vip-item" wx:if="{{item.level == vip}}">
+          <view class="vip-item-icon">
+            <view class="icon">{{vip}}</view>
+          </view>
+          <view class="vip-item-detail">
+            <view style="white-space: pre-wrap">{{item.detail}}</view>
+          </view>
+          <view class="vip-item-button">已解锁</view>
         </view>
-        <view class="vip-item-detail">
-          <view>1. 每日签到奖励10</view>
-          <view>1. 每日签到奖励10</view>
-        </view>
-        <view class="vip-item-button" style="color: #FCAE38;">待解锁</view>
-      </view>
+      </block>
       <view class="upgrade-icon">
-        <view class="iconf icon-shengji"></view>
+        <view class="iconf icon-shengji" style="transform: rotate(180deg);"></view>
       </view>
-      <view class="vip-item">
-        <view class="vip-item-icon">
-          <view class="icon">{{vip}}</view>
+      <block wx:for="{{vipDetails}}" wx:key="item" wx:for-index="index" wx:for-item="item">
+        <view class="vip-item" wx:if="{{item.level > vip && item.level < vip + 3}}">
+          <view class="vip-item-icon" style="background-color: #FCAE38;">
+            <view class="icon">{{item.level}}</view>
+          </view>
+          <view class="vip-item-detail">
+            <view style="white-space: pre-wrap">{{item.detail}}</view>
+          </view>
+          <view class="vip-item-button" style="color: #FCAE38;">待解锁</view>
         </view>
-        <view class="vip-item-detail">
-          <view>1. 每日签到奖励10</view>
-          <view>1. 每日签到奖励10</view>
-        </view>
-        <view class="vip-item-button">已解锁</view>
+      </block>
+      <view class="upgrade-icon">
+        <view class="iconf icon-suo" style="color: #FF5858;"></view>
       </view>
     </view>
+  </view>
+</view>
+<view wx:if="{{loading}}" class="loading-container">
+  <view class="loading-container-bg"></view>
+  <view class="center">
+    <view class="loading-icon iconf icon-loading"></view>
+    <view class="loading-title">支付中</view>
   </view>
 </view>

@@ -18,6 +18,12 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    onItemTap() {
+      wx.showToast({
+        title: '您还未解锁该工具,赶快去解锁吧!',
+        icon: 'none',
+        duration: 2000
+      });
+    }
   }
 })

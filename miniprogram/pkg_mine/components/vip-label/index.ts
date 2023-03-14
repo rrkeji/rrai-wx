@@ -7,6 +7,10 @@ Component({
     vip: {
       type: Number,
       value: 0,
+    },
+    linkEnable: {
+      type: Boolean,
+      value: true,
     }
   },
 

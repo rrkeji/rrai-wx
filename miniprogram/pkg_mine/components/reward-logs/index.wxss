@@ -10,12 +10,12 @@
 }
 
 .reward-logs-header {
-  width: 100%;
   height: 90rpx;
   line-height: 90rpx;
   padding: 0 20rpx;
   border-bottom: 2rpx solid #777777;
   display: flex;
+  font-size: 26rpx;
   justify-content: space-between;
 }
 
@@ -24,45 +24,60 @@
   flex-direction: column;
   flex: 1;
   overflow: hidden;
+  width: 100vw;
+  background-color: #FFFFFF;
+  width: 100%;
+  margin-top: 10rpx;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .list-item {
+  background-color: #D9EEFF;
   width: 100%;
-  height: 90rpx;
+  height: 120rpx;
+  margin: 10rpx 0rpx;
   display: flex;
-  background-color: #FFFFFF;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  padding: 0 10rpx;
-  border-bottom: 2rpx solid #DEDEDE;
+  border-radius: 120rpx;
 }
 
 .list-item .amount {
-  width: 50rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  font-size: 34rpx;
-  text-align: center;
-  background-color: #95EC69;
-  color: #FFFFFF;
+  background-color: #499CFB;
+  width: 90rpx;
+  height: 90rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
+  margin-left: 20rpx;
+  color: #FFFFFF;
 }
 
 .list-item .reason {
-  color: #444444;
-  flex: 1;
-  padding: 0 10rpx;
+  color: #000000;
+  flex-grow: 1;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  margin-left: 20rpx;
 }
 
 .list-item .time {
   color: #777777;
-  font-size: 24rpx;
+  font-size: 22rpx;
+  margin-right: 16rpx;
 }
 
 .list-item.isreward .amount {
   background-color: #ff4d4f;
 }
 
-.refresh-link{
+.refresh-link {
   text-decoration: underline;
   color: #0062DB;
 }

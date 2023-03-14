@@ -73,7 +73,12 @@ Page({
     }
   },
   refreshReward() {
-
+    const app = getApp<IAppOption>();
+    app.refreshUserConfig().then(() => {
+      wx.redirectTo({
+        url: '../index/index'
+      });
+    });
   },
   onUnload: function () {
     // rewardedVideoAd?.destroy();
@@ -114,7 +119,6 @@ Page({
     checkin().then((res) => {
       console.log(res);
       if (res && res.code == 0) {
-
         const app = getApp<IAppOption>();
         app.refreshUserConfig();
         //amount

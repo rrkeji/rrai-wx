@@ -1,0 +1,4 @@
+<!--pkg_mine/pages/logs/index.wxml-->
+<view class="container">
+  <reward-logs></reward-logs>
+</view>
