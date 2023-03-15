@@ -3,7 +3,7 @@ export const getUserConfig = async (): Promise<{ times: number, user_id: string,
   let res = await wx.cloud.callContainer({
     "path": "/user/config",
     "header": {
-      "X-WX-SERVICE": "chat2",
+      "X-WX-SERVICE": "rrai",
       "content-type": "application/json"
     },
     "method": "GET",

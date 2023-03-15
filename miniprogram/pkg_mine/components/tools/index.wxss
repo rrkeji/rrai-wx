@@ -78,7 +78,7 @@
   border-left: 30px solid #FF5858;
 }
 
-.vip11 {
+.vip-level {
   position: absolute;
   transform: rotate(45deg);
   color: #fff;
@@ -88,4 +88,12 @@
   top: 20rpx;
   right: -50rpx;
   z-index: 1;
+}
+
+.enough .vip-bg{
+  border-left: 30px solid #FFFFFF;
+}
+
+.enough .vip-level{
+  color: #FF5858;
 }

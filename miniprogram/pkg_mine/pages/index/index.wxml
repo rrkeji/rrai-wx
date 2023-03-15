@@ -50,6 +50,6 @@
   <view class="loading-container-bg"></view>
   <view class="center">
     <view class="loading-title">签到成功</view>
-    <view class="loading-icon">+5</view>
+    <view class="loading-icon">+{{checkinReward}}</view>
   </view>
 </view>

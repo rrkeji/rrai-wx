@@ -3,6 +3,7 @@
 
 .container {
   background-color: #E4E4E4;
+  overflow: hidden;
 }
 
 .iconf {

@@ -16,6 +16,7 @@ Page({
     vip: 0,
     showReward: false,
     checkin: true,
+    checkinReward: 2,
   },
   request: function (userid: string, msgid: string) {
     //获取消息的内容
@@ -125,6 +126,7 @@ Page({
         this.setData({
           checkin: true,
           showReward: true,
+          checkinReward: res.amount,
         });
       } else {
         wx.showToast({

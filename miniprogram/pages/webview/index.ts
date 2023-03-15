@@ -8,7 +8,7 @@ Page({
     console.log(option)
     if (option && option.url) {
       this.setData({
-        url: option.url
+        url: decodeURIComponent(option.url)
       });
     }
   },

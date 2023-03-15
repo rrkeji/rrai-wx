@@ -1,4 +1,4 @@
-export const checkin = async (): Promise<{ times: number, user_id: string, avatar: string, nickname: string, checkin: string } | null> => {
+export const checkin = async (): Promise<{ code: number, amount: number} | null> => {
   //请求剩余次数等
   let res = await wx.cloud.callContainer({
     "path": "/user/vip/checkin",

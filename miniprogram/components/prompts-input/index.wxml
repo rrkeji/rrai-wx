@@ -1,30 +1,25 @@
 <!--components/prompts-input/index.wxml-->
-<view class="container">
-  <view class="button-container">
-    <view class='button' bindtouchstart="touchStart" bindtouchend="touchEnd">
-      <view wx:if="{{recordState == false}}" class="button-inner speech-button-start iconf icon-yuyin"></view>
-      <view wx:else class="button-inner speech-button-end  iconf icon-yuyin"></view>
+<form bindreset="cleanInput">
+  <view class="container">
+    <view class="button-container">
+      <view class='button' bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <view wx:if="{{recordState == false}}" class="button-inner speech-button-start iconf icon-yuyin"></view>
+        <view wx:else class="button-inner speech-button-end  iconf icon-yuyin"></view>
+      </view>
     </view>
-  </view>
-  <view class="input-container">
-    <block wx:if="{{recordStatus == true}}">
-      <!-- 开始语音 弹出语音图标表示正在录音 -->
-      <cover-view class="startYuyinImage" wx:if="{{recordStatus == true}}">
-        <cover-view class="iconf icon-speech"></cover-view>
-        <cover-view>开始语音</cover-view>
-      </cover-view>
-    </block>
-    <block wx:else>
-      <textarea class="textarea" auto-height="true" value='{{content}}' bindinput="conInput" bindfocus="onBindFocus" bindblur="onBindBlur" placeholder-class="input-placeholder" maxlength="2000" placeholder='随便和软软聊点什么吧~'>
-      </textarea>
-    </block>
-  </view>
-  <view class='button-container'>
-    <view wx:if="{{inputFocus}}" class='button text-button' bindtap="onBindSend">
-      <text-button text="发送(-{{point}})"></text-button>
+    <textarea class="input-container textarea" auto-height="true" value='{{content}}' bindinput="conInput" bindfocus="onBindFocus" confirm-type="send" bindconfirm="onBindSend" show-confirm-bar="{{false}}" bindblur="onBindBlur"  placeholder-class="input-placeholder" maxlength="2000" placeholder='随便和软软聊点什么吧~'>
+  </textarea>
+    <view class='button-container'>
+      <view wx:if="{{inputFocus}}" class='button text-button' bindtap="onBindSend">
+        <text-button text="发送(-{{point}})"></text-button>
+      </view>
+      <view wx:else="{{inputFocus}}" class='button' bindtap="onBindSettings">
+        <view class="button-inner iconf icon-a-205shezhi"></view>
+      </view>
     </view>
-    <view wx:else="{{inputFocus}}" class='button' bindtap="onBindSettings">
-      <view class="button-inner iconf icon-a-205shezhi"></view>
-    </view>
+    <cover-view class="startYuyinImage" wx:if="{{recordStatus == true}}">
+      <cover-view class="iconf icon-speech"></cover-view>
+      <cover-view>开始语音</cover-view>
+    </cover-view>
   </view>
-</view>
+</form>
