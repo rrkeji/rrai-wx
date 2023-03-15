@@ -6,7 +6,7 @@ page {
 
 .page-with-tabbar {
   width: 100%;
-  height: calc(100% - 100rpx - env(safe-area-inset-bottom) / 2);
+  height: calc(100% - 120rpx);
   box-sizing: border-box;
   background-color: #E4E4E4;
 }

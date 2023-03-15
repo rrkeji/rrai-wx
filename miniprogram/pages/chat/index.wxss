@@ -16,10 +16,7 @@
 }
 
 .prompts-input {
-  position: absolute;
   width: 100%;
-  bottom:0;
-  left:0;
   padding: 10rpx 0;
   background-color: #FFFFFF;
 }

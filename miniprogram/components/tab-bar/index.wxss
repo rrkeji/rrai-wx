@@ -9,7 +9,8 @@
 .tabBar {
   position: fixed;
   width: 100%;
-  height: calc(100rpx + env(safe-area-inset-bottom) / 2);
+  height: 120rpx;
+  height: 120rpx;
   bottom: 0;
   font-size: 20rpx;
   color: #8A8A8A;
@@ -73,8 +74,8 @@
 .cu-bar.tabbar {
   padding: 0;
   z-index: 0;
-  height: calc(100rpx + env(safe-area-inset-bottom) / 2);
-  padding-bottom: calc(env(safe-area-inset-bottom) / 2);
+  height: 120rpx;
+  padding-bottom: 20rpx;
 }
 
 .cu-bar .action:first-child {

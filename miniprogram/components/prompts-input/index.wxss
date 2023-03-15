@@ -42,21 +42,17 @@
 }
 
 .text-button {
-  /* background-color: #008FFB;
-  color: #FFFFFF;
-  font-size: 26rpx; */
   width: 160rpx;
 }
 
 .textarea {
   width: 100%;
-  /* min-height: 60rpx; */
+  min-height: 60rpx;
   text-align: left;
   background-color: #ECECEC;
   color: #474747;
   border-radius: 16rpx;
   font-size: 30rpx;
-  /* padding-top:26rpx; */
 }
 
 .input-placeholder {
