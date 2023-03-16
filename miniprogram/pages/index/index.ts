@@ -35,8 +35,11 @@ Page({
       });
       return;
     }
+    // wx.redirectTo({
+    //   url: '../chat/index',
+    // });
     wx.redirectTo({
-      url: '../chat/index',
+      url: '../../pkg_zhengzhao/pages/index/index',
     });
   },
 })

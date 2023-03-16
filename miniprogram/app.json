@@ -25,6 +25,12 @@
       "pages": [
         "pages/index/index"
       ]
+    },
+    {
+      "root": "pkg_zhengzhao",
+      "pages": [
+        "pages/index/index"
+      ]
     }
   ],
   "window": {
