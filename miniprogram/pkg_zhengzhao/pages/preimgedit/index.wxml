@@ -1,0 +1,38 @@
+<!--pkg_zhengzhao/pages/preimgedit/index.wxml-->
+<view class="container">
+  <view class="container-head">
+    <view class="tips-item" wx:for="{{preImgInfoList}}">
+      {{item}}
+    </view>
+  </view>
+  <view class="container-content">
+    <view class="container-content-head">{{name}}</view>
+    <view class="container-content-dec">
+      <view class="container-content-dec-item">
+        <view style="width:40%">像素尺寸：</view>
+        <view>{{px}}</view>
+      </view>
+      <view class="container-content-dec-item">
+        <view style="width:40%">冲印尺寸：</view>
+        <view class="dec">{{size}}</view>
+      </view>
+      <view class="container-content-dec-item">
+        <view style="width:40%">分辨率：</view>
+        <view class="dec">无要求</view>
+      </view>
+      <view class="container-content-dec-item">
+        <view style="width:40%">照片描述：</view>
+        <view class="dec">{{description}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="container-optBtn">
+    <view bindtap="chooseImagePre" data-type="album" class="container-btn">相册选择</view>
+    <view bindtap="chooseImagePre" data-type="camera" class="container-btn">相机拍照</view>
+  </view>
+  <view class="space">
+  </view>
+  <view class="container-ad">
+    <ad unit-id="adunit-f2e79dad59bee277"></ad>
+  </view>
+</view>

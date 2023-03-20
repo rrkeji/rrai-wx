@@ -41,3 +41,19 @@ export const wxuuid = function () {
   return uuid
 }
 
+// base64转blob
+export function base64ToBlob(base64: string, mime: string) {
+  let bstr = atob(base64)
+  let n = bstr.length;
+  let u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], {
+    type: mime
+  });
+}
+// blob转file
+export function blobToFile(theBlob: any, fileName: string) {
+  return new File([theBlob], fileName);
+}

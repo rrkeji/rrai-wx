@@ -1,0 +1,55 @@
+<!--pkg_zhengzhao/pages/editphoto/index.wxml-->
+<view class="container">
+  <page-scroll-message style="width: 100%;"></page-scroll-message>
+  <!-- 自定义背景颜色选择器 -->
+  <view class="color-picker-view">
+    <view wx:if="{{ showColorPicker }}" class="color-picker-content">
+      <button bindtap="closeColorPicker" size="mini" type="primary" style="background-color: #3E85EE;">确定</button>
+      <view class="tips">
+        <text class="text-red">先选右侧色系</text>
+        <text>\n\n</text>
+        <text class="text-red">后选左侧色值</text>
+      </view>
+      <view class="current-color" style="background-color: {{colorData.pickerData.hex}}"></view>
+      <color-picker class="color-picker" bindchangecolor="onChangeColor"></color-picker>
+    </view>
+  </view>
+
+  <view class="pthto-edit-content">
+    <view class="canvas-view" style="background-color: {{photoBg}};width: {{targetWidth * showScale}}rpx;height: {{targetHeight * showScale}}rpx;">
+      <!-- 人像 -->
+      <image style="width: {{portrait.width * showScale}}rpx; height: {{portrait.height * showScale}}rpx; left: {{portrait.left * showScale}}rpx; top: {{portrait.top * showScale}}rpx; transform: translate(-50%, -50%) scale({{ portrait.scale }});" class="people-photo" src="{{filePath}}" data-dataname="portrait" bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend">
+      </image>
+      <!-- 衣服 -->
+      <image wx-if="{{clothes.show && clothes.src}}" style="z-index:2;width: {{clothes.width * showScale}}rpx; height: {{clothes.height * showScale}}rpx; left: {{clothes.left * showScale}}rpx; top: {{clothes.top * showScale}}rpx; transform: translate(-50%, -50%) scale({{clothes.scale }});" class="people-photo" src="{{clothes.src}}" data-dataname="clothes" bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend">
+      </image>
+      <!-- 头发 -->
+      <image wx-if="{{hair.show && hair.src}}" style="z-index:1;width: {{hair.width * showScale}}rpx; height: {{hair.height * showScale}}rpx; left: {{hair.left * showScale}}rpx; top: {{hair.top * showScale}}rpx; transform: translate(-50%, -50%) scale({{hair.scale }});" class="people-photo" src="{{hair.src}}" data-dataname="hair" bindload="bindload" catchtouchstart="touchstart" catchtouchmove="touchmove" catchtouchend="touchend">
+      </image>
+      <!-- 新用户指引 -->
+      <view wx-if="{{!guided}}" class="guide" bindtap="guideNext">
+        <text wx-if="{{guideStep === 1}}">移动人像可调整位置\n点击下一步</text>
+        <text wx-if="{{guideStep === 2}}">双指可调整人像大小\n点击下一步</text>
+        <text wx-if="{{guideStep === 3}}">点击右侧换装换发型\n点击下一步</text>
+        <image wx-if="{{guideStep === 1}}" mode="aspectFit" class="move" src="../images/move-white.png"></image>
+        <image wx-if="{{guideStep === 2}}" mode="aspectFit" class="zoom" src="../images/zoom-white.png"></image>
+        <image wx-if="{{guideStep === 3}}" mode="aspectFit" class="zoom" src="../images/click-white.png"></image>
+        <view wx-if="{{guideStep > 3}}" bindtap="completionGuide" class="guide-know">我知道了</view>
+      </view>
+    </view>
+  </view>
+  <view class="colors">
+    <view bindtap="toggleBg" data-color="white" class="color white {{bgc === 'white' ? 'active' : ''}}"></view>
+    <view bindtap="toggleBg" data-color="blue" class="color blue {{bgc === 'blue' ? 'active' : ''}}"></view>
+    <view bindtap="toggleBg" data-color="red" class="color red {{bgc === 'red' ? 'active' : ''}}"></view>
+    <view bindtap="toggleBg" data-color="blue2" class="color blue2 {{bgc === 'blue2' ? 'active' : ''}}"></view>
+    <view bindtap="toggleBg" data-color="custom" class="color custom {{bgc === 'custom' ? 'active' : ''}}">
+      <view class="text" style="font-size: 12px;"><text>自定义</text></view>
+      <view class="custom-bg" style="background-color: {{customBg}}"></view>
+    </view>
+  </view>
+  <view class="download-view">
+    <button wx:if="{{!hideDownloadBtn}}" bindtap="composeImage" type="default">下 载 图 片</button>
+  </view>
+  <ad unit-id="adunit-f2e79dad59bee277"></ad>
+</view>

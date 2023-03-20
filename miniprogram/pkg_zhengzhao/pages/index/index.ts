@@ -1,18 +1,20 @@
 // pkg_zhengzhao/pages/index/index.ts
+import { PhotoSize, getPhotoSizeList } from '../../sevices/index';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    photoSizeList: <Array<PhotoSize>>[],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-
+    this.refreshData();
   },
 
   /**
@@ -62,5 +64,26 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+  /////
+  refreshData() {
+    getPhotoSizeList().then((res) => {
+      this.setData({
+        photoSizeList: res
+      });
+    });
+  },
+  // 去选择照片页面
+  goNextPage(e: any) {
+    let item = this.data.photoSizeList[e.currentTarget.dataset.index];
+    wx.navigateTo({
+      url: '../preimgedit/index?data=' + encodeURIComponent(JSON.stringify(item)),
+    })
+  },
+  goCustomPage(e: any) {
+    let item = this.data.photoSizeList[0];
+    wx.navigateTo({
+      url: '../preimgedit/index?data=' + encodeURIComponent(JSON.stringify(item)),
+    })
   }
 })

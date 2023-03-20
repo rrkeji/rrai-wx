@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+		"color-picker": "../../components/color-picker/color-picker",
+    "page-scroll-message": "../../components/pageScrollMessage/pageScrollMessage",
+    "wxml-to-canvas": "wxml-to-canvas"
+  }
+}

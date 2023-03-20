@@ -11,7 +11,7 @@ App<IAppOption>({
     vip: 0,
     recharge: 0,
     COMMON_HEADERS: {
-      "X-WX-SERVICE": "rrai"
+      "X-WX-SERVICE": "chat2"
     },
   },
   async onLaunch(options) {

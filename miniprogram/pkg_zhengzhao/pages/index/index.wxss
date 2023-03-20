@@ -1,1 +1,133 @@
 /* pkg_zhengzhao/pages/index/index.wxss */
+@import '/iconfont.wxss';
+
+.iconf {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+}
+
+.container {
+  background-color: #E4E4E4;
+  position: relative;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container-head {
+  width: 100%;
+  height: 300rpx;
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  border-bottom: 2rpx solid #7D7D7D;
+  padding-bottom: 10rpx;
+}
+
+.container-head .left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container-head .left-item {
+  height: 120rpx;
+  line-height: 120rpx;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-radius: 20rpx;
+  margin: 10rpx 20rpx;
+}
+
+.container-head .left-item .icon {
+  font-size: 60rpx;
+}
+
+.container-head .left-item1 {
+  background-color: #FCAE38;
+}
+
+.container-head .left-item2 {
+  background-color: #4A9DFA;
+}
+
+.container-head .right {
+  width: 50%;
+  display: flex;
+  padding: 10rpx;
+}
+
+.container-head .right-item {
+  width: 100%;
+  background-color: #FF5858;
+  color: #FFFFFF;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-head .right-item .icon {
+  font-size: 100rpx;
+}
+
+.container-head .right-item .title {
+  font-size: 30rpx;
+}
+
+.container-ad {
+  width: 100%;
+  background: #fff;
+}
+
+.container-content {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-top: 20rpx;
+}
+
+.container-content-item {
+  box-sizing: border-box;
+  width: 100%;
+  height: 200rpx;
+  padding: 25rpx 40rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-content-item .title {
+  font-size: 36rpx;
+}
+
+.container-content-item .description {
+  font-size: 25rpx;
+  color: #919191;
+  margin-top: 50rpx;
+}
+
+.container-content-item .icon {
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #02A88D;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 60rpx;
+  border-radius: 10rpx;
+  right: 40rpx;
+}

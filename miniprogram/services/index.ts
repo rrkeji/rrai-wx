@@ -8,3 +8,4 @@ export * from './mall_service';
 export * from './replicate-service';
 export * from './file-service';
 export * from './vip-service';
+export * from './baidu-service';

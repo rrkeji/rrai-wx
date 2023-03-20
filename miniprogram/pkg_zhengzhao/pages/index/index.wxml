@@ -1,2 +1,36 @@
 <!--pkg_zhengzhao/pages/index/index.wxml-->
-<text>pkg_zhengzhao/pages/index/index.wxml</text>
+<view class="container">
+  <view class="container-head">
+    <view class="left">
+      <view class="left-item left-item1" data-index="{{0}}" bindtap="goNextPage">
+        <view class="icon iconf icon-paishe"></view>
+        <view class="title">一寸</view>
+      </view>
+      <view class="left-item left-item2" data-index="{{3}}" bindtap="goNextPage">
+        <view class="icon iconf icon-paishe"></view>
+        <view class="title">二寸</view>
+      </view>
+    </view>
+    <view class="right">
+      <view class="right-item" bindtap="goCustomPage">
+        <view class="icon iconf icon-sheji_huatu"></view>
+        <view class="title">自定义尺寸</view>
+      </view>
+    </view>
+  </view>
+  <view class="container-content">
+    <scroll-view scroll-y="{{true}}" enable-flex="true">
+      <view wx:for="{{photoSizeList}}" wx:key="name" data-index="{{index}}" bindtap="goNextPage" class="container-content-item">
+        <view>
+          <view class="title">{{ item.name }}</view>
+          <view class="description">{{ item.px }} | {{ item.size }}</view>
+        </view>
+        <view class="icon iconf icon-paishe"></view>
+      </view>
+    </scroll-view>
+    <ad unit-id="adunit-f2e79dad59bee277"></ad>
+  </view>
+  <!-- <view class="container-ad">
+    <ad unit-id="adunit-f2e79dad59bee277"></ad>
+  </view> -->
+</view>
