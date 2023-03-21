@@ -189,7 +189,7 @@ Page({
     if (!openid) return;
     wx.showLoading({ title: '正在检测图像中', })
     const fileName = filePath.split('tmp/')[1] || filePath.split('tmp_')[1];
-    let cloudPath = `tmp/zjz/${openid}/${formatDate(new Date())}/${fileName}`;
+    let cloudPath = `temp/zjz/${openid}/${formatDate(new Date())}/${fileName}`;
 
     uploadFileGetTempUrl(filePath, cloudPath).then(res => {
       if (res == null) {

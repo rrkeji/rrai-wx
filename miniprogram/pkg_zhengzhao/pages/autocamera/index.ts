@@ -68,7 +68,7 @@ Page({
     wx.showLoading({ title: '正在检测图像中', })
     const fileName = filePath.split('tmp/')[1] || filePath.split('tmp_')[1];
     wx.cloud.uploadFile({
-      cloudPath: `tmp/originfile/${openid}/${new Date().Format('yyyy-MM-dd')}/${fileName}`,
+      cloudPath: `temp/originfile/${openid}/${new Date().Format('yyyy-MM-dd')}/${fileName}`,
       filePath
     })
       .then(res => {
