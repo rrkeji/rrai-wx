@@ -17,11 +17,7 @@ Page({
     showReward: false,
     checkin: true,
     checkinReward: 2,
-  },
-  request: function (userid: string, msgid: string) {
-    //获取消息的内容
-
-    //获取评论的内容
+    points: 0,
   },
   onLoad: function (query) {
     const app = getApp<IAppOption>();
@@ -29,6 +25,7 @@ Page({
       nickname: app.globalData.nickname,
       avatarUrl: app.globalData.avatar,
       vip: app.globalData.vip,
+      points: app.globalData.times,
     });
     //设置分享
     wx.showShareMenu({
@@ -36,7 +33,6 @@ Page({
       menus: ['shareAppMessage', 'shareTimeline']
     });
     //
-    // this.refreshReward();
     //参数判断 {stype:'',userid:'',msgid:''}
     if (wx.createRewardedVideoAd && rewardedVideoAd == null) {
       rewardedVideoAd = wx.createRewardedVideoAd({
@@ -76,8 +72,9 @@ Page({
   refreshReward() {
     const app = getApp<IAppOption>();
     app.refreshUserConfig().then(() => {
-      wx.redirectTo({
-        url: '../index/index'
+      const app = getApp<IAppOption>();
+      this.setData({
+        points: app.globalData.times,
       });
     });
   },
@@ -223,5 +220,15 @@ Page({
     this.setData({
       showReward: false
     });
-  }
+  },
+  onBuyButtonTap(e) {
+    wx.navigateTo({
+      url: '../../pages/unlockvip/index'
+    });
+  },
+  onRewardedLogsTap(e) {
+    wx.navigateTo({
+      url: '../../pages/logs/index'
+    });
+  },
 })

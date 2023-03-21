@@ -1,14 +1,14 @@
 <!--pkg_mine/components/tools/index.wxml-->
 <view class="tools-container">
-  <view class="tools-item bg2 vip {{vip>=1?'enough':''}}" bindtap="onItemTap" data-enough="{{vip>=1}}" data-opentype="webview" data-url="https://www.idns.link/statics/rrai/canvas/index.html">
+  <view class="tools-item bg2 vip {{vip>=1?'enough':''}}" bindtap="onItemTap" data-enough="{{true}}" data-opentype="webview" data-url="https://www.idns.link/statics/rrai/canvas/index.html">
     <view class="vip-bg"></view>
-    <view class="vip-level">vip1</view>
+    <view class="vip-level">限免</view>
     <view class="tools-item-icon iconf icon-xinfeng"></view>
     <view class="tools-item-title">小画布</view>
   </view>
-  <view class="tools-item bg1 vip {{vip>=11?'enough':''}}" bindtap="onItemTap">
+  <view class="tools-item bg1 vip {{vip>=11?'enough':''}}" bindtap="onItemTap" data-enough="{{true}}" data-opentype="inner_page" data-url="../../../pkg_zhengzhao/pages/index/index">
     <view class="vip-bg"></view>
-    <view class="vip-level">vip11</view>
+    <view class="vip-level">限免</view>
     <view class="tools-item-icon iconf icon-xinfeng"></view>
     <view class="tools-item-title">证件照</view>
   </view>

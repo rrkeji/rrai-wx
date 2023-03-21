@@ -26,7 +26,44 @@
       <text-button class="checkin {{checkin?'checkined':''}}" text="签到" bgcolor="{{checkin?'#7b7b7b':'#FCAE38'}}" bindtap="{{checkin?'':'onCheckinTap'}}"></text-button>
     </view>
   </view>
-  <points-card bind:adtap="onRewardedVideoAdTap"></points-card>
+  <view class="reward-summary">
+    <view class="reward-points-increased">
+      <view class="reward-buttons-tip">
+        <view class="iconf icon-bangzhu"></view>当前积分
+        <text style="font-size:40rpx;">{{points}}</text>
+      </view>
+      <view class="reward-buttons">
+        <view class="reward-button logs-button" bindtap="onRewardedLogsTap">
+          <view class="iconf icon-jifen"></view>
+          <view class="reward-button-title">积分记录</view>
+        </view>
+      </view>
+      <!-- <view>今日新增:{{isReward1}}</view>
+    <view>今日使用:{{isReward0}}</view> -->
+    </view>
+    <view class="reward-buttons-container">
+      <view class="reward-buttons-tip">
+        <view class="iconf icon-bangzhu"></view>增加积分
+      </view>
+      <view class="reward-buttons">
+        <view class="reward-button ad-view-button" bindtap="onRewardedVideoAdTap">
+          <view class="iconf icon-yunhang"></view>
+          <view class="reward-button-title">广告</view>
+        </view>
+        <view class="reward-button ad-share-button">
+          <view>
+            <button class="iconf icon-fenxiang" open-type="share">
+            </button>
+          </view>
+          <view class="reward-button-title">分享</view>
+        </view>
+        <view class="reward-button ad-buy-button" bindtap="onBuyButtonTap">
+          <view class="iconf icon-zhifu"></view>
+          <view class="reward-button-title">购买</view>
+        </view>
+      </view>
+    </view>
+  </view>
   <view class="header">
     <mine-bar bind:change="onMineBarChange"></mine-bar>
   </view>

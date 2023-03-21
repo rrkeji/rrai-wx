@@ -151,3 +151,127 @@
   color: #000000;
   line-height: 80rpx;
 }
+
+.reward-summary {
+  background-color: #FFFFFF;
+  width: 96vw;
+  border-radius: 12rpx;
+  padding: 20rpx 20rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.reward-logs {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.title {
+  line-height: 60rpx;
+  color: #444444;
+}
+
+.reward-points .text {
+  font-size: 26rpx;
+}
+
+.reward-points-increased {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: #7E7E7E;
+  font-size: 26rpx;
+  line-height: 50rpx;
+}
+
+.reward-buttons-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: #7E7E7E;
+  font-size: 26rpx;
+  line-height: 50rpx;
+}
+
+.reward-buttons {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+}
+
+
+.reward-button {
+  width: 100rpx;
+  height: 100rpx;
+  margin: 10rpx 15rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reward-button .iconf {
+  background-color: #4A9DFA;
+  color: #FFFFFF;
+  font-size: 50rpx;
+  width: 80rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 20rpx;
+}
+
+.reward-button .reward-button-title {
+  font-size: 24rpx;
+  line-height: 38rpx;
+}
+
+.ad-share-button button {
+  margin: 0;
+  width: 80rpx !important;
+  height: 80rpx !important;
+  padding: 0;
+}
+
+.ad-share-button button::after {
+  border: none;
+}
+
+.logs-button .iconf {
+  background-color: #02A88D;
+  font-size: 60rpx;
+}
+
+.ad-view-button .iconf {
+  background-color: #FCAE38;
+  font-size: 60rpx;
+}
+
+.ad-share-button .iconf {
+  background-color: #4A9DFA;
+}
+
+
+.ad-buy-button .iconf {
+  background-color: #FF5858;
+}
+
+.reward-buttons-tip {
+  font-size: 20rpx;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+}
+
+.icon-bangzhu {
+  /* background-color: #4A9DFA; */
+  color: #4A9DFA;
+  margin-right: 10rpx;
+}

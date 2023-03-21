@@ -1,13 +1,14 @@
 
 export interface ImageComposeItem {
   data: string,
-  data_type: string,
+  data_type: 'color' | 'url' | 'base64',
   x: number,
   y: number,
   width: number,
   height: number,
 }
-export const imageComposeByItems = async (width: number, height: number, items: Array<ImageComposeItem>, returnType: 'url' | 'base64'): Promise<{ data: string, return_type: 'url' | 'base64' } | null> => {
+
+export const imageComposeByItems = async (width: number, height: number, items: Array<ImageComposeItem>, returnType: 'url' | 'base64' | 'wx_file_id'): Promise<{ data: string, return_type: 'url' | 'base64' } | null> => {
   //调用后台接口进行人像分割
   let res = await wx.cloud.callContainer({
     "path": "/image/compose/by_items",

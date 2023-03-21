@@ -41,10 +41,14 @@ Component({
           wx.redirectTo({
             url: '../../../pages/webview/index?url=' + encodeURIComponent(url)
           });
+        }else if(opentype == 'inner_page'){
+          wx.redirectTo({
+            url: url
+          });
         }
       } else {
         wx.showToast({
-          title: '您还未解锁该工具,赶快去解锁吧!',
+          title: '您的VIP等级还不够解锁该工具!',
           icon: 'none',
           duration: 2000
         });

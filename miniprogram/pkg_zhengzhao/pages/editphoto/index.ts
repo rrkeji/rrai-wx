@@ -1,13 +1,14 @@
-const hexRgb = require('./hex-rgb')
+
+
 const { default: touch } = require('./touch')
-const imgSecCheck = require('./imgSecCheck')
+
+import { imageComposeByItems, ImageComposeItem, getTempFileURLByFileId } from '../../../services/index';
 
 // 全局数据，非视图中绑定的数据
 const pageData = {
   originTempFilePath: '',
-  originImgPath: '',
+  originImgBase64: '',
   originImgType: '',
-  compressImagePath: '',
 }
 
 Page({
@@ -36,34 +37,6 @@ Page({
       top: 0,
       scale: 1,
     },
-    clothes: {
-      show: false,
-      src: '',
-      initImgHeight: 0,
-      width: 0,
-      height: 0,
-      left: 0,
-      top: 0,
-      scale: 1,
-    },
-    hair: {
-      show: false,
-      src: '',
-      initImgHeight: 0,
-      width: 0,
-      height: 0,
-      left: 0,
-      top: 0,
-      scale: 1,
-    }
-  },
-
-  // 切换普通抠图 、精细抠图
-  changeTab(event) {
-    if (!this.data.guided) return
-    this.setData({
-      tabIndex: +event.currentTarget.dataset.index
-    })
   },
 
   //选择改色时触发（在左侧色盘触摸或者切换右侧色相条）
@@ -100,32 +73,34 @@ Page({
   // 图片合成
   async composeImage() {
     wx.showLoading({ title: '制作中...', })
-    const { photoBg, targetWidth, targetHeight, filePath, clothes, hair, portrait } = this.data
-
-    // 将颜色转为 rgba值
-    const bgc = hexRgb(photoBg, { format: 'array' })
+    const { photoBg, targetWidth, targetHeight, filePath, portrait } = this.data
     // 底图
-    const baseImg = { bgc, width: targetWidth, height: targetHeight }
+    const baseImg = { data: photoBg, data_type: 'color', x: 0, y: 0, width: targetWidth, height: targetHeight }
     // 人像图
-    const peopleImg = { src: filePath, ...this.computedXY(baseImg, portrait) }
-    // 发饰图
-    const hairImg = { src: hair.src, ...this.computedXY(baseImg, hair) }
-    // 衣服图
-    const clothesImg = { src: clothes.src, ...this.computedXY(baseImg, clothes) }
+    const peopleImg = { data: pageData.originImgBase64, data_type: 'base64', ...this.computedXY(baseImg, portrait) }
+
     // 组合图片顺序
-    const data = [peopleImg]
-    // 合成图片 返回url
-    // const { result } = await wx.cloud.callFunction({
-    //   name: 'test',
-    //   data: { imgType: 'png', dataType: 'base64', data }
-    // })
+    const data: Array<ImageComposeItem> = [baseImg]
 
-    this.downloadAndToComplate(peopleImg)
+    let res = await imageComposeByItems(targetWidth, targetHeight, data, 'wx_file_id');
 
+    if (res?.data) {
+      //fileId
+      let fileId = res.data;
+      //fileId 获取临时的文件 URL
+      let filelist = await getTempFileURLByFileId([fileId]);
+      if (filelist && filelist.length > 0) {
+        this.downloadAndToComplate(filelist[0].tempFileURL)
+      }
+
+    }
   },
 
   // 下载并跳转
-  async downloadAndToComplate(url) {
+  async downloadAndToComplate(url: string) {
+
+    console.log(url);
+
     let msg = ''
     try {
       // 下载图片到本地
@@ -226,12 +201,11 @@ Page({
   receivingParameters() {
     const eventChannel = this.getOpenerEventChannel && this.getOpenerEventChannel()
     eventChannel && eventChannel.on('acceptDataFromOpenerPage', (data) => {
-      const { width, height, imageDivision, tmpOriginImgSrc } = data;
+      const { width, height, imageDivision } = data;
       Object.assign(pageData, {
         originTempFilePath: 'data:image/png;base64,' + imageDivision.foreground,
-        originImgPath: tmpOriginImgSrc,
+        originImgBase64: imageDivision.foreground,
         originImgType: 'image/png',
-        compressImagePath: tmpOriginImgSrc
       });
       this.setData({
         targetWidth: width,
@@ -264,59 +238,6 @@ Page({
   completionGuide() {
     this.setData({ guided: true })
     wx.setStorage({ key: "guided", data: true })
-  },
-
-  // 使用百度抠图
-  baiduKoutu(filePath) {
-    wx.showLoading({ title: '智能人像分割', })
-    wx.cloud.callFunction({
-      name: 'baiduKoutu',
-      data: { filePath }
-    })
-      .then(({ result }) => {
-        this.setData({ filePath: result.baiduKoutuUrl })
-      }).catch((error) => {
-        console.log(error)
-        wx.showToast({ title: '失败，请重试' })
-      })
-  },
-
-  // 换装
-  changeClothes() {
-    const that = this
-    wx.navigateTo({
-      url: './image-style/index',
-      events: {
-        selectClothes: function (data) {
-          that.setData({
-            clothes: {
-              ...that.data.clothes,
-              src: data.imgUrl,
-              show: true
-            }
-          })
-        }
-      }
-    })
-  },
-
-  // 换头发
-  changeHair() {
-    const that = this
-    wx.navigateTo({
-      url: '../hair/hair',
-      events: {
-        selectHair: function (data) {
-          that.setData({
-            hair: {
-              ...that.data.hair,
-              src: data.imgUrl,
-              show: true
-            }
-          })
-        }
-      }
-    })
   },
 
   /**

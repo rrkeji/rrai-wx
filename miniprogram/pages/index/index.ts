@@ -35,11 +35,11 @@ Page({
       });
       return;
     }
-    // wx.redirectTo({
-    //   url: '../chat/index',
-    // });
     wx.redirectTo({
-      url: '../../pkg_zhengzhao/pages/index/index',
+      url: '../chat/index',
     });
+    // wx.redirectTo({
+    //   url: '../../pkg_zhengzhao/pages/index/index',
+    // });
   },
 })
