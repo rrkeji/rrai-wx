@@ -86,3 +86,34 @@
   line-height: 90rpx;
   background: #FCAE38;
 }
+
+
+.tips {
+  width: 100%;
+  margin-bottom: 20rpx;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 30rpx;
+  line-height: 2;
+  color: #333;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  position: relative;
+}
+
+.tips .cu-btn {
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+}
+
+.header {
+  width: 100%;
+  line-height: 2em;
+  padding-left: 30rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.tips .li {
+  margin-right: 20rpx;
+}

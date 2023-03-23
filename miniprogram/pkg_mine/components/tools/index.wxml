@@ -1,27 +1,27 @@
 <!--pkg_mine/components/tools/index.wxml-->
 <view class="tools-container">
-  <view class="tools-item bg2 vip {{vip>=1?'enough':''}}" bindtap="onItemTap" data-enough="{{true}}" data-opentype="webview" data-url="https://www.idns.link/statics/rrai/canvas/index.html">
+  <view class="tools-item bg2 vip {{vip>=0?'enough':''}}" bindtap="onItemTap" data-enough="{{true}}" data-opentype="webview" data-url="https://www.idns.link/statics/rrai/canvas/index.html">
     <view class="vip-bg"></view>
     <view class="vip-level">限免</view>
-    <view class="tools-item-icon iconf icon-xinfeng"></view>
+    <view class="tools-item-icon iconf icon-huihua"></view>
     <view class="tools-item-title">小画布</view>
   </view>
-  <view class="tools-item bg1 vip {{vip>=11?'enough':''}}" bindtap="onItemTap" data-enough="{{true}}" data-opentype="inner_page" data-url="../../../pkg_zhengzhao/pages/index/index">
+  <view class="tools-item bg1 vip {{vip>=0?'enough':''}}" bindtap="onItemTap" data-enough="{{true}}" data-opentype="inner_page" data-url="../../../pkg_zhengzhao/pages/index/index">
     <view class="vip-bg"></view>
     <view class="vip-level">限免</view>
-    <view class="tools-item-icon iconf icon-xinfeng"></view>
+    <view class="tools-item-icon iconf icon-6zhengjianzhaopian"></view>
     <view class="tools-item-title">证件照</view>
   </view>
-  <view class="tools-item bg3 vip {{vip>=11?'enough':''}}" bindtap="onItemTap">
+  <view class="tools-item bg3 vip {{vip>=0?'enough':''}}" bindtap="onItemTap" data-enough="{{true}}" data-opentype="inner_page" data-url="../../../pkg_pexels/pages/index/index">
     <view class="vip-bg"></view>
-    <view class="vip-level">vip11</view>
-    <view class="tools-item-icon iconf icon-xinfeng"></view>
-    <view class="tools-item-title">图片裁剪</view>
+    <view class="vip-level">限免</view>
+    <view class="tools-item-icon iconf icon-xiangce"></view>
+    <view class="tools-item-title">素材检索</view>
   </view>
-  <view class="tools-item bg4 vip {{vip>=11?'enough':''}}" bindtap="onItemTap">
+  <view class="tools-item bg4 vip {{vip>=12?'enough':''}}" bindtap="onItemTap">
     <view class="vip-bg"></view>
-    <view class="vip-level">vip11</view>
-    <view class="tools-item-icon iconf icon-xinfeng"></view>
-    <view class="tools-item-title">黄历</view>
+    <view class="vip-level">vip12</view>
+    <view class="tools-item-icon iconf icon-facerenlianshibie"></view>
+    <view class="tools-item-title">复刻机器人</view>
   </view>
 </view>

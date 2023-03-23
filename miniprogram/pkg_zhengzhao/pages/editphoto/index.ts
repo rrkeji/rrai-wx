@@ -4,20 +4,11 @@ const { default: touch } = require('./touch')
 
 import { imageComposeByItems, ImageComposeItem, getTempFileURLByFileId } from '../../../services/index';
 
-// 全局数据，非视图中绑定的数据
-const pageData = {
-  originTempFilePath: '',
-  originImgBase64: '',
-  originImgType: '',
-}
-
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    tabIndex: 0,
     targetWidth: 0, // 目标图片宽度
     targetHeight: 0,
     showScale: 1, // 图片缩放比例
@@ -38,7 +29,6 @@ Page({
       scale: 1,
     },
   },
-
   //选择改色时触发（在左侧色盘触摸或者切换右侧色相条）
   onChangeColor(e) {
     this.setData({
@@ -46,12 +36,11 @@ Page({
       customBg: e.detail.colorData.pickerData.hex,
     })
   },
-
   // 切换背景
   toggleBg(e) {
     const bgc = e.currentTarget.dataset.color;
     const showColorPicker = bgc === 'custom';
-    const photoBg = showColorPicker ? this.data.customBg : {
+    const photoBg: any = showColorPicker ? this.data.customBg : {
       red: '#ff0000',
       blue: '#438edb',
       blue2: '#00bff3',
@@ -75,15 +64,12 @@ Page({
     wx.showLoading({ title: '制作中...', })
     const { photoBg, targetWidth, targetHeight, filePath, portrait } = this.data
     // 底图
-    const baseImg = { data: photoBg, data_type: 'color', x: 0, y: 0, width: targetWidth, height: targetHeight }
+    const baseImg = { data: photoBg, data_type: 'color', x: 0, y: 0, width: Math.floor(targetWidth), height: Math.floor(targetHeight) }
     // 人像图
-    const peopleImg = { data: pageData.originImgBase64, data_type: 'base64', ...this.computedXY(baseImg, portrait) }
-
+    const peopleImg = { data: filePath, data_type: 'url', ...this.computedXY(baseImg, portrait) }
     // 组合图片顺序
-    const data: Array<ImageComposeItem> = [baseImg]
-
+    const data: Array<ImageComposeItem> = [baseImg, peopleImg]
     let res = await imageComposeByItems(targetWidth, targetHeight, data, 'wx_file_id');
-
     if (res?.data) {
       //fileId
       let fileId = res.data;
@@ -92,31 +78,28 @@ Page({
       if (filelist && filelist.length > 0) {
         this.downloadAndToComplate(filelist[0].tempFileURL)
       }
-
     }
   },
 
   // 下载并跳转
   async downloadAndToComplate(url: string) {
-
-    console.log(url);
-
-    let msg = ''
     try {
       // 下载图片到本地
       const { tempFilePath, dataLength } = await this.downloadImg(url)
-      const { targetWidth, targetHeight } = this.data
-      const size = (dataLength / 1024).toFixed(2)
-      msg = `图片像素${targetWidth + ' * ' + targetHeight}，图片大小${size}kb`
-
       // 保存图片到相册
       await this.saveImage(tempFilePath)
-      // 使用重定向，因为返回时要返回到选择照片页面
-      wx.redirectTo({ url: './complete/index?msg=' + msg + '&tempFilePath=' + tempFilePath + '&url=' + url, })
+      wx.showToast({
+        title: '保存成功!',
+        icon: 'success',
+        duration: 2000
+      });
     } catch (error) {
-      console.log(error)
-      msg = '下载失败，点击下图预览保存图片。'
-      wx.redirectTo({ url: './complete/index?msg=' + msg + '&tempFilePath=' + url + '&url=' + url, })
+      console.log(error);
+      wx.showToast({
+        title: '保存失败!',
+        icon: 'error',
+        duration: 2000
+      });
     }
   },
 
@@ -132,7 +115,7 @@ Page({
     const scaleChangeHeight = (resultImgHeight / 2 - noScaleImgHeight / 2)
     const x = left - scaleChangeWidth
     const y = top - scaleChangeHeight
-    return { x, y, width: resultImgWidth, height: resultImgHeight }
+    return { x: Math.floor(x), y: Math.floor(y), width: Math.floor(resultImgWidth), height: Math.floor(resultImgHeight) }
   },
 
   // 将远端图片，下载到本地
@@ -202,17 +185,21 @@ Page({
     const eventChannel = this.getOpenerEventChannel && this.getOpenerEventChannel()
     eventChannel && eventChannel.on('acceptDataFromOpenerPage', (data) => {
       const { width, height, imageDivision } = data;
-      Object.assign(pageData, {
-        originTempFilePath: 'data:image/png;base64,' + imageDivision.foreground,
-        originImgBase64: imageDivision.foreground,
-        originImgType: 'image/png',
+      //通过文件ID获取一个临时的路径
+      getTempFileURLByFileId([imageDivision.foreground_file_id]).then((filelist) => {
+        if (!filelist || filelist.length <= 0) {
+          return;
+        }
+        let fileUrl = filelist[0].tempFileURL;
+        this.setData({
+          targetWidth: width,
+          targetHeight: height,
+          showScale: (480 / (+width)),
+          filePath: fileUrl,
+        })
+      }).catch((err) => {
+        console.error(err);
       });
-      this.setData({
-        targetWidth: width,
-        targetHeight: height,
-        showScale: (480 / (+width)),
-        filePath: 'data:image/png;base64,' + imageDivision.foreground,
-      })
     })
   },
 
@@ -244,14 +231,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (e) {
-    // 选择了衣服或发型，还没有加载出来
-    if (this.data.clothes.src && !this.data.clothes.width) {
-      wx.showLoading({ title: '图片加载中...', })
-    }
-    if (this.data.hair.src && !this.data.hair.width) {
-      wx.showLoading({ title: '图片加载中...', })
-    }
-
   },
   // 关闭上拉加载
   onReachBottom: function () {
@@ -307,9 +286,5 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return {
-      title: '证件照、免冠照、证件照换背景、一寸照片、二寸照片，免费生成、下载。',
-      path: '/pages/index/index'
-    }
   }
 })

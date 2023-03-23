@@ -81,9 +81,14 @@ Page({
     })
   },
   goCustomPage(e: any) {
-    let item = this.data.photoSizeList[0];
-    wx.navigateTo({
-      url: '../preimgedit/index?data=' + encodeURIComponent(JSON.stringify(item)),
-    })
+    wx.showToast({
+      title: '稍后添加!',
+      icon: 'none',
+      duration: 2000
+    });
+    // let item = this.data.photoSizeList[0];
+    // wx.navigateTo({
+    //   url: '../preimgedit/index?data=' + encodeURIComponent(JSON.stringify(item)),
+    // })
   }
 })

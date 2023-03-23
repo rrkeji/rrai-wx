@@ -27,12 +27,17 @@
       ]
     },
     {
+      "root": "pkg_pexels",
+      "pages": [
+        "pages/index/index"
+      ]
+    },
+    {
       "root": "pkg_zhengzhao",
       "pages": [
         "pages/index/index",
         "pages/preimgedit/index",
         "pages/editphoto/index",
-        "pages/editphoto/complete/index",
         "pages/autocamera/index",
         "pages/editphoto/image-style/index"
       ]

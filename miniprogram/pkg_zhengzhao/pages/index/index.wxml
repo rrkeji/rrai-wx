@@ -1,6 +1,6 @@
 <!--pkg_zhengzhao/pages/index/index.wxml-->
 <view class="container">
-  <view class="container-head">
+  <!-- <view class="container-head">
     <view class="left">
       <view class="left-item left-item1" data-index="{{0}}" bindtap="goNextPage">
         <view class="icon iconf icon-paishe"></view>
@@ -17,7 +17,8 @@
         <view class="title">自定义尺寸</view>
       </view>
     </view>
-  </view>
+  </view> -->
+  <ad unit-id="adunit-f2e79dad59bee277"></ad>
   <view class="container-content">
     <scroll-view scroll-y="{{true}}" enable-flex="true">
       <view wx:for="{{photoSizeList}}" wx:key="name" data-index="{{index}}" bindtap="goNextPage" class="container-content-item">
@@ -28,7 +29,6 @@
         <view class="icon iconf icon-paishe"></view>
       </view>
     </scroll-view>
-    <ad unit-id="adunit-f2e79dad59bee277"></ad>
   </view>
   <!-- <view class="container-ad">
     <ad unit-id="adunit-f2e79dad59bee277"></ad>

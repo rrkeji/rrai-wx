@@ -11,7 +11,7 @@ App<IAppOption>({
     vip: 0,
     recharge: 0,
     COMMON_HEADERS: {
-      "X-WX-SERVICE": "chat2"
+      "X-WX-SERVICE": "rrai"
     },
   },
   async onLaunch(options) {
@@ -25,6 +25,21 @@ App<IAppOption>({
   },
   async onShow(ops) {
     console.log('onShow', ops);
+    wx.preloadAd([
+      {
+        unitId: 'adunit-f2e79dad59bee277',
+        type: 'banner'
+      },
+      {
+        unitId: 'adunit-9c64e457097d841f',
+        type: 'banner'
+      },
+      {
+        unitId: 'adunit-43d6b8c12ab78ce7',
+        type: 'video'
+      },
+    ]);
+
     // 分享统计放到此处的目的是因为热启动会不走onload，导致统计不准确。
     if ((ops.scene == 1007 || ops.scene == 1008) && ops.query.stype && ops.query.sid && ops.query.smsgid) {
       // 分享数据统计

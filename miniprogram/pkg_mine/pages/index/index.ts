@@ -80,6 +80,10 @@ Page({
   },
   onUnload: function () {
     // rewardedVideoAd?.destroy();
+    if (rewardedVideoAd?.destroy) {
+      rewardedVideoAd?.destroy();
+      rewardedVideoAd = null;
+    }
   },
   onShow: function () {
     const app = getApp<IAppOption>();

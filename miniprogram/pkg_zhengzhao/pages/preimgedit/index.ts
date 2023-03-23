@@ -226,7 +226,7 @@ Page({
   /**
  * 去编辑页面
  */
-  goEditPage(imageDivision: string, tmpOriginImgSrc: string) {
+  goEditPage(imageDivision: any, tmpOriginImgSrc: string) {
     //base64 to File
     // const blob = base64ToBlob(imageData, "image/png");
     // const file = blobToFile(blob, `${new Date().getTime()}.png`);

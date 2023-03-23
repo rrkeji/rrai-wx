@@ -38,11 +38,11 @@ Component({
         const { opentype, url } = e.currentTarget.dataset;
         //
         if (opentype == 'webview') {
-          wx.redirectTo({
+          wx.navigateTo({
             url: '../../../pages/webview/index?url=' + encodeURIComponent(url)
           });
         }else if(opentype == 'inner_page'){
-          wx.redirectTo({
+          wx.navigateTo({
             url: url
           });
         }
