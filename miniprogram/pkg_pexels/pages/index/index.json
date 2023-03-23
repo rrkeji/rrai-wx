@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "waterfall": "/components/waterfall/index",
+    "waterfall-item": "/components/waterfall-item/index"
+  }
 }

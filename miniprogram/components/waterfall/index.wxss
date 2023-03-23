@@ -5,15 +5,18 @@
   right: -9999rpx;
   opacity: 0;
 }
+
 .waterfall {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
+
 .col {
   width: 1rem;
   flex: 1 1 auto;
 }
-.col:last-child{
-  margin-right: 0!important;
+
+.col:last-child {
+  margin-right: 0 !important;
 }

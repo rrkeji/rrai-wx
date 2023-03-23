@@ -12,9 +12,9 @@
     <view class="tools-item-icon iconf icon-6zhengjianzhaopian"></view>
     <view class="tools-item-title">证件照</view>
   </view>
-  <view class="tools-item bg3 vip {{vip>=0?'enough':''}}" bindtap="onItemTap" data-enough="{{true}}" data-opentype="inner_page" data-url="../../../pkg_pexels/pages/index/index">
+  <view class="tools-item bg3 vip {{vip>=12?'enough':''}}" bindtap="onItemTap">
     <view class="vip-bg"></view>
-    <view class="vip-level">限免</view>
+    <view class="vip-level">vip12</view>
     <view class="tools-item-icon iconf icon-xiangce"></view>
     <view class="tools-item-title">素材检索</view>
   </view>
