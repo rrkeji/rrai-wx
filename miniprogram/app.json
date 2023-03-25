@@ -29,7 +29,8 @@
     {
       "root": "pkg_pexels",
       "pages": [
-        "pages/index/index"
+        "pages/index/index",
+        "pages/detail/index"
       ]
     },
     {

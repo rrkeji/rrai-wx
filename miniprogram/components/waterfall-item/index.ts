@@ -20,6 +20,9 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    onItemTap(e: any) {
+      console.log( e.currentTarget.dataset.item);
+      this.triggerEvent('itemclick', e.currentTarget.dataset.item);
+    }
   }
 })

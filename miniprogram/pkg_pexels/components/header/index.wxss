@@ -1,0 +1,39 @@
+/* pkg_pexels/components/header/index.wxss */
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100rpx;
+  width: 100%;
+  padding: 0 10rpx;
+  border-bottom: 2rpx solid #7e7e7e;
+}
+
+.search-input-container {
+  flex: 1;
+}
+
+.search-input-container input {
+  text-align: left;
+  background-color: #ECECEC;
+  color: #474747;
+  border-radius: 16rpx;
+  padding: 8rpx 8rpx;
+  line-height: 80rpx;
+  height: 60rpx;
+}
+
+.search-button-container {
+  padding: 0 20rpx;
+}
+
+.search-button-container .search-button {
+  width: 90rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background-color: #499DFB;
+  color: #FFFFFF;
+  border-radius: 10rpx;
+}

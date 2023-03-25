@@ -116,7 +116,7 @@ Page({
         //获取分类
         let categoryItem = this.data.nav[this.data.active];
         //  获取远程数据可换成自己封装的请求方法
-        searchPrompts(page + 1, pageSize, this.data.activeModule == 0 ? 'replicate' : undefined, this.data.key, categoryItem?.category).then((res) => {
+        searchPrompts(page + 1, pageSize, this.data.activeModule == 0 ? 'replicate' : 'text', this.data.key, categoryItem?.category).then((res) => {
           if (res && res.data) {
             console.log(res);
             let data = res.data;

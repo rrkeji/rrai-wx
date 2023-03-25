@@ -1,5 +1,5 @@
 <!-- components/waterfall-item/waterfall-item.wxml -->
-<view class="w-item">
+<view class="w-item" bindtap="onItemTap" data-item="{{itemData}}">
   <image src="{{itemData.imgUrl}}" style="height:{{itemData.imgHeight}}px" class="w-image"/>
   <view class="w-text">{{itemData.text}}</view>
 </view>

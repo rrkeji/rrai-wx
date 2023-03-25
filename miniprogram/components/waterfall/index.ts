@@ -335,6 +335,10 @@ Component({
     },
     simpleClone(obj) {
       return JSON.parse(JSON.stringify(obj))
+    },
+    onItemClick(e) {
+      console.log(e.detail);
+      this.triggerEvent("itemclick", e.detail);
     }
   }
 })

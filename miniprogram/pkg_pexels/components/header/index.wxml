@@ -1,0 +1,9 @@
+<!--pkg_pexels/components/header/index.wxml-->
+<view class="container">
+  <view class="search-input-container">
+    <input value='{{content}}' bindinput="conInput"></input>
+  </view>
+  <view class="search-button-container">
+    <view class="search-button" bindtap="onBindSend">搜索</view>
+  </view>
+</view>

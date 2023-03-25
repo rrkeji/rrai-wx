@@ -10,3 +10,4 @@ export * from './file-service';
 export * from './vip-service';
 export * from './baidu-service';
 export * from './image-service';
+export * from './pexels-service';

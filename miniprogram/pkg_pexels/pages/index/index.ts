@@ -1,4 +1,6 @@
 // pkg_pexels/pages/index/index.ts
+import { proxyPexelsImageSearch, proxyPexelsImageCurated } from '../../../services/index';
+
 Page({
 
   /**
@@ -13,7 +15,12 @@ Page({
     waterfallLoading: false,
     // 数据加载完毕
     loaded: false,
-    id: 1
+    //检索关键字
+    keywords: '',
+    //
+    perPage: 20,
+    page: 1,
+    total: 0,
   },
 
   /**
@@ -74,23 +81,31 @@ Page({
 
   // 加载更多
   loadMore() {
-    // console.log('loadMore')
-    let { list } = this.data
-    let more = this.getMockData()
-    list = [...list, ...more]
-    // console.log('loadMoreData:', list)
-    this.setData({ list })
+    console.log('loadMoreData:', this.data.page)
+    this.getSearchData().then((more) => {
+      let { list } = this.data
+      list = [...list, ...more]
+      // console.log('loadMoreData:', list)
+      this.setData({ list })
+    }).catch((err) => {
+      console.log(err);
+    });
   },
 
   // 刷新新瀑布流
   update() {
-    this.data.id = 1
+    this.data.page = 1;
+    this.data.total = 0;
     // 重置瀑布流组件
-    this.setData({ loaded: false })
-    this.selectComponent('#waterfall').reset()
-    let list = this.getMockData()
-    this.setData({ list })
-    wx.stopPullDownRefresh()
+    this.setData({ loaded: false });
+    this.selectComponent('#waterfall').reset();
+
+    this.getSearchData().then((list) => {
+      this.setData({ list })
+      wx.stopPullDownRefresh()
+    }).catch((err) => {
+      console.log(err);
+    });
   },
 
   onLoadingChange(e) {
@@ -102,42 +117,60 @@ Page({
   /**
    * 获取模拟数据
    */
-  getMockData() {
-    let { id, listDataLoading, loaded } = this.data
-    if (listDataLoading || loaded) return []
-    this.setData({ listDataLoading: true })
-    let list = []
-    const imgWidth = 300
-    for (let i = 0; i < 10; i++) {
-      let mockText = this.getMockText()
-      let imgHeight = parseInt(Math.random() * 5 + 1) * 100
-      list.push({
-        id,
-        text: mockText,
-        imgUrl: `https://via.placeholder.com/${imgWidth}x${imgHeight}.jpeg/07c160/fff?text=${id}(${imgWidth}x${imgHeight})`,
-        // imgUrl: `https://iph.href.lu/${imgWidth}x${imgHeight}?fg=ffffff&bg=07c160&text=我是图片${id}(${imgWidth}x${imgHeight})`,
-        // imgUrl: `http://placekitten.com/${imgWidth}/${imgHeight}`,
+  async getSearchData() {
+    let { page, perPage, listDataLoading, loaded, keywords } = this.data;
+    if (listDataLoading || loaded) return [];
+    this.setData({
+      listDataLoading: true
+    });
+    let list = [];
+    let res: any;
+    if (keywords && keywords.trim() !== '') {
+      //关键字为空
+      res = await proxyPexelsImageSearch(keywords, page, perPage);
+    } else {
+      //
+      res = await proxyPexelsImageCurated(page, perPage);
+    }
+    console.log(res);
+    if (res && res.photos) {
+      let total = res.total_results;
+      list = res.photos.map((item: any, index: number) => {
+        return {
+          id: item.id,
+          text: item.photographer,
+          imgUrl: item.src.tiny,
+          ...item,
+        }
+      });
+      this.setData({
+        listDataLoading: false
       })
+      if (page * perPage >= total) {
+        this.setData({ loaded: true })
+      }
+      this.data.page = this.data.page + 1;
+      this.data.total = total;
+      return list;
+    } else {
 
-      this.data.id = ++id
+      return list;
     }
-    this.setData({ listDataLoading: false })
-    if (id > 30) {
-      this.setData({ loaded: true })
-    }
-    return list
   },
 
-  // 模拟不同长度文字
-  getMockText() {
-    const a = parseInt(Math.random() * 5 + 1) * 10
-    const b = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
-    let c = "";
-    for (let i = 0; a > i; i++) {
-      let d = Math.random() * b.length
-      d = Math.floor(d)
-      c += b.charAt(d);
-    }
-    return c
+  //检索
+  onSearchTap(e: any) {
+    let keywords = e.detail.keywords;
+    this.setData({
+      keywords: keywords
+    }, () => {
+      this.update();
+    });
+  },
+  onItemClick(e: any) {
+    console.log(e.detail);
+    wx.navigateTo({
+      url: `../detail/index?id=${e.detail.id}&large=${encodeURIComponent(e.detail.src.large)}&original=${encodeURIComponent(e.detail.src.original)}`
+    });
   }
 })

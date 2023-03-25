@@ -4,6 +4,6 @@
 </view>
 <view class="waterfall">
   <view class="col col-{{idx}}" wx:for="{{cols}}"  wx:for-index="idx" wx:for-item="col" wx:key="_" style="margin-right:{{_gutter}};">
-    <item class="item"  wx:for="{{col}}" wx:key="_" itemData="{{item}}"></item>
+    <item class="item"  wx:for="{{col}}" wx:key="_" itemData="{{item}}" bind:itemclick="onItemClick"></item>
   </view>
 </view>

@@ -1,0 +1,10 @@
+<!--pkg_pexels/pages/detail/index.wxml-->
+<view class="container">
+  <view class="content-container">
+    <image wx:if="{{large != null}}" mode="widthFix" src="{{large}}" data-url="{{large}}" bindtap="onImageItemTap"></image>
+    <view class="pexels">照片由Pexels提供</view>
+  </view>
+  <view class="ad-container">
+    <ad unit-id="adunit-c40b5bfb0924754e"></ad>
+  </view>
+</view>
