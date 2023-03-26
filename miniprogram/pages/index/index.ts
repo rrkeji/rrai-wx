@@ -36,7 +36,7 @@ Page({
       return;
     }
     wx.redirectTo({
-      url: '../chat/index',
+      url: '../../pkg_mine/pages/index/index',
     });
     // wx.redirectTo({
     //   url: '../../pkg_zhengzhao/pages/index/index',

@@ -72,6 +72,23 @@ Page({
       page_size: PAGE_SIZE,
       page: 0,
     };
+    const app = <IAppOption>getApp();
+    if (app.globalData.sysOptions?.openai) {
+      this.setData({
+        modules: [{
+          id: 1,
+          title: 'AI绘画'
+        }, {
+          id: 2,
+          title: 'AI问答'
+        }],
+      })
+    } else {
+      this.setData({
+        modules: [],
+      })
+    }
+
     //获取分类
     // getPromptsCategories().then((res: any) => {
     //   this.setData({

@@ -1,11 +1,21 @@
 /**index.wxss**/
-.container {
-  width: 100%;
-  margin-bottom: 60rpx;
+.pg-container {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+}
+
+.container {
+  width: 100%;
+  margin-bottom: 60rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   box-sizing: border-box;
 }
 
@@ -34,7 +44,7 @@
   color: #717372;
   font-weight: 600;
   font-size: 20rpx;
-  width: 300rpx;
+  width: 320rpx;
   padding: 16rpx 40rpx;
   border-radius: 36rpx;
 }
@@ -73,10 +83,12 @@
 }
 
 .entry-button .bg {
-  height: 100rpx;
+  height: 80rpx;
   width: 480rpx;
   border-radius: 60rpx;
   background-color: #499CFB;
+  color: #FFFFFF;
+  line-height: 80rpx;
 }
 
 .entry-button .img {

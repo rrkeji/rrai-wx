@@ -7,6 +7,6 @@
     "message-request": "../message-request/index",
     "message-response": "../message-response/index",
     "message-actions-bar": "../message-actions-bar/index",
-    "message-chatgpt-image": "../message-chatgpt-image/index"
+    "message-image": "../message-image/index"
   }
 }

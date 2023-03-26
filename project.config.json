@@ -62,6 +62,6 @@
   "appid": "wxdebf9bfe7a033f29",
   "libVersion": "2.30.2",
   "projectname": "软软 AI",
-  "condition": {},
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "condition": {}
 }

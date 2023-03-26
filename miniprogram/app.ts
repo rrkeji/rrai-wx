@@ -1,5 +1,5 @@
 // app.ts
-import { getUserConfig } from './services/index';
+import { getUserConfig, getSystemConfigByKey } from './services/index';
 
 App<IAppOption>({
   globalData: {
@@ -21,6 +21,7 @@ App<IAppOption>({
       "env": "prod-5gwfszum5fc2702e",
     });
     //
+    await this.refreshSystemConfig();
     await this.refreshUserConfig();
   },
   async onShow(ops) {
@@ -81,6 +82,18 @@ App<IAppOption>({
         console.log(res)
       }
     })
+  },
+  async refreshSystemConfig() {
+    let res: any = await getSystemConfigByKey("SYS_BOOT");
+    if (res && res.values) {
+      this.globalData.sysOptions = res.values;
+    } else {
+      //再次调用
+      const callback = () => {
+        this.refreshSystemConfig();
+      };
+      setTimeout(callback, 2000);
+    }
   },
   async refreshUserConfig() {
     let res = await getUserConfig();

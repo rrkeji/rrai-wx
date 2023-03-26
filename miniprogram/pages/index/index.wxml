@@ -1,25 +1,26 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="logo-ring">
-    <image bindtap="bindViewTap" class="rr-avatar" src="../../images/logo.png" mode="cover"></image>
-  </view>
-  <view class="top-title">您好,我是软软AI智能机器人,你可以叫我“软软”</view>
-  <text class="hi_text0">我在以下方面帮到您：</text>
-  <text class="hi_text">写代码</text>
-  <text class="hi_text">写故事</text>
-  <text class="hi_text">写论文</text>
-  <text class="hi_text">解决法律问题</text>
-  <text class="hi_text">创造艺术作品</text>
-  <!-- <text class="hi_text">会议记录</text> -->
-  <!-- <text class="hi_text">时间管理</text> -->
-  <!-- <text class="hi_text">精通各国语言</text> -->
-  <text class="hi_text">以及你能想到的......</text>
-  <view bindtap="bindViewTap" class="entry-button-container">
-    <view class="entry-button">
-      <view class="bg">
+<view  class="pg-container">
+  <view class="container">
+    <view class="logo-ring">
+      <image bindtap="bindViewTap" class="rr-avatar" src="../../images/logo.png" mode="cover"></image>
+    </view>
+    <view class="top-title">您好,我是软软AI,你可以叫我“软软”</view>
+    <text class="hi_text0">提供了一些小工具：</text>
+    <text class="hi_text">小画板</text>
+    <text class="hi_text">证件照</text>
+    <text class="hi_text">素材检索</text>
+    <text class="hi_text">小程序开发</text>
+    <text class="hi_text">AIGC</text>
+    <!-- <text class="hi_text">会议记录</text> -->
+    <!-- <text class="hi_text">时间管理</text> -->
+    <!-- <text class="hi_text">精通各国语言</text> -->
+    <view bindtap="bindViewTap" class="entry-button-container">
+      <view class="entry-button">
+        <view class="bg">
+          进入软软AI
+        </view>
       </view>
-      <image class="img" src="../../images/start.png"></image>
     </view>
   </view>
+  <ad unit-id="adunit-9c64e457097d841f"></ad>
 </view>
-<ad unit-id="adunit-9c64e457097d841f"></ad>

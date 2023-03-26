@@ -6,9 +6,14 @@ Component({
     },
   },
   data: {
+    aishow: false,
   },
   lifetimes: {
     attached: function () {
+      const app = <IAppOption>getApp();
+      this.setData({
+        aishow: app.globalData.sysOptions?.openai
+      })
     }
   },
   methods: {

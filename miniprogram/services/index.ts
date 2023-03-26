@@ -1,7 +1,6 @@
 export * from './share_service';
 export * from './prompts_service';
 export * from './message_service';
-export * from './openai_service';
 export * from './ReconnectWebsocket';
 export * from './reward-service';
 export * from './mall_service';
@@ -11,3 +10,4 @@ export * from './vip-service';
 export * from './baidu-service';
 export * from './image-service';
 export * from './pexels-service';
+export * from './system-service';
