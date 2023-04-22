@@ -19,13 +19,14 @@
 ![软软公众账号](./docs/idns_gzh_qrcode.jpg)
 
 # 后端
+后端使用的腾讯云，如果有需要的可以联系我
 
-> 后端使用的腾讯云，如果有需要的可以联系我（QQ:52289930）
-
-
+- QQ:52289930
+- Email:jinisu@163.com
+- 微信
+<image src="./docs/1682154380014.jpg" width="300">
 
 # 如对您有帮助，欢迎支持一下
 
-![软软公众账号](./docs/WechatIMG89.jpeg)
-
-![软软公众账号](./docs/WechatIMG90.jpeg)
+<image src="./docs/WechatIMG89.jpeg" width="400">
+<image src="./docs/WechatIMG90.jpeg" width="400">
