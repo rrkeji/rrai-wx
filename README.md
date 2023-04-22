@@ -18,7 +18,11 @@
 
 ![软软公众账号](./docs/idns_gzh_qrcode.jpg)
 
-# 后端
+## 软软 AI 桌面版
+
+软软 AI 桌面版代码[https://github.com/rrkeji/rrai-desktop](https://github.com/rrkeji/rrai-desktop)
+
+## 后端
 后端使用的腾讯云，如果有需要的可以联系我
 
 - QQ:52289930
@@ -26,7 +30,7 @@
 - 微信
 <image src="./docs/1682154380014.jpg" width="300">
 
-# 如对您有帮助，欢迎支持一下
+## 如对您有帮助，欢迎支持一下
 
 <image src="./docs/WechatIMG89.jpeg" width="400">
 <image src="./docs/WechatIMG90.jpeg" width="400">
